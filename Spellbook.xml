@@ -138,6 +138,84 @@ Sample Layout
 		<atHigherLevels>When you cast this spell using a spell slot of 3rd level or higher, a target's hit points increase by an additional 5 for each slot level above 2nd.</atHigherLevels>
 		<addTags>Buffing</addTags>
 	</spell>
+	
+	<spell>
+		<id>3</id>
+		<name>Alarm</name>
+		<level>1</level>
+		<school>Abjuration</school>
+		<vsm>111</vsm>
+		<materials>A tiny bell and a piece of fine silver wire</materials>
+		<range>30</range>
+		<duration>4800</duration>
+		<ritual>true</ritual>
+		<aoe>true</aoe>
+		<single>true</single>
+		<description>You set an alarm against unwanted intrusion. Choose a door, a window, or an area within range that is no larger than a 20-foot cube. Until the spell ends, an alarm alerts you whenever a Tiny or larger creature touches or enters the warded area. When you cast the spell, you can designate creatures that won't set off the alarm. You also choose whether the alarm is mental or audible.
+		A mental alarm alerts you with a ping in your mind if you are within 1 mile of the warded area. This ping awakens you if you are sleeping.
+		An audible alarm produces the sound of a hand bell for 10 seconds within 60 feet.</description>
+		<atHigherLevels></atHigherLevels>
+		<addTags></addTags>
+	</spell>
+	
+	<spell>
+		<id></id>
+		<name></name>
+		<level></level>
+		<school></school>
+		<vsm></vsm>
+		<materials></materials>
+		<range></range>
+		<duration></duration>
+		<castTimeValue></castTimeValue>
+		<castCondition></castCondition>
+		<st>true</st>
+		<ar>true</ar>
+		<ritual>true</ritual>
+		<concentration>true</concentration>
+		<aoe>true</aoe>
+		<single>true</single>
+		<multi>true</multi>
+		<scalable>true</scalable>
+		<swift>true</swift>
+		<reaction>true</reaction>
+		<damType></damType>
+		<description></description>
+		<atHigherLevels></atHigherLevels>
+		<addTags></addTags>
+	</spell>
+	
+	<!-- These class entries are INVALID to actual D&D and are only used to simplify testing -->
+	<class>
+		<id>1</id>
+		<name>Kelly</name>
+		<spellList>1, 2, 3</spellList>
+	</class>
+	
+	<class>
+		<id>2</id>
+		<name>Ruben</name>
+		<spellList>Aid</spellList>
+	</class>
+	
+	<class>
+		<id>6</id>
+		<name>Jordin</name>
+		<spellList>Acid Splash, 2</spellList>
+	</class>
+	
+	<class>
+		<id>4</id>
+		<name>Carrie</name>
+		<spellList>2, Alarm, 3</spellList>
+	</class>
+	
+	<class>
+		<id>5</id>
+		<name>Taylor</name>
+		<spellList>Aid, acid splash</spellList>
+	</class>
+	
 </spellbook>
 
 
