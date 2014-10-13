@@ -1,0 +1,143 @@
+<!-- Sample spellbook xml for DnD Spellbook project -->
+
+<!-- Layout/Key
+id = integer identification for spell
+name = name of spell
+level = spell level (0 - 9)
+school = spell school (Abjuration, Alteration, Conjuration, Divination, Evocation, Illuision, Necromancy,  or Transmuation)
+vsm = Vocal Somatic Material components. 3 length Bitstring. Example: 101 means spell is vocal and material but not somatic
+materials = String. The material cost of the spell if there is one
+range = Integer value in feet
+duration = Duration of the effect in ROUNDS. Where 1 Round is 6 seconds. 1 Minute is 10 rounds, 1 hour is 600.
+castTimeValue = The time it takes to cast in ACTIONS/ROUNDS. (same as duration) (treat purely swift or reaction spells as 0).
+castCondition = String description of a Cast Condition. Usually for reactions.
+st = Saving Throw. Boolean for if spell requires a Saving Throw
+ar = Attack Roll. Boolean for if spell requires an Attack Roll
+ritual = Boolean for if spell can be cast as Ritual
+concentration = Boolean for if the spell requires concentration
+aoe = Area of Effect. Boolean for if the spell targets an area
+single = Boolean if the spell targets only a single enemy
+multi = Boolean if the spell can target multiple enemies
+scalable = Boolean if the spell can scale if cast at higher levels (or otherwise gets stronger like cantrips)
+swift = A spell that can be cast Swiftly as a Bonus Action
+reaction = A spell that can be cast as a Reaction
+damType = List of Damage Types (if any). Fire, Cold, Lighting, Thunder, Acid, Radiant, Necrotic, Force
+description = what it says on the tin
+atHigherLevels = if there is an atHigherLevels text. This is where it goes.
+addTags = List of additional tags. Default pool is: Healing, Damaging, CrowdControl, Buffing, Utility
+	Healing = Any spell that restores health
+	Damaging = Any spell that deals daamge
+	CrowdControl = Any spell that impairs its target as its main function
+	Buffing = Any spell that increase the abilities of the target
+	Utility = Generally non-strictly-combat spells that perform some other functions.
+
+
+Sample Layout
+<spellbook>
+	<spell>
+		<id></id>
+		<name></name>
+		<level></level>
+		<school></school>
+		<vsm></vsm>
+		<materials></materials>
+		<range></range>
+		<duration></duration>
+		<castTimeValue></castTimeValue>
+		<castCondition></castCondition>
+		<st></st>
+		<ar></ar>
+		<ritual></ritual>
+		<concentration></concentration>
+		<aoe></aoe>
+		<single></single>
+		<multi></multi>
+		<scalable></scalable>
+		<swift></swift>
+		<reaction></reaction>
+		<damType></damType>
+		<description></description>
+		<atHigherLevels></atHigherLevels>
+		<addTags></addTags>
+	</spell>
+	
+	
+	(below is a smple for copy/pasting that has true as the default value for booleans so the line can be removed easily)
+	<spell>
+		<id></id>
+		<name></name>
+		<level></level>
+		<school></school>
+		<vsm></vsm>
+		<materials></materials>
+		<range></range>
+		<duration></duration>
+		<castTimeValue></castTimeValue>
+		<castCondition></castCondition>
+		<st>true</st>
+		<ar>true</ar>
+		<ritual>true</ritual>
+		<concentration>true</concentration>
+		<aoe>true</aoe>
+		<single>true</single>
+		<multi>true</multi>
+		<scalable>true</scalable>
+		<swift>true</swift>
+		<reaction>true</reaction>
+		<damType></damType>
+		<description></description>
+		<atHigherLevels></atHigherLevels>
+		<addTags></addTags>
+	</spell>
+</spellbook>
+-->
+
+<spellbook>
+	<spell>
+		<id>1</id>
+		<name>Acid Splash</name>
+		<level>0</level>
+		<school>Conjuration</school>
+		<vsm>110</vsm>
+		<materials></materials> <!-- can be ignored if no materials -->
+		<range>60</range>
+		<duration>0</duration>
+		<castTimeValue>1</castTimeValue>
+		<castCondition></castCondition> <!-- can be ignored if none -->
+		<st>true</st>
+		<ar>false</ar> <!-- leaving these as false for sample. future ones can omit false entries -->
+		<ritual>false</ritual>
+		<concentration>false</concentration>
+		<aoe>false</aoe>
+		<single>true</single>
+		<multi>true</multi>
+		<scalable>true</scalable>
+		<swift>false</swift>
+		<reaction>false</reaction>
+		<damType>Acid</damType>
+		<description>You hurl a bubble of acid. Choose one creature within range, or choose two creatures within range that are within 5 feet of each other. A target must succeed on a Dexterity saving throw or take 1d6 acid damage.
+		This spell's damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6).</description>
+		<atHigherLevels></atHigherLevels> <!-- can be ignored if none -->
+		<addTags>Damaging</addTags>
+	</spell>
+	
+	<spell>
+		<id>2</id>
+		<name>Aid</name>
+		<level>2</level>
+		<school>Abjuration</school>
+		<vsm>111</vsm>
+		<materials>A Tiny strip of white cloth</materials>
+		<range>30</range>
+		<duration>4800</duration>
+		<castTimeValue>1</castTimeValue>
+		<single>true</single>
+		<multi>true</multi>
+		<scalable>true</scalable>
+		<description>Your spell bolsters your allies with toughness and resolve. Choose up to three creatures within range. Each target's hit point maximum and current hit points increase by 5 for the duration.</description>
+		<atHigherLevels>When you cast this spell using a spell slot of 3rd level or higher, a target's hit points increase by an additional 5 for each slot level above 2nd.</atHigherLevels>
+		<addTags>Buffing</addTags>
+	</spell>
+</spellbook>
+
+
