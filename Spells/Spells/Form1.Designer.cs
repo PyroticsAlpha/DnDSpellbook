@@ -28,64 +28,65 @@
         /// </summary>
         private void InitializeComponent()
         {
-			this.resultsSpellDGV = new System.Windows.Forms.DataGridView();
+			this.rsltsSearchResultsDGV = new System.Windows.Forms.DataGridView();
 			this.sbLoadBtn = new System.Windows.Forms.Button();
 			this.sbCloseBtn = new System.Windows.Forms.Button();
-			this.resultsDataSet = new System.Data.DataSet();
-			this.sbSpellBookList = new System.Windows.Forms.ComboBox();
+			this.rsltsDataSet = new System.Data.DataSet();
+			this.sbBookNamesCoBx = new System.Windows.Forms.ComboBox();
 			this.resultsSpellListView = new System.Windows.Forms.ListBox();
-			this.resultsSpellDetails = new System.Windows.Forms.TextBox();
-			this.sbGroupBox = new System.Windows.Forms.GroupBox();
+			this.rsltsDetailsTB = new System.Windows.Forms.TextBox();
+			this.sbGB = new System.Windows.Forms.GroupBox();
 			this.sbExportBtn = new System.Windows.Forms.Button();
 			this.sbCreateBtn = new System.Windows.Forms.Button();
-			this.srchGroupBox = new System.Windows.Forms.GroupBox();
-			this.srchSearchBox = new System.Windows.Forms.TextBox();
+			this.srchGBx = new System.Windows.Forms.GroupBox();
+			this.srchSpellNameTBF = new System.Windows.Forms.TextBox();
 			this.srchSchoolPanel = new System.Windows.Forms.Panel();
-			this.srchSchoolAllBox = new System.Windows.Forms.CheckBox();
+			this.srchSchoolAllChBx = new System.Windows.Forms.CheckBox();
 			this.srchSchoolLabel = new System.Windows.Forms.Label();
-			this.srchSchoolChecklist = new System.Windows.Forms.CheckedListBox();
+			this.srchSchoolChLBx = new System.Windows.Forms.CheckedListBox();
 			this.srchLevelsPanel = new System.Windows.Forms.Panel();
-			this.srchLevelsChecklist = new System.Windows.Forms.CheckedListBox();
+			this.srchLevelsChLBx = new System.Windows.Forms.CheckedListBox();
 			this.srchLevelsLabel = new System.Windows.Forms.Label();
 			this.srchLevelsAllBox = new System.Windows.Forms.CheckBox();
-			this.cstmGroupBox = new System.Windows.Forms.GroupBox();
+			this.cstmGB = new System.Windows.Forms.GroupBox();
 			this.cstmRestoreDefaultsBtn = new System.Windows.Forms.Button();
 			this.cstmImportBtn = new System.Windows.Forms.Button();
 			this.cstmEditClassesBtn = new System.Windows.Forms.Button();
 			this.cstmAddSpellBtn = new System.Windows.Forms.Button();
-			((System.ComponentModel.ISupportInitialize)(this.resultsSpellDGV)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.resultsDataSet)).BeginInit();
-			this.sbGroupBox.SuspendLayout();
-			this.srchGroupBox.SuspendLayout();
+			this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+			((System.ComponentModel.ISupportInitialize)(this.rsltsSearchResultsDGV)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.rsltsDataSet)).BeginInit();
+			this.sbGB.SuspendLayout();
+			this.srchGBx.SuspendLayout();
 			this.srchSchoolPanel.SuspendLayout();
 			this.srchLevelsPanel.SuspendLayout();
-			this.cstmGroupBox.SuspendLayout();
+			this.cstmGB.SuspendLayout();
 			this.SuspendLayout();
 			// 
-			// resultsSpellDGV
+			// rsltsSearchResultsDGV
 			// 
-			this.resultsSpellDGV.AllowUserToAddRows = false;
-			this.resultsSpellDGV.AllowUserToDeleteRows = false;
-			this.resultsSpellDGV.AllowUserToOrderColumns = true;
-			this.resultsSpellDGV.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.resultsSpellDGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-			this.resultsSpellDGV.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-			this.resultsSpellDGV.BackgroundColor = System.Drawing.SystemColors.Window;
-			this.resultsSpellDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.resultsSpellDGV.GridColor = System.Drawing.SystemColors.Control;
-			this.resultsSpellDGV.Location = new System.Drawing.Point(11, 255);
-			this.resultsSpellDGV.Margin = new System.Windows.Forms.Padding(2);
-			this.resultsSpellDGV.MultiSelect = false;
-			this.resultsSpellDGV.Name = "resultsSpellDGV";
-			this.resultsSpellDGV.ReadOnly = true;
-			this.resultsSpellDGV.RowHeadersVisible = false;
-			this.resultsSpellDGV.RowTemplate.Height = 28;
-			this.resultsSpellDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.resultsSpellDGV.Size = new System.Drawing.Size(154, 337);
-			this.resultsSpellDGV.StandardTab = true;
-			this.resultsSpellDGV.TabIndex = 0;
-			this.resultsSpellDGV.SelectionChanged += new System.EventHandler(this.resultsSpellDGV_SelectionChanged);
+			this.rsltsSearchResultsDGV.AllowUserToAddRows = false;
+			this.rsltsSearchResultsDGV.AllowUserToDeleteRows = false;
+			this.rsltsSearchResultsDGV.AllowUserToOrderColumns = true;
+			this.rsltsSearchResultsDGV.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+			this.rsltsSearchResultsDGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+			this.rsltsSearchResultsDGV.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+			this.rsltsSearchResultsDGV.BackgroundColor = System.Drawing.SystemColors.Window;
+			this.rsltsSearchResultsDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.rsltsSearchResultsDGV.GridColor = System.Drawing.SystemColors.Control;
+			this.rsltsSearchResultsDGV.Location = new System.Drawing.Point(11, 255);
+			this.rsltsSearchResultsDGV.Margin = new System.Windows.Forms.Padding(2);
+			this.rsltsSearchResultsDGV.MultiSelect = false;
+			this.rsltsSearchResultsDGV.Name = "rsltsSearchResultsDGV";
+			this.rsltsSearchResultsDGV.ReadOnly = true;
+			this.rsltsSearchResultsDGV.RowHeadersVisible = false;
+			this.rsltsSearchResultsDGV.RowTemplate.Height = 28;
+			this.rsltsSearchResultsDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+			this.rsltsSearchResultsDGV.Size = new System.Drawing.Size(154, 337);
+			this.rsltsSearchResultsDGV.StandardTab = true;
+			this.rsltsSearchResultsDGV.TabIndex = 0;
+			this.rsltsSearchResultsDGV.SelectionChanged += new System.EventHandler(this.rsltsSearchResultsDGV_SelectionChanged);
 			// 
 			// sbLoadBtn
 			// 
@@ -112,24 +113,24 @@
 			this.sbCloseBtn.UseVisualStyleBackColor = true;
 			this.sbCloseBtn.Click += new System.EventHandler(this.sbCloseBtn_Click);
 			// 
-			// resultsDataSet
+			// rsltsDataSet
 			// 
-			this.resultsDataSet.DataSetName = "NewDataSet";
+			this.rsltsDataSet.DataSetName = "NewDataSet";
 			// 
-			// sbSpellBookList
+			// sbBookNamesCoBx
 			// 
-			this.sbSpellBookList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.sbSpellBookList.FormattingEnabled = true;
-			this.sbSpellBookList.Location = new System.Drawing.Point(5, 18);
-			this.sbSpellBookList.Margin = new System.Windows.Forms.Padding(2);
-			this.sbSpellBookList.Name = "sbSpellBookList";
-			this.sbSpellBookList.Size = new System.Drawing.Size(133, 21);
-			this.sbSpellBookList.TabIndex = 5;
+			this.sbBookNamesCoBx.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.sbBookNamesCoBx.FormattingEnabled = true;
+			this.sbBookNamesCoBx.Location = new System.Drawing.Point(5, 18);
+			this.sbBookNamesCoBx.Margin = new System.Windows.Forms.Padding(2);
+			this.sbBookNamesCoBx.Name = "sbBookNamesCoBx";
+			this.sbBookNamesCoBx.Size = new System.Drawing.Size(133, 21);
+			this.sbBookNamesCoBx.TabIndex = 5;
 			// 
 			// resultsSpellListView
 			// 
 			this.resultsSpellListView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.resultsSpellListView.FormattingEnabled = true;
 			this.resultsSpellListView.IntegralHeight = false;
 			this.resultsSpellListView.Location = new System.Drawing.Point(696, 255);
@@ -138,32 +139,33 @@
 			this.resultsSpellListView.Size = new System.Drawing.Size(78, 337);
 			this.resultsSpellListView.TabIndex = 6;
 			// 
-			// resultsSpellDetails
+			// rsltsDetailsTB
 			// 
-			this.resultsSpellDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.rsltsDetailsTB.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.resultsSpellDetails.Location = new System.Drawing.Point(169, 255);
-			this.resultsSpellDetails.Margin = new System.Windows.Forms.Padding(2);
-			this.resultsSpellDetails.Multiline = true;
-			this.resultsSpellDetails.Name = "resultsSpellDetails";
-			this.resultsSpellDetails.ReadOnly = true;
-			this.resultsSpellDetails.Size = new System.Drawing.Size(523, 337);
-			this.resultsSpellDetails.TabIndex = 8;
+			this.rsltsDetailsTB.Location = new System.Drawing.Point(169, 255);
+			this.rsltsDetailsTB.Margin = new System.Windows.Forms.Padding(2);
+			this.rsltsDetailsTB.Multiline = true;
+			this.rsltsDetailsTB.Name = "rsltsDetailsTB";
+			this.rsltsDetailsTB.ReadOnly = true;
+			this.rsltsDetailsTB.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+			this.rsltsDetailsTB.Size = new System.Drawing.Size(523, 337);
+			this.rsltsDetailsTB.TabIndex = 8;
 			// 
-			// sbGroupBox
+			// sbGB
 			// 
-			this.sbGroupBox.Controls.Add(this.sbExportBtn);
-			this.sbGroupBox.Controls.Add(this.sbCreateBtn);
-			this.sbGroupBox.Controls.Add(this.sbCloseBtn);
-			this.sbGroupBox.Controls.Add(this.sbSpellBookList);
-			this.sbGroupBox.Controls.Add(this.sbLoadBtn);
-			this.sbGroupBox.Location = new System.Drawing.Point(12, 12);
-			this.sbGroupBox.Name = "sbGroupBox";
-			this.sbGroupBox.Size = new System.Drawing.Size(760, 46);
-			this.sbGroupBox.TabIndex = 9;
-			this.sbGroupBox.TabStop = false;
-			this.sbGroupBox.Text = "Spell Books";
+			this.sbGB.Controls.Add(this.sbExportBtn);
+			this.sbGB.Controls.Add(this.sbCreateBtn);
+			this.sbGB.Controls.Add(this.sbCloseBtn);
+			this.sbGB.Controls.Add(this.sbBookNamesCoBx);
+			this.sbGB.Controls.Add(this.sbLoadBtn);
+			this.sbGB.Location = new System.Drawing.Point(12, 12);
+			this.sbGB.Name = "sbGB";
+			this.sbGB.Size = new System.Drawing.Size(760, 46);
+			this.sbGB.TabIndex = 9;
+			this.sbGB.TabStop = false;
+			this.sbGB.Text = "Spell Books";
 			// 
 			// sbExportBtn
 			// 
@@ -183,47 +185,48 @@
 			this.sbCreateBtn.TabIndex = 10;
 			this.sbCreateBtn.Text = "Create";
 			this.sbCreateBtn.UseVisualStyleBackColor = true;
+			this.sbCreateBtn.Click += new System.EventHandler(this.sbCreateBtn_Click);
 			// 
-			// srchGroupBox
+			// srchGBx
 			// 
-			this.srchGroupBox.Controls.Add(this.srchSearchBox);
-			this.srchGroupBox.Controls.Add(this.srchSchoolPanel);
-			this.srchGroupBox.Controls.Add(this.srchLevelsPanel);
-			this.srchGroupBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.srchGroupBox.Location = new System.Drawing.Point(12, 116);
-			this.srchGroupBox.Name = "srchGroupBox";
-			this.srchGroupBox.Size = new System.Drawing.Size(760, 117);
-			this.srchGroupBox.TabIndex = 11;
-			this.srchGroupBox.TabStop = false;
-			this.srchGroupBox.Text = "Search";
+			this.srchGBx.Controls.Add(this.srchSpellNameTBF);
+			this.srchGBx.Controls.Add(this.srchSchoolPanel);
+			this.srchGBx.Controls.Add(this.srchLevelsPanel);
+			this.srchGBx.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.srchGBx.Location = new System.Drawing.Point(12, 116);
+			this.srchGBx.Name = "srchGBx";
+			this.srchGBx.Size = new System.Drawing.Size(760, 117);
+			this.srchGBx.TabIndex = 11;
+			this.srchGBx.TabStop = false;
+			this.srchGBx.Text = "Search";
 			// 
-			// srchSearchBox
+			// srchSpellNameTBF
 			// 
-			this.srchSearchBox.Location = new System.Drawing.Point(7, 20);
-			this.srchSearchBox.Name = "srchSearchBox";
-			this.srchSearchBox.Size = new System.Drawing.Size(131, 20);
-			this.srchSearchBox.TabIndex = 6;
+			this.srchSpellNameTBF.Location = new System.Drawing.Point(7, 20);
+			this.srchSpellNameTBF.Name = "srchSpellNameTBF";
+			this.srchSpellNameTBF.Size = new System.Drawing.Size(131, 20);
+			this.srchSpellNameTBF.TabIndex = 6;
 			// 
 			// srchSchoolPanel
 			// 
 			this.srchSchoolPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.srchSchoolPanel.Controls.Add(this.srchSchoolAllBox);
+			this.srchSchoolPanel.Controls.Add(this.srchSchoolAllChBx);
 			this.srchSchoolPanel.Controls.Add(this.srchSchoolLabel);
-			this.srchSchoolPanel.Controls.Add(this.srchSchoolChecklist);
+			this.srchSchoolPanel.Controls.Add(this.srchSchoolChLBx);
 			this.srchSchoolPanel.Location = new System.Drawing.Point(557, 11);
 			this.srchSchoolPanel.Name = "srchSchoolPanel";
 			this.srchSchoolPanel.Size = new System.Drawing.Size(197, 100);
 			this.srchSchoolPanel.TabIndex = 5;
 			// 
-			// srchSchoolAllBox
+			// srchSchoolAllChBx
 			// 
-			this.srchSchoolAllBox.AutoSize = true;
-			this.srchSchoolAllBox.Location = new System.Drawing.Point(99, 3);
-			this.srchSchoolAllBox.Name = "srchSchoolAllBox";
-			this.srchSchoolAllBox.Size = new System.Drawing.Size(37, 17);
-			this.srchSchoolAllBox.TabIndex = 2;
-			this.srchSchoolAllBox.Text = "All";
-			this.srchSchoolAllBox.UseVisualStyleBackColor = true;
+			this.srchSchoolAllChBx.AutoSize = true;
+			this.srchSchoolAllChBx.Location = new System.Drawing.Point(99, 3);
+			this.srchSchoolAllChBx.Name = "srchSchoolAllChBx";
+			this.srchSchoolAllChBx.Size = new System.Drawing.Size(37, 17);
+			this.srchSchoolAllChBx.TabIndex = 2;
+			this.srchSchoolAllChBx.Text = "All";
+			this.srchSchoolAllChBx.UseVisualStyleBackColor = true;
 			// 
 			// srchSchoolLabel
 			// 
@@ -234,14 +237,14 @@
 			this.srchSchoolLabel.TabIndex = 1;
 			this.srchSchoolLabel.Text = "Spell Schools";
 			// 
-			// srchSchoolChecklist
+			// srchSchoolChLBx
 			// 
-			this.srchSchoolChecklist.BackColor = System.Drawing.SystemColors.Control;
-			this.srchSchoolChecklist.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.srchSchoolChecklist.CheckOnClick = true;
-			this.srchSchoolChecklist.ColumnWidth = 95;
-			this.srchSchoolChecklist.FormattingEnabled = true;
-			this.srchSchoolChecklist.Items.AddRange(new object[] {
+			this.srchSchoolChLBx.BackColor = System.Drawing.SystemColors.Control;
+			this.srchSchoolChLBx.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.srchSchoolChLBx.CheckOnClick = true;
+			this.srchSchoolChLBx.ColumnWidth = 95;
+			this.srchSchoolChLBx.FormattingEnabled = true;
+			this.srchSchoolChLBx.Items.AddRange(new object[] {
             "Abjuration",
             "Conjuration",
             "Divination",
@@ -250,18 +253,17 @@
             "Illusion",
             "Necromancy",
             "Transmutation"});
-			this.srchSchoolChecklist.Location = new System.Drawing.Point(3, 20);
-			this.srchSchoolChecklist.MultiColumn = true;
-			this.srchSchoolChecklist.Name = "srchSchoolChecklist";
-			this.srchSchoolChecklist.RightToLeft = System.Windows.Forms.RightToLeft.No;
-			this.srchSchoolChecklist.Size = new System.Drawing.Size(199, 60);
-			this.srchSchoolChecklist.TabIndex = 0;
-			this.srchSchoolChecklist.SelectedIndexChanged += new System.EventHandler(this.searchSchoolChecklist_SelectedIndexChanged);
+			this.srchSchoolChLBx.Location = new System.Drawing.Point(3, 20);
+			this.srchSchoolChLBx.MultiColumn = true;
+			this.srchSchoolChLBx.Name = "srchSchoolChLBx";
+			this.srchSchoolChLBx.RightToLeft = System.Windows.Forms.RightToLeft.No;
+			this.srchSchoolChLBx.Size = new System.Drawing.Size(199, 60);
+			this.srchSchoolChLBx.TabIndex = 0;
 			// 
 			// srchLevelsPanel
 			// 
 			this.srchLevelsPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.srchLevelsPanel.Controls.Add(this.srchLevelsChecklist);
+			this.srchLevelsPanel.Controls.Add(this.srchLevelsChLBx);
 			this.srchLevelsPanel.Controls.Add(this.srchLevelsLabel);
 			this.srchLevelsPanel.Controls.Add(this.srchLevelsAllBox);
 			this.srchLevelsPanel.Location = new System.Drawing.Point(463, 11);
@@ -269,14 +271,14 @@
 			this.srchLevelsPanel.Size = new System.Drawing.Size(88, 100);
 			this.srchLevelsPanel.TabIndex = 4;
 			// 
-			// srchLevelsChecklist
+			// srchLevelsChLBx
 			// 
-			this.srchLevelsChecklist.BackColor = System.Drawing.SystemColors.Control;
-			this.srchLevelsChecklist.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.srchLevelsChecklist.CheckOnClick = true;
-			this.srchLevelsChecklist.ColumnWidth = 40;
-			this.srchLevelsChecklist.FormattingEnabled = true;
-			this.srchLevelsChecklist.Items.AddRange(new object[] {
+			this.srchLevelsChLBx.BackColor = System.Drawing.SystemColors.Control;
+			this.srchLevelsChLBx.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.srchLevelsChLBx.CheckOnClick = true;
+			this.srchLevelsChLBx.ColumnWidth = 40;
+			this.srchLevelsChLBx.FormattingEnabled = true;
+			this.srchLevelsChLBx.Items.AddRange(new object[] {
             "0",
             "1",
             "2",
@@ -287,13 +289,13 @@
             "7",
             "8",
             "9"});
-			this.srchLevelsChecklist.Location = new System.Drawing.Point(3, 20);
-			this.srchLevelsChecklist.MultiColumn = true;
-			this.srchLevelsChecklist.Name = "srchLevelsChecklist";
-			this.srchLevelsChecklist.RightToLeft = System.Windows.Forms.RightToLeft.No;
-			this.srchLevelsChecklist.Size = new System.Drawing.Size(87, 75);
-			this.srchLevelsChecklist.TabIndex = 1;
-			this.srchLevelsChecklist.ThreeDCheckBoxes = true;
+			this.srchLevelsChLBx.Location = new System.Drawing.Point(3, 20);
+			this.srchLevelsChLBx.MultiColumn = true;
+			this.srchLevelsChLBx.Name = "srchLevelsChLBx";
+			this.srchLevelsChLBx.RightToLeft = System.Windows.Forms.RightToLeft.No;
+			this.srchLevelsChLBx.Size = new System.Drawing.Size(87, 75);
+			this.srchLevelsChLBx.TabIndex = 1;
+			this.srchLevelsChLBx.ThreeDCheckBoxes = true;
 			// 
 			// srchLevelsLabel
 			// 
@@ -314,18 +316,18 @@
 			this.srchLevelsAllBox.Text = "All";
 			this.srchLevelsAllBox.UseVisualStyleBackColor = true;
 			// 
-			// cstmGroupBox
+			// cstmGB
 			// 
-			this.cstmGroupBox.Controls.Add(this.cstmRestoreDefaultsBtn);
-			this.cstmGroupBox.Controls.Add(this.cstmImportBtn);
-			this.cstmGroupBox.Controls.Add(this.cstmEditClassesBtn);
-			this.cstmGroupBox.Controls.Add(this.cstmAddSpellBtn);
-			this.cstmGroupBox.Location = new System.Drawing.Point(12, 64);
-			this.cstmGroupBox.Name = "cstmGroupBox";
-			this.cstmGroupBox.Size = new System.Drawing.Size(760, 46);
-			this.cstmGroupBox.TabIndex = 0;
-			this.cstmGroupBox.TabStop = false;
-			this.cstmGroupBox.Text = "Customize";
+			this.cstmGB.Controls.Add(this.cstmRestoreDefaultsBtn);
+			this.cstmGB.Controls.Add(this.cstmImportBtn);
+			this.cstmGB.Controls.Add(this.cstmEditClassesBtn);
+			this.cstmGB.Controls.Add(this.cstmAddSpellBtn);
+			this.cstmGB.Location = new System.Drawing.Point(12, 64);
+			this.cstmGB.Name = "cstmGB";
+			this.cstmGB.Size = new System.Drawing.Size(760, 46);
+			this.cstmGB.TabIndex = 0;
+			this.cstmGB.TabStop = false;
+			this.cstmGB.Text = "Customize";
 			// 
 			// cstmRestoreDefaultsBtn
 			// 
@@ -344,6 +346,7 @@
 			this.cstmImportBtn.TabIndex = 0;
 			this.cstmImportBtn.Text = "Import";
 			this.cstmImportBtn.UseVisualStyleBackColor = true;
+			this.cstmImportBtn.Click += new System.EventHandler(this.cstmImportBtn_Click);
 			// 
 			// cstmEditClassesBtn
 			// 
@@ -369,27 +372,27 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
 			this.AutoScroll = true;
 			this.ClientSize = new System.Drawing.Size(784, 603);
-			this.Controls.Add(this.cstmGroupBox);
-			this.Controls.Add(this.srchGroupBox);
-			this.Controls.Add(this.sbGroupBox);
-			this.Controls.Add(this.resultsSpellDetails);
+			this.Controls.Add(this.cstmGB);
+			this.Controls.Add(this.srchGBx);
+			this.Controls.Add(this.sbGB);
+			this.Controls.Add(this.rsltsDetailsTB);
 			this.Controls.Add(this.resultsSpellListView);
-			this.Controls.Add(this.resultsSpellDGV);
+			this.Controls.Add(this.rsltsSearchResultsDGV);
 			this.Margin = new System.Windows.Forms.Padding(2);
 			this.MinimumSize = new System.Drawing.Size(800, 500);
 			this.Name = "MainForm";
 			this.Load += new System.EventHandler(this.MainForm_Load);
-			((System.ComponentModel.ISupportInitialize)(this.resultsSpellDGV)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.resultsDataSet)).EndInit();
-			this.sbGroupBox.ResumeLayout(false);
-			this.sbGroupBox.PerformLayout();
-			this.srchGroupBox.ResumeLayout(false);
-			this.srchGroupBox.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.rsltsSearchResultsDGV)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.rsltsDataSet)).EndInit();
+			this.sbGB.ResumeLayout(false);
+			this.sbGB.PerformLayout();
+			this.srchGBx.ResumeLayout(false);
+			this.srchGBx.PerformLayout();
 			this.srchSchoolPanel.ResumeLayout(false);
 			this.srchSchoolPanel.PerformLayout();
 			this.srchLevelsPanel.ResumeLayout(false);
 			this.srchLevelsPanel.PerformLayout();
-			this.cstmGroupBox.ResumeLayout(false);
+			this.cstmGB.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -397,31 +400,32 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView resultsSpellDGV;
+        private System.Windows.Forms.DataGridView rsltsSearchResultsDGV;
         private System.Windows.Forms.Button sbLoadBtn;
         private System.Windows.Forms.Button sbCloseBtn;
-        private System.Data.DataSet resultsDataSet;
-        private System.Windows.Forms.ComboBox sbSpellBookList;
+        private System.Data.DataSet rsltsDataSet;
+        private System.Windows.Forms.ComboBox sbBookNamesCoBx;
         private System.Windows.Forms.ListBox resultsSpellListView;
-        private System.Windows.Forms.TextBox resultsSpellDetails;
-        private System.Windows.Forms.GroupBox sbGroupBox;
+        private System.Windows.Forms.TextBox rsltsDetailsTB;
+        private System.Windows.Forms.GroupBox sbGB;
         private System.Windows.Forms.Button sbCreateBtn;
         private System.Windows.Forms.Button sbExportBtn;
-        private System.Windows.Forms.GroupBox srchGroupBox;
-        private System.Windows.Forms.GroupBox cstmGroupBox;
+        private System.Windows.Forms.GroupBox srchGBx;
+        private System.Windows.Forms.GroupBox cstmGB;
         private System.Windows.Forms.Button cstmRestoreDefaultsBtn;
         private System.Windows.Forms.Button cstmImportBtn;
         private System.Windows.Forms.Button cstmEditClassesBtn;
         private System.Windows.Forms.Button cstmAddSpellBtn;
-        private System.Windows.Forms.CheckedListBox srchLevelsChecklist;
-        private System.Windows.Forms.CheckedListBox srchSchoolChecklist;
+        private System.Windows.Forms.CheckedListBox srchLevelsChLBx;
+        private System.Windows.Forms.CheckedListBox srchSchoolChLBx;
         private System.Windows.Forms.CheckBox srchLevelsAllBox;
         private System.Windows.Forms.Label srchLevelsLabel;
         private System.Windows.Forms.Panel srchLevelsPanel;
         private System.Windows.Forms.Panel srchSchoolPanel;
-        private System.Windows.Forms.CheckBox srchSchoolAllBox;
+        private System.Windows.Forms.CheckBox srchSchoolAllChBx;
         private System.Windows.Forms.Label srchSchoolLabel;
-        private System.Windows.Forms.TextBox srchSearchBox;
+		private System.Windows.Forms.TextBox srchSpellNameTBF;
+		private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
 
