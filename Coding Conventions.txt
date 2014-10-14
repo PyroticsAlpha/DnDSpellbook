@@ -1,0 +1,26 @@
+Tabs:
+HARD TABS. They are better. Shut up.
+
+
+
+Form Fields Naming convention:
+
+descriptiveNameObjectType
+
+Object Types:
+
+
+Object Type = Abbreviation
+
+Form = Form
+Label = Label
+Button = Btn
+CheckBox = ChBx
+CheckedListBox = ChLBx
+ComboBox = CoBx (ex: spellLevelsCoBx)
+DataGridView = DGV
+GroupBox = GBx
+Panel = Panel
+RadioButton = RBtn
+NonEditable TextBox = TBx
+Editable TextBox = TBxF (text box field)
