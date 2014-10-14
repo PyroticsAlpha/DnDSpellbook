@@ -13,13 +13,18 @@ namespace Spells
 {
     public partial class MainForm : Form
     {
-		private string filename;
+		private const string dbFilename = "spells.sqlite";
+		private string[] dbColNames = { "id", "name", "level", "description" };
+		private const string dbColNamesSQL = "(id, name, level, description)";
+		private const string dbColNamesSQLVerbose = "(id int NOT NULL UNIQUE, name varchar(30) NOT NULL, level int, description text)";
+
 		private SQLiteConnection dbConn;
 		private System.Collections.Generic.List<string> spellbooks;
+		private string loadedDatabase = "";
 
-		//database structure constants
-		string[] dbColNames = { "id", "name", "level", "description" };
-		const string sqlCols = "(id, name, level, description)";
+
+
+		#region ***SETUP***
 
 		public MainForm()
 		{
@@ -28,14 +33,11 @@ namespace Spells
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-			filename = "spells.sqlite";
 			//SQLiteConnection.CreateFile(filename);
-			dbConn = new SQLiteConnection("Data Source=" + filename + "; Version=3;");
+			dbConn = new SQLiteConnection("Data Source=" + dbFilename + "; Version=3;");
 			dbConn.Open();
 
-			//importXML();
-
-			//fillDatabase();
+			//fillDatabase("chlamydia", importXML("C:\\Users\\Lindsay\\Desktop\\test.xml"));
 
 			//populate comboBox1 contents
 			this.spellbooks = new List<string>();
@@ -46,21 +48,26 @@ namespace Spells
 			{
 				this.spellbooks.Add(rdr.GetFieldValue<string>(0));
 			}
-			this.sbSpellBookList.DataSource = this.spellbooks;
+			this.sbBookNamesCoBx.DataSource = this.spellbooks;
 			
         }
 
-        private void importXML()
+		#endregion
+
+
+
+		#region ***UTILITIES***
+
+        private DataSet importXML(string XMLfilename)
         {
-			string XMLfilename = "C:\\Users\\Laura\\Desktop\\spells.xml";
-			resultsDataSet = new DataSet();
-			resultsDataSet.ReadXml(XMLfilename);
+			DataSet temp = new DataSet();
+			temp.ReadXml(XMLfilename);
+			return temp;
         }
 
-        private void fillDatabase()
+        private void fillDatabase(string sbName, DataSet data)
         {
 			//ADD TO DATABASE
-			string sbName = "chlamydia";
 
 			//add new table name to spellbooks
 			SQLiteCommand command = new SQLiteCommand(dbConn);
@@ -70,12 +77,12 @@ namespace Spells
 			command.ExecuteNonQuery();
 
 			//create new table if not exists
-			sql = "CREATE TABLE IF NOT EXISTS " + sbName + " (id int NOT NULL UNIQUE, name varchar(30) NOT NULL, level int, description text)";
+			sql = "CREATE TABLE IF NOT EXISTS '" + sbName + "' " +dbColNamesSQLVerbose;
 			command = new SQLiteCommand(sql, dbConn);
 			command.ExecuteNonQuery();
 
 			//add row to database if it has a unique id
-			DataTable dtable = resultsDataSet.Tables["spell"];
+			DataTable dtable = data.Tables["spell"];
 
 			addRowsToTable(sbName, dtable);	
         }
@@ -84,11 +91,11 @@ namespace Spells
         {
             using(SQLiteCommand command = new SQLiteCommand(dbConn))
             {
-                using (SQLiteTransaction dbTransaction = dbConn.BeginTransaction())
-                {
+                //using (SQLiteTransaction dbTransaction = dbConn.BeginTransaction())
+                //{
                     foreach (DataRow row in table.Rows)
                     {
-                        command.CommandText = "INSERT OR IGNORE INTO " + dbTableName + sqlCols + " VALUES (@p1, @p2, @p3, @p4)";
+                        command.CommandText = "INSERT OR IGNORE INTO '" + dbTableName + "' "+ dbColNamesSQL + " VALUES (@p1, @p2, @p3, @p4)";
                         int i = 1;
                         foreach (string colName in dbColNames)
                         {
@@ -97,59 +104,116 @@ namespace Spells
                         }
                         command.ExecuteNonQuery();
                     }
-                    dbTransaction.Commit();
-                }
+                    //dbTransaction.Commit();
+                //}
             }
         }
 
+		private void loadSelectedDatabase()
+		{
+			this.loadedDatabase = this.sbBookNamesCoBx.SelectedItem + "";
+			string sql = "SELECT * FROM '" + this.sbBookNamesCoBx.SelectedItem + "';";
+			try
+			{
+				rsltsDataSet = new DataSet();
+				SQLiteDataAdapter da = new SQLiteDataAdapter(sql, dbConn);
+				da.Fill(rsltsDataSet);
+				rsltsSearchResultsDGV.DataSource = rsltsDataSet.Tables[0].DefaultView;
+			}
+			catch (Exception)
+			{
+				throw;
+			}
+			foreach (DataGridViewColumn col in rsltsSearchResultsDGV.Columns)
+				if (col.Name != "id" && col.Name != "name")
+					col.Visible = false;
+			rsltsSearchResultsDGV.Columns["id"].Width = 20;
+			this.rsltsSearchResultsDGV.Sort(this.rsltsSearchResultsDGV.Columns["name"], ListSortDirection.Ascending);
+		}
+		
+		#endregion
+
+
+
+		#region ***EVENT LISTENERS***
+
         private void sbLoadBtn_Click(object sender, EventArgs e)
         {
-            string sql = "SELECT * FROM " +this.sbSpellBookList.SelectedItem+ ";";
-            try
-            {
-                resultsDataSet = new DataSet();
-                SQLiteDataAdapter da = new SQLiteDataAdapter(sql, dbConn);
-                da.Fill(resultsDataSet);
-                resultsSpellDGV.DataSource = resultsDataSet.Tables[0].DefaultView;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            foreach (DataGridViewColumn col in resultsSpellDGV.Columns)
-                 if(col.Name != "id" && col.Name != "name")
-                     col.Visible = false;
-            resultsSpellDGV.Columns["id"].Width = 20;
-            DataRow row = ((DataRowView)resultsSpellDGV.SelectedRows[0].DataBoundItem).Row;
-            resultsSpellDetails.Text = row["description"].ToString();
-			this.resultsSpellDGV.Sort(this.resultsSpellDGV.Columns["name"], ListSortDirection.Ascending);
-
+			loadSelectedDatabase();
 			//TODO - Make user sorting method persistent
         }
 
         private void sbCloseBtn_Click(object sender, EventArgs e)
         {
-            NewSetForm form2 = new NewSetForm(resultsDataSet);
-            form2.Show();
-
-            //Close();
+            Close();
         }
 
-        private void searchSchoolChecklist_SelectedIndexChanged(object sender, EventArgs e)
+        private void rsltsSearchResultsDGV_SelectionChanged(object sender, EventArgs e)
         {
-
-        }
-
-        private void resultsSpellDGV_SelectionChanged(object sender, EventArgs e)
-        {
-            if (resultsSpellDGV.SelectedRows.Count != 0)
+            if (rsltsSearchResultsDGV.SelectedRows.Count != 0)
             {
-                DataRow row = ((DataRowView)resultsSpellDGV.SelectedRows[0].DataBoundItem).Row;
-                resultsSpellDetails.Text = row["description"].ToString();
-                resultsSpellDetails.Refresh();
+                DataRow row = ((DataRowView)rsltsSearchResultsDGV.SelectedRows[0].DataBoundItem).Row;
+                rsltsDetailsTB.Text = row["description"].ToString();
+                rsltsDetailsTB.Refresh();
             }
-        }
-    }
+		}
+
+		private void cstmImportBtn_Click(object sender, EventArgs e)
+		{
+			if (this.loadedDatabase != "")
+			{
+				// Show the dialog and get result.
+				DialogResult result = openFileDialog1.ShowDialog();
+				string file = "";
+				if (result == DialogResult.OK) // Test result.
+				{
+					file = openFileDialog1.FileName;
+					try
+					{
+						//string text = File.ReadAllText(file);
+						//size = text.Length;
+					}
+					catch (System.IO.IOException)
+					{
+					}
+					fillDatabase(this.loadedDatabase, importXML(openFileDialog1.FileName));
+				}
+				loadSelectedDatabase();
+			}
+		}
+
+		private void sbCreateBtn_Click(object sender, EventArgs e)
+		{
+			CreateBookDialog form2 = new CreateBookDialog();
+			DialogResult result = form2.ShowDialog();
+			if (result == DialogResult.OK) // Test result.
+			{
+				//add new table name to spellbooks
+				SQLiteCommand command = new SQLiteCommand(dbConn);
+				string sql;
+				sql = "INSERT OR IGNORE INTO spellbooks (name) VALUES ('" + form2.bookName + "')";
+				command = new SQLiteCommand(sql, dbConn);
+				command.ExecuteNonQuery();
+
+				if (!spellbooks.Contains(form2.bookName))
+					spellbooks.Add(form2.bookName);
+				this.sbBookNamesCoBx.DataSource = null;
+				this.sbBookNamesCoBx.DataSource = spellbooks;
+				this.sbBookNamesCoBx.Text = form2.bookName;
+				this.sbBookNamesCoBx.Refresh();
+
+				//create new table if not exists
+				sql = "CREATE TABLE IF NOT EXISTS '" + form2.bookName + "' " + dbColNamesSQLVerbose;
+				command = new SQLiteCommand(sql, dbConn);
+				command.ExecuteNonQuery();
+
+				loadSelectedDatabase();
+			}
+		}
+
+		#endregion
+
+	}
 }
 
 #region notes
