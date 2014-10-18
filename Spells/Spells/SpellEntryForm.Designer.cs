@@ -76,7 +76,6 @@
 			this.spellsAddedDGV.AllowUserToOrderColumns = true;
 			this.spellsAddedDGV.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-			this.spellsAddedDGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
 			this.spellsAddedDGV.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
 			this.spellsAddedDGV.BackgroundColor = System.Drawing.SystemColors.Window;
 			this.spellsAddedDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -89,7 +88,7 @@
 			this.spellsAddedDGV.RowHeadersVisible = false;
 			this.spellsAddedDGV.RowTemplate.Height = 28;
 			this.spellsAddedDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.spellsAddedDGV.Size = new System.Drawing.Size(154, 497);
+			this.spellsAddedDGV.Size = new System.Drawing.Size(154, 465);
 			this.spellsAddedDGV.StandardTab = true;
 			this.spellsAddedDGV.TabIndex = 0;
 			this.spellsAddedDGV.SelectionChanged += new System.EventHandler(this.spellsAddedDGV_SelectionChange);

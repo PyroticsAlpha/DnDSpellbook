@@ -66,6 +66,16 @@ namespace Spells
 			{
 				spellsAdded.Columns.Add((string)colInfo[i, 0], (Type)colInfo[i, 1]);
 			}
+
+			// Applies the data to the DGV
+			spellsAddedDGV.DataSource = spellsAdded.DefaultView;
+			foreach (DataGridViewColumn col in spellsAddedDGV.Columns)
+				if (col.Name != "id" && col.Name != "name")
+					col.Visible = false;
+
+			int idColWidth = 30;
+			spellsAddedDGV.Columns[0].Width = idColWidth;
+			spellsAddedDGV.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;	
 		}
 
 		private void spellsAddedDGV_SelectionChange(object sender, EventArgs e)
@@ -239,13 +249,58 @@ namespace Spells
 			{
 				Console.WriteLine("Spell not added to datatable, some constraint (likely ID) is wrong.");
 			}
+			catch (NoNullAllowedException)
+			{
+				Console.WriteLine("Spell needs to have an ID");
+			}
 
 			//DataSet tempDataSet = new DataSet();
 			//tempDataSet.DataSetName = "root";
 			//tempDataSet.Tables.Add(spellsAdded);
 
 			//tempDataSet.WriteXml("test.xml");
+
 			spellsAdded.WriteXml("test.xml");
+			resetFields();
+		}
+
+		// resets the fields to their defaults
+		private void resetFields()
+		{
+			spellIDTBxF.Clear();
+			spellNameTBxF.Clear();
+			spellLevelsCoBx.SelectedIndex = 0;
+			spellSchoolsCoBx.SelectedIndex = 0;
+			foreach(int i in componentChLBx.CheckedIndices)
+			{
+				componentChLBx.SetItemCheckState(i, CheckState.Unchecked);
+			}
+			materialCostTBxF.Clear();
+			rangeTBxF.Clear();
+			durationTBxF.Clear();
+			castingTimeTBxF.Clear();
+			castingConditionTBxF.Clear();
+			swiftChBx.Checked = false;
+			reactionChBx.Checked = false;
+			savingThrowChBx.Checked = false;
+			attackRollChBx.Checked = false;
+			ritualChBx.Checked = false;
+			concentrationChBx.Checked = false;
+			spellDescriptionTBxF.Clear();
+			scaleableChBx.Checked = false;
+			higherLevelsTBxF.Clear();
+			foreach (int i in damageTypesChLBx.CheckedIndices)
+			{
+				damageTypesChLBx.SetItemCheckState(i, CheckState.Unchecked);
+			}
+			foreach (int i in targetabilityChLBx.CheckedIndices)
+			{
+				targetabilityChLBx.SetItemCheckState(i, CheckState.Unchecked);
+			}
+			foreach (int i in addTagsChLBx.CheckedIndices)
+			{
+				addTagsChLBx.SetItemCheckState(i, CheckState.Unchecked);
+			}
 		}
 
 		private void higherLevelsTBxF_KeyDown(object sender, KeyEventArgs e)
