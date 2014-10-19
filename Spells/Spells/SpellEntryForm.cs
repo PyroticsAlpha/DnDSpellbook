@@ -55,7 +55,7 @@ namespace Spells
 		{
 			spellsAdded = new DataTable();
 			spellsAdded.CaseSensitive = false;
-			spellsAdded.TableName = "Spellbook";
+			spellsAdded.TableName = "Spell";
 
 			// Sets the default column of ID with a Unique and NotNull property. This is the most important value.
 			DataColumn tempColumn = spellsAdded.Columns.Add("id", typeof(int));

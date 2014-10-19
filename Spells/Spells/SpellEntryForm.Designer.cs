@@ -66,6 +66,8 @@
 			this.savingThrowChBx = new System.Windows.Forms.CheckBox();
 			this.concentrationChBx = new System.Windows.Forms.CheckBox();
 			this.ritualChBx = new System.Windows.Forms.CheckBox();
+			this.loadSpellButton = new System.Windows.Forms.Button();
+			this.deleteSpell = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.spellsAddedDGV)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -514,11 +516,33 @@
 			this.ritualChBx.Text = "Ritual";
 			this.ritualChBx.UseVisualStyleBackColor = true;
 			// 
+			// loadSpellButton
+			// 
+			this.loadSpellButton.Enabled = false;
+			this.loadSpellButton.Location = new System.Drawing.Point(11, 484);
+			this.loadSpellButton.Name = "loadSpellButton";
+			this.loadSpellButton.Size = new System.Drawing.Size(75, 23);
+			this.loadSpellButton.TabIndex = 39;
+			this.loadSpellButton.Text = "Load Spell";
+			this.loadSpellButton.UseVisualStyleBackColor = true;
+			// 
+			// deleteSpell
+			// 
+			this.deleteSpell.Enabled = false;
+			this.deleteSpell.Location = new System.Drawing.Point(92, 484);
+			this.deleteSpell.Name = "deleteSpell";
+			this.deleteSpell.Size = new System.Drawing.Size(75, 23);
+			this.deleteSpell.TabIndex = 40;
+			this.deleteSpell.Text = "Delete Spell";
+			this.deleteSpell.UseVisualStyleBackColor = true;
+			// 
 			// SpellEntryForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(779, 519);
+			this.Controls.Add(this.deleteSpell);
+			this.Controls.Add(this.loadSpellButton);
 			this.Controls.Add(this.concentrationChBx);
 			this.Controls.Add(this.ritualChBx);
 			this.Controls.Add(this.attackRollChBx);
@@ -607,5 +631,7 @@
 		private System.Windows.Forms.CheckBox savingThrowChBx;
 		private System.Windows.Forms.CheckBox concentrationChBx;
 		private System.Windows.Forms.CheckBox ritualChBx;
+		private System.Windows.Forms.Button loadSpellButton;
+		private System.Windows.Forms.Button deleteSpell;
 	}
 }
