@@ -66,8 +66,8 @@
 			this.savingThrowChBx = new System.Windows.Forms.CheckBox();
 			this.concentrationChBx = new System.Windows.Forms.CheckBox();
 			this.ritualChBx = new System.Windows.Forms.CheckBox();
-			this.loadSpellButton = new System.Windows.Forms.Button();
-			this.deleteSpell = new System.Windows.Forms.Button();
+			this.loadSpellBtn = new System.Windows.Forms.Button();
+			this.deleteSpellBtn = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.spellsAddedDGV)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -328,9 +328,12 @@
 			this.damageTypesChLBx.BackColor = System.Drawing.SystemColors.Control;
 			this.damageTypesChLBx.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.damageTypesChLBx.CheckOnClick = true;
-			this.damageTypesChLBx.ColumnWidth = 70;
+			this.damageTypesChLBx.ColumnWidth = 80;
 			this.damageTypesChLBx.FormattingEnabled = true;
 			this.damageTypesChLBx.Items.AddRange(new object[] {
+            "Slashing",
+            "Bludgeoning",
+            "Piercing",
             "Fire",
             "Cold",
             "Lightning",
@@ -338,12 +341,15 @@
             "Acid",
             "Radiant",
             "Necrotic",
-            "Force"});
+            "Force",
+            "Psychic",
+            "Poison",
+            "Other"});
 			this.damageTypesChLBx.Location = new System.Drawing.Point(183, 416);
 			this.damageTypesChLBx.MultiColumn = true;
 			this.damageTypesChLBx.Name = "damageTypesChLBx";
 			this.damageTypesChLBx.RightToLeft = System.Windows.Forms.RightToLeft.No;
-			this.damageTypesChLBx.Size = new System.Drawing.Size(144, 60);
+			this.damageTypesChLBx.Size = new System.Drawing.Size(255, 75);
 			this.damageTypesChLBx.TabIndex = 32;
 			this.damageTypesChLBx.ThreeDCheckBoxes = true;
 			this.damageTypesChLBx.Enter += new System.EventHandler(this.chLBx_Enter);
@@ -362,7 +368,7 @@
             "AoE",
             "Single Target",
             "Multi Target"});
-			this.targetabilityChLBx.Location = new System.Drawing.Point(333, 416);
+			this.targetabilityChLBx.Location = new System.Drawing.Point(414, 416);
 			this.targetabilityChLBx.Name = "targetabilityChLBx";
 			this.targetabilityChLBx.RightToLeft = System.Windows.Forms.RightToLeft.No;
 			this.targetabilityChLBx.Size = new System.Drawing.Size(89, 60);
@@ -385,7 +391,7 @@
 			// targetabilityLabel
 			// 
 			this.targetabilityLabel.AutoSize = true;
-			this.targetabilityLabel.Location = new System.Drawing.Point(330, 400);
+			this.targetabilityLabel.Location = new System.Drawing.Point(411, 400);
 			this.targetabilityLabel.Name = "targetabilityLabel";
 			this.targetabilityLabel.Size = new System.Drawing.Size(67, 13);
 			this.targetabilityLabel.TabIndex = 33;
@@ -394,7 +400,7 @@
 			// addTagsLabel
 			// 
 			this.addTagsLabel.AutoSize = true;
-			this.addTagsLabel.Location = new System.Drawing.Point(430, 400);
+			this.addTagsLabel.Location = new System.Drawing.Point(507, 400);
 			this.addTagsLabel.Name = "addTagsLabel";
 			this.addTagsLabel.Size = new System.Drawing.Size(83, 13);
 			this.addTagsLabel.TabIndex = 35;
@@ -413,7 +419,7 @@
             "Crowd Control",
             "Buffing",
             "Utility"});
-			this.addTagsChLBx.Location = new System.Drawing.Point(433, 416);
+			this.addTagsChLBx.Location = new System.Drawing.Point(510, 416);
 			this.addTagsChLBx.Name = "addTagsChLBx";
 			this.addTagsChLBx.RightToLeft = System.Windows.Forms.RightToLeft.No;
 			this.addTagsChLBx.Size = new System.Drawing.Size(89, 75);
@@ -516,33 +522,35 @@
 			this.ritualChBx.Text = "Ritual";
 			this.ritualChBx.UseVisualStyleBackColor = true;
 			// 
-			// loadSpellButton
+			// loadSpellBtn
 			// 
-			this.loadSpellButton.Enabled = false;
-			this.loadSpellButton.Location = new System.Drawing.Point(11, 484);
-			this.loadSpellButton.Name = "loadSpellButton";
-			this.loadSpellButton.Size = new System.Drawing.Size(75, 23);
-			this.loadSpellButton.TabIndex = 39;
-			this.loadSpellButton.Text = "Load Spell";
-			this.loadSpellButton.UseVisualStyleBackColor = true;
+			this.loadSpellBtn.Enabled = false;
+			this.loadSpellBtn.Location = new System.Drawing.Point(11, 484);
+			this.loadSpellBtn.Name = "loadSpellBtn";
+			this.loadSpellBtn.Size = new System.Drawing.Size(75, 23);
+			this.loadSpellBtn.TabIndex = 39;
+			this.loadSpellBtn.Text = "Load Spell";
+			this.loadSpellBtn.UseVisualStyleBackColor = true;
+			this.loadSpellBtn.Click += new System.EventHandler(this.loadSpellBtn_Click);
 			// 
-			// deleteSpell
+			// deleteSpellBtn
 			// 
-			this.deleteSpell.Enabled = false;
-			this.deleteSpell.Location = new System.Drawing.Point(92, 484);
-			this.deleteSpell.Name = "deleteSpell";
-			this.deleteSpell.Size = new System.Drawing.Size(75, 23);
-			this.deleteSpell.TabIndex = 40;
-			this.deleteSpell.Text = "Delete Spell";
-			this.deleteSpell.UseVisualStyleBackColor = true;
+			this.deleteSpellBtn.Enabled = false;
+			this.deleteSpellBtn.Location = new System.Drawing.Point(92, 484);
+			this.deleteSpellBtn.Name = "deleteSpellBtn";
+			this.deleteSpellBtn.Size = new System.Drawing.Size(75, 23);
+			this.deleteSpellBtn.TabIndex = 40;
+			this.deleteSpellBtn.Text = "Delete Spell";
+			this.deleteSpellBtn.UseVisualStyleBackColor = true;
+			this.deleteSpellBtn.Click += new System.EventHandler(this.deleteSpellBtn_Click);
 			// 
 			// SpellEntryForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(779, 519);
-			this.Controls.Add(this.deleteSpell);
-			this.Controls.Add(this.loadSpellButton);
+			this.Controls.Add(this.deleteSpellBtn);
+			this.Controls.Add(this.loadSpellBtn);
 			this.Controls.Add(this.concentrationChBx);
 			this.Controls.Add(this.ritualChBx);
 			this.Controls.Add(this.attackRollChBx);
@@ -631,7 +639,7 @@
 		private System.Windows.Forms.CheckBox savingThrowChBx;
 		private System.Windows.Forms.CheckBox concentrationChBx;
 		private System.Windows.Forms.CheckBox ritualChBx;
-		private System.Windows.Forms.Button loadSpellButton;
-		private System.Windows.Forms.Button deleteSpell;
+		private System.Windows.Forms.Button loadSpellBtn;
+		private System.Windows.Forms.Button deleteSpellBtn;
 	}
 }

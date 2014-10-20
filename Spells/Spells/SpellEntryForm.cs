@@ -25,19 +25,19 @@ namespace Spells
 												{"duration", typeof(int)},
 												{"castTimeValue", typeof(int)},
 												{"castCondition", typeof(string)},
+												{"swift", typeof(bool)},
+												{"reaction", typeof(bool)},
 												{"st", typeof(bool)},
 												{"ar", typeof(bool)},
 												{"ritual", typeof(bool)},
 												{"concentration", typeof(bool)},
+												{"description", typeof(string)},
+												{"scaleable", typeof(bool)},
+												{"atHigherLevels", typeof(string)},
+												{"damType", typeof(string)},
 												{"aoe", typeof(bool)},
 												{"single", typeof(bool)},
 												{"multi", typeof(bool)},
-												{"scaleable", typeof(bool)},
-												{"swift", typeof(bool)},
-												{"reaction", typeof(bool)},
-												{"damType", typeof(string)},
-												{"description", typeof(string)},
-												{"atHigherLevels", typeof(string)},
 												{"addTags", typeof(string)}
 											 };
 
@@ -56,11 +56,16 @@ namespace Spells
 			spellsAdded = new DataTable();
 			spellsAdded.CaseSensitive = false;
 			spellsAdded.TableName = "Spell";
+			
+			// Sets id as the primary key for the spellsAdded data table
+			DataColumn[] keyColumn = new DataColumn[1];
+			keyColumn[0] = spellsAdded.Columns.Add("id", typeof(int));
+			spellsAdded.PrimaryKey = keyColumn;
 
-			// Sets the default column of ID with a Unique and NotNull property. This is the most important value.
-			DataColumn tempColumn = spellsAdded.Columns.Add("id", typeof(int));
-			tempColumn.Unique = true;
-			tempColumn.AllowDBNull = false;
+			//// Sets the default column of ID with a Unique and NotNull property. This is the most important value.
+			//DataColumn tempColumn = spellsAdded.Columns.Add("id", typeof(int));
+			//tempColumn.Unique = true;
+			//tempColumn.AllowDBNull = false;
 
 			for (int i = 0; i < colInfo.GetLength(0); i++)
 			{
@@ -76,11 +81,6 @@ namespace Spells
 			int idColWidth = 30;
 			spellsAddedDGV.Columns[0].Width = idColWidth;
 			spellsAddedDGV.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;	
-		}
-
-		private void spellsAddedDGV_SelectionChange(object sender, EventArgs e)
-		{
-			
 		}
 
 		private void saveSpellBtn_Click(object sender, EventArgs e)
@@ -178,35 +178,32 @@ namespace Spells
 			// Sets the castCondition of the spell
 			addedSpell[(string)colInfo[8, 0]] = castingConditionTBxF.Text;
 
+			// Sets if the spell is swift
+			addedSpell[(string)colInfo[9, 0]] = swiftChBx.Checked;
+
+			// Sets if the spell is a reaction
+			addedSpell[(string)colInfo[10, 0]] = reactionChBx.Checked;
+
 			// Sets if the spell has an st
-			addedSpell[(string)colInfo[9, 0]] = savingThrowChBx.Checked;
+			addedSpell[(string)colInfo[11, 0]] = savingThrowChBx.Checked;
 
 			// sets if the spell has an ar
-			addedSpell[(string)colInfo[10, 0]] = attackRollChBx.Checked;
+			addedSpell[(string)colInfo[12, 0]] = attackRollChBx.Checked;
 			
 			// Sets the if the spell has a ritual
-			addedSpell[(string)colInfo[11, 0]] = ritualChBx.Checked;
+			addedSpell[(string)colInfo[13, 0]] = ritualChBx.Checked;
 
 			// Sets if the spell requires concentration
-			addedSpell[(string)colInfo[12, 0]] = concentrationChBx.Checked;
+			addedSpell[(string)colInfo[14, 0]] = concentrationChBx.Checked;
 
-			// Sets if the spell has an AoE
-			addedSpell[(string)colInfo[13, 0]] = targetabilityChLBx.GetItemChecked(0);
-
-			// Sets if the spell has a single target
-			addedSpell[(string)colInfo[14, 0]] = targetabilityChLBx.GetItemChecked(1);
-
-			// Sets if the spell can have multiple targets
-			addedSpell[(string)colInfo[15, 0]] = targetabilityChLBx.GetItemChecked(2);
+			// Sets the description of the spell
+			addedSpell[(string)colInfo[15, 0]] = spellDescriptionTBxF.Text;
 
 			// Sets if the spell is scaleable
 			addedSpell[(string)colInfo[16, 0]] = scaleableChBx.Checked;
 
-			// Sets if the spell is swift
-			addedSpell[(string)colInfo[17, 0]] = swiftChBx.Checked;
-
-			// Sets if the spell is a reaction
-			addedSpell[(string)colInfo[18, 0]] = reactionChBx.Checked;
+			// Sets the atHigherLevels string of the spell
+			addedSpell[(string)colInfo[17, 0]] = higherLevelsTBxF.Text;
 
 			// Sets the damtypes of the spell (if any)
 			if (damageTypesChLBx.CheckedItems.Count > 0)
@@ -218,14 +215,17 @@ namespace Spells
 					damTypes += damageTypesChLBx.CheckedItems[i].ToString() + ", ";
 				}
 				damTypes += damageTypesChLBx.CheckedItems[damageTypesChLBx.CheckedItems.Count - 1];
-				addedSpell[(string)colInfo[19, 0]] = damTypes;
+				addedSpell[(string)colInfo[18, 0]] = damTypes;
 			}
 
-			// Sets the description of the spell
-			addedSpell[(string)colInfo[20, 0]] = spellDescriptionTBxF.Text;
+			// Sets if the spell has an AoE
+			addedSpell[(string)colInfo[19, 0]] = targetabilityChLBx.GetItemChecked(0);
 
-			// Sets the atHigherLevels string of the spell
-			addedSpell[(string)colInfo[21, 0]] = higherLevelsTBxF.Text;
+			// Sets if the spell has a single target
+			addedSpell[(string)colInfo[20, 0]] = targetabilityChLBx.GetItemChecked(1);
+
+			// Sets if the spell can have multiple targets
+			addedSpell[(string)colInfo[21, 0]] = targetabilityChLBx.GetItemChecked(2);
 
 			// Sets the addTags of the spell
 			if (addTagsChLBx.CheckedItems.Count > 0)
@@ -273,7 +273,7 @@ namespace Spells
 			spellSchoolsCoBx.SelectedIndex = 0;
 			foreach(int i in componentChLBx.CheckedIndices)
 			{
-				componentChLBx.SetItemCheckState(i, CheckState.Unchecked);
+				componentChLBx.SetItemChecked(i, false); ;
 			}
 			materialCostTBxF.Clear();
 			rangeTBxF.Clear();
@@ -291,15 +291,15 @@ namespace Spells
 			higherLevelsTBxF.Clear();
 			foreach (int i in damageTypesChLBx.CheckedIndices)
 			{
-				damageTypesChLBx.SetItemCheckState(i, CheckState.Unchecked);
+				damageTypesChLBx.SetItemChecked(i, false);
 			}
 			foreach (int i in targetabilityChLBx.CheckedIndices)
 			{
-				targetabilityChLBx.SetItemCheckState(i, CheckState.Unchecked);
+				targetabilityChLBx.SetItemChecked(i, false);
 			}
 			foreach (int i in addTagsChLBx.CheckedIndices)
 			{
-				addTagsChLBx.SetItemCheckState(i, CheckState.Unchecked);
+				addTagsChLBx.SetItemChecked(i, false);
 			}
 		}
 
@@ -377,6 +377,74 @@ namespace Spells
 			if(e.Index == 2)
 			{
 				materialCostLabel.Enabled = materialCostTBxF.Enabled = (e.CurrentValue == CheckState.Unchecked);
+			}
+		}
+
+		// Activates the load/delete spell buttons
+		private void spellsAddedDGV_SelectionChange(object sender, EventArgs e)
+		{
+			loadSpellBtn.Enabled = deleteSpellBtn.Enabled = (spellsAddedDGV.SelectedRows.Count > 0);
+		}
+
+		// Deletes the currently selected spell from the spellsAdded datatable
+		private void deleteSpellBtn_Click(object sender, EventArgs e)
+		{
+			spellsAdded.Rows.Remove(spellsAdded.Rows.Find(spellsAddedDGV.SelectedRows[0].Cells["id"].Value));
+		}
+
+		// Loads the currently selected spell into the editable fields
+		private void loadSpellBtn_Click(object sender, EventArgs e)
+		{
+			// Clears the fields to start again.
+			resetFields();
+
+			// Gets the spell data from the spellsAdded DataTable by way of the spellsAddedDGV DGV
+			DataRow spellToLoad = spellsAdded.Rows.Find(spellsAddedDGV.SelectedRows[0].Cells["id"].Value);
+
+			spellIDTBxF.Text = spellToLoad["id"].ToString();
+			spellNameTBxF.Text = spellToLoad[(string)colInfo[0, 0]].ToString();
+			spellLevelsCoBx.SelectedIndex = spellLevelsCoBx.FindStringExact(spellToLoad[(string)colInfo[1, 0]].ToString());
+			spellSchoolsCoBx.SelectedIndex = spellSchoolsCoBx.FindStringExact(spellToLoad[(string)colInfo[2, 0]].ToString());
+
+			int componentValue = Convert.ToInt32(spellToLoad[(string)colInfo[3, 0]].ToString());
+			// Use binary math to determine M, S, and then V
+			componentChLBx.SetItemChecked(2, Convert.ToBoolean(componentValue % 2));
+			componentValue /= 2;
+			componentChLBx.SetItemChecked(1, Convert.ToBoolean(componentValue % 2));
+			componentValue /= 2;
+			componentChLBx.SetItemChecked(0, Convert.ToBoolean(componentValue % 2));
+
+			materialCostTBxF.Text = spellToLoad[(string)colInfo[4, 0]].ToString();
+			rangeTBxF.Text = spellToLoad[(string)colInfo[5, 0]].ToString();
+			durationTBxF.Text = spellToLoad[(string)colInfo[6, 0]].ToString();
+			castingTimeTBxF.Text = spellToLoad[(string)colInfo[7, 0]].ToString();
+			castingConditionTBxF.Text = spellToLoad[(string)colInfo[8, 0]].ToString();
+
+			swiftChBx.Checked = (bool)spellToLoad[(string)colInfo[9, 0]];
+			reactionChBx.Checked = (bool)spellToLoad[(string)colInfo[10, 0]];
+			savingThrowChBx.Checked = (bool)spellToLoad[(string)colInfo[11, 0]];
+			attackRollChBx.Checked = (bool)spellToLoad[(string)colInfo[12, 0]];
+			ritualChBx.Checked = (bool)spellToLoad[(string)colInfo[13, 0]];
+			concentrationChBx.Checked = (bool)spellToLoad[(string)colInfo[14, 0]];
+
+			spellDescriptionTBxF.Text = spellToLoad[(string)colInfo[15, 0]].ToString();
+			scaleableChBx.Checked = (bool)spellToLoad[(string)colInfo[16, 0]];
+			higherLevelsTBxF.Text = spellToLoad[(string)colInfo[17, 0]].ToString();
+
+			String damTypeList = spellToLoad[(string)colInfo[18, 0]].ToString();
+			for(int i = 0; i < damageTypesChLBx.Items.Count; i++)
+			{
+				damageTypesChLBx.SetItemChecked(i, damTypeList.Contains(damageTypesChLBx.Items[i].ToString()));
+			}
+
+			targetabilityChLBx.SetItemChecked(0, (bool)spellToLoad[(string)colInfo[19, 0]]);
+			targetabilityChLBx.SetItemChecked(1, (bool)spellToLoad[(string)colInfo[20, 0]]);
+			targetabilityChLBx.SetItemChecked(2, (bool)spellToLoad[(string)colInfo[21, 0]]);
+
+			String addTagsList = spellToLoad[(string)colInfo[22, 0]].ToString();
+			for(int i = 0; i < addTagsChLBx.Items.Count; i++)
+			{
+				addTagsChLBx.SetItemChecked(i, addTagsList.Contains(addTagsChLBx.Items[i].ToString()));
 			}
 		}
 	}
