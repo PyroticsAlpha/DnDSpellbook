@@ -15,6 +15,7 @@ namespace SpellEntry
 		private DataTable spellsAdded;
 		private Color defaultColor = SystemColors.ControlText;
 		private Color errorColor = Color.Red;
+		DataSet spellDataSet = new DataSet();
 
 		// colInfo is the list of all of the columns for the dataTable/tags for the XML EXCEPT for ID. Which is assumed as a given.
 		private readonly object[,] colInfo = new object[,]{
@@ -81,13 +82,20 @@ namespace SpellEntry
 
 			int idColWidth = 30;
 			spellsAddedDGV.Columns[0].Width = idColWidth;
-			spellsAddedDGV.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;	
+			spellsAddedDGV.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+			// adds the spellsAdded data table to the spellDataSet
+			spellDataSet.DataSetName = "root";
+			spellDataSet.Tables.Add(spellsAdded);
 		}
 
 		private void saveSpellBtn_Click(object sender, EventArgs e)
 		{
 			DataRow addedSpell = spellsAdded.NewRow();
-			Boolean errorFlag = false; // errorFlag determines if an error prevents the spell from being saved.
+			bool errorFlag = false; // errorFlag determines if an error prevents the spell from being saved.
+			bool overwriteFlag = false; // a flag for if the id is the same and an overwrite is requrested. (using a flag instead of doing it when it's encountered allows for other errors to be revealed before 
+										// deleting
+			int idInt = -0;
 
 			// Ensure that spellID has a value
 			if(spellIDTBxF.Text == "")
@@ -98,25 +106,51 @@ namespace SpellEntry
 			}
 			else
 			{
-				// Set the id value and throw error messages if something is amiss
-				try
+				// Determine if the entered ID Value is an integer 
+				if(int.TryParse(spellIDTBxF.Text, out idInt))
 				{
-					addedSpell["id"] = Convert.ToInt32(spellIDTBxF.Text);
+					// Checks to see that the id doesn't already exist in the data table
+					if(spellsAdded.Rows.Contains(idInt))
+					{
+						string message = "A spell with the same ID is already in the data table. \nPress 'OK' to overwrite the existing spell or 'Cancel' to not.";
+						var result = MessageBox.Show(message, "Overwrite?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+						if(result == DialogResult.Cancel)
+						{
+							errorFlag = true;
+						}
+						else
+						{
+							overwriteFlag = true;
+						}
+					}
+					addedSpell["id"] = idInt;
 				}
-				catch (FormatException)
+				else
 				{
-					//Console.WriteLine("ID needs to be a number");
-					string error = "Spell ID needs to exist and be a number.";
-					MessageBox.Show(error, "ID Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					string message = "Spell ID is invalid. The ID needs to be a number less than " + int.MaxValue.ToString();
+					MessageBox.Show(message, "ID Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					errorFlag = true;
 				}
-				catch (OverflowException)
-				{
-					//Console.WriteLine("ID entered is out of bounds");
-					string error = "The spell ID is too large a value.";
-					MessageBox.Show(error, "ID Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					errorFlag = true;
-				}
+
+				//// Set the id value and throw error messages if something is amiss
+				//try
+				//{
+				//	addedSpell["id"] = Convert.ToInt32(spellIDTBxF.Text);
+				//}
+				//catch (FormatException)
+				//{
+				//	//Console.WriteLine("ID needs to be a number");
+				//	string error = "Spell ID needs to exist and be a number.";
+				//	MessageBox.Show(error, "ID Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				//	errorFlag = true;
+				//}
+				//catch (OverflowException)
+				//{
+				//	//Console.WriteLine("ID entered is out of bounds");
+				//	string error = "The spell ID is too large a value.";
+				//	MessageBox.Show(error, "ID Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				//	errorFlag = true;
+				//}
 			}
 
 			// Set the name of the row
@@ -163,73 +197,107 @@ namespace SpellEntry
 			// If the range has a value, ensure that it's valid
 			if(rangeTBxF.Text != "")
 			{
-				// Sets the range of the spell
-				try
+				int rangeInt;
+				if(int.TryParse(rangeTBxF.Text, out rangeInt))
 				{
-					addedSpell[(string)colInfo[5, 0]] = Convert.ToInt32(rangeTBxF.Text);
+					addedSpell[(string)colInfo[5, 0]] = rangeInt;
 				}
-				catch (FormatException)
+				else
 				{
-					string error = "Spell Range needs to be a number or blank.";
-					MessageBox.Show(error, "Range Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					string message = "Range is invalid. The Range needs to be a number less than " + int.MaxValue.ToString();
+					MessageBox.Show(message, "Range Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					errorFlag = true;
-					//Console.WriteLine("Range needs to be a number");
 				}
-				catch (OverflowException)
-				{
-					string error = "Spell Range is too large a value.";
-					MessageBox.Show(error, "Range Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					errorFlag = true;
-					//Console.WriteLine("Range entered is out of bounds");
-				}
+
+				//// Sets the range of the spell
+				//try
+				//{
+				//	addedSpell[(string)colInfo[5, 0]] = Convert.ToInt32(rangeTBxF.Text);
+				//}
+				//catch (FormatException)
+				//{
+				//	string error = "Spell Range needs to be a number or blank.";
+				//	MessageBox.Show(error, "Range Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				//	errorFlag = true;
+				//	//Console.WriteLine("Range needs to be a number");
+				//}
+				//catch (OverflowException)
+				//{
+				//	string error = "Spell Range is too large a value.";
+				//	MessageBox.Show(error, "Range Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				//	errorFlag = true;
+				//	//Console.WriteLine("Range entered is out of bounds");
+				//}
 			}
 
 			// If the range has a value, ensure that it's valid
 			if(durationTBxF.Text != "")
 			{
-				// Sets the duration of the spell
-				try
+				int durInt;
+				if (int.TryParse(durationTBxF.Text, out durInt))
 				{
-					addedSpell[(string)colInfo[6, 0]] = Convert.ToInt32(durationTBxF.Text);
+					addedSpell[(string)colInfo[6, 0]] = durInt;
 				}
-				catch (FormatException)
+				else
 				{
-					string error = "Spell Duration needs to be a number or blank.";
-					MessageBox.Show(error, "Duration Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					string message = "Duration is invalid. The Duration needs to be a number less than " + int.MaxValue.ToString();
+					MessageBox.Show(message, "Duration Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					errorFlag = true;
-					//Console.WriteLine("Duration needs to be a number");
 				}
-				catch (OverflowException)
-				{
-					string error = "Spell Duration is too larrge a value.";
-					MessageBox.Show(error, "Duration Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					errorFlag = true;
-					//Console.WriteLine("Duration entered is out of bounds");
-				}
+				//// Sets the duration of the spell
+				//try
+				//{
+				//	addedSpell[(string)colInfo[6, 0]] = Convert.ToInt32(durationTBxF.Text);
+				//}
+				//catch (FormatException)
+				//{
+				//	string error = "Spell Duration needs to be a number or blank.";
+				//	MessageBox.Show(error, "Duration Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				//	errorFlag = true;
+				//	//Console.WriteLine("Duration needs to be a number");
+				//}
+				//catch (OverflowException)
+				//{
+				//	string error = "Spell Duration is too large a value.";
+				//	MessageBox.Show(error, "Duration Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				//	errorFlag = true;
+				//	//Console.WriteLine("Duration entered is out of bounds");
+				//}
 			}
 
 			// If the casting time yhas a value, ensure that it's valid
 			if(castingTimeTBxF.Text != "")
 			{
-				// Sets the castTimeValue of the spell
-				try
+				int castTimeInt;
+				if (int.TryParse(castingTimeTBxF.Text, out castTimeInt))
 				{
-					addedSpell[(string)colInfo[7, 0]] = Convert.ToInt32(castingTimeTBxF.Text);
+					addedSpell[(string)colInfo[7, 0]] = castTimeInt;
 				}
-				catch (FormatException)
+				else
 				{
-					string error = "Casting Time needs to be a number or blank.";
-					MessageBox.Show(error, "Casting Time Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					string message = "Casting Time is invalid. The Casting Time needs to be a number less than " + int.MaxValue.ToString();
+					MessageBox.Show(message, "Casting Time Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					errorFlag = true;
-					//Console.WriteLine("Casting Time needs to be a number");
 				}
-				catch (OverflowException)
-				{
-					string error = "Casting Time is too large a value.";
-					MessageBox.Show(error, "Casting Time Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					errorFlag = true;
-					//Console.WriteLine("Casting Time entered is out of bounds");
-				}
+				//// Sets the castTimeValue of the spell
+				//try
+				//{
+				//	addedSpell[(string)colInfo[7, 0]] = Convert.ToInt32(castingTimeTBxF.Text);
+				//}
+				//catch (FormatException)
+				//{
+				//	string error = "Casting Time needs to be a number or blank.";
+				//	MessageBox.Show(error, "Casting Time Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				//	errorFlag = true;
+				//	//Console.WriteLine("Casting Time needs to be a number");
+				//}
+				//catch (OverflowException)
+				//{
+				//	string error = "Casting Time is too large a value.";
+				//	MessageBox.Show(error, "Casting Time Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				//	errorFlag = true;
+				//	//Console.WriteLine("Casting Time entered is out of bounds");
+				//}
 			}
 
 			// Sets the castCondition of the spell
@@ -312,26 +380,29 @@ namespace SpellEntry
 			if(!errorFlag)
 			{
 				// Add the spell to the datatable
+				if(overwriteFlag)
+				{
+					spellsAdded.Rows.Remove(spellsAdded.Rows.Find(idInt));
+				}
 				try
 				{
 					spellsAdded.Rows.Add(addedSpell);
 				}
-				catch (ConstraintException)
+				catch (ConstraintException err) // These catches shouldn't happen if the code runs properly; just a catch all.
 				{
-					Console.WriteLine("Spell not added to datatable, some constraint (likely ID) is wrong.");
+					Console.WriteLine(err.Message);
+					//Console.WriteLine("Not a Pie. " + spellsAdded.Rows.Find(addedSpell["id"]).RowError.ToString());
+					//Console.WriteLine("Spell not added to datatable, some constraint (likely ID) is wrong.");
 				}
-				catch (NoNullAllowedException)
+				catch (NoNullAllowedException err)
 				{
-					Console.WriteLine("Spell needs to have an ID");
+					Console.WriteLine(err.Message);
+					//Console.WriteLine("Spell needs to have an ID");
 				}
 
-				//DataSet tempDataSet = new DataSet();
-				//tempDataSet.DataSetName = "root";
-				//tempDataSet.Tables.Add(spellsAdded);
+				spellDataSet.WriteXml("test.xml");
 
-				//tempDataSet.WriteXml("test.xml");
-
-				spellsAdded.WriteXml("test.xml");
+				//spellsAdded.WriteXml("test.xml");
 				resetFields();
 			}
 		}
@@ -341,6 +412,7 @@ namespace SpellEntry
 		{
 			spellIDLabel.ForeColor = errorColor;
 			spellIDTBxF.Clear();
+			spellIDTBxF.Focus();
 			spellNameTBxF.Clear();
 			spellLevelsCoBx.SelectedIndex = 0;
 			spellSchoolsCoBx.SelectedIndex = 0;
@@ -468,6 +540,12 @@ namespace SpellEntry
 		// Loads the currently selected spell into the editable fields
 		private void loadSpellBtn_Click(object sender, EventArgs e)
 		{
+			loadSpell();
+		}
+
+		// Performs the functions of loading the selected spell into the input fields.
+		private void loadSpell()
+		{
 			// Clears the fields to start again.
 			resetFields();
 			spellIDLabel.ForeColor = defaultColor;
@@ -589,6 +667,19 @@ namespace SpellEntry
 			else
 			{
 				castingTimeLabel.ForeColor = errorColor;
+			}
+		}
+
+		// Prompts a message box if the user wants to load the double clicked spell
+		private void spellsAddedDGV_MouseDoubleClick(object sender, MouseEventArgs e)
+		{
+			string spellName = spellsAddedDGV.SelectedRows[0].Cells["name"].Value.ToString();
+			string message = "Do you want to load " + spellName + "?\nAll unsaved data will be lost if you do so.";
+
+			var result = MessageBox.Show(message, "Load Spell?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+			if(result == DialogResult.Yes)
+			{
+				loadSpell();
 			}
 		}
 	}

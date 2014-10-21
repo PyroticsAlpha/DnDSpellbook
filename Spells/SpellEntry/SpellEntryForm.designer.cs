@@ -94,13 +94,14 @@
 			this.spellsAddedDGV.StandardTab = true;
 			this.spellsAddedDGV.TabIndex = 0;
 			this.spellsAddedDGV.SelectionChanged += new System.EventHandler(this.spellsAddedDGV_SelectionChange);
+			this.spellsAddedDGV.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.spellsAddedDGV_MouseDoubleClick);
 			// 
 			// spellIDTBxF
 			// 
 			this.spellIDTBxF.Location = new System.Drawing.Point(207, 12);
 			this.spellIDTBxF.Name = "spellIDTBxF";
 			this.spellIDTBxF.Size = new System.Drawing.Size(36, 20);
-			this.spellIDTBxF.TabIndex = 2;
+			this.spellIDTBxF.TabIndex = 4;
 			this.spellIDTBxF.Leave += new System.EventHandler(this.spellIDTBxF_Leave);
 			// 
 			// spellIDLabel
@@ -109,7 +110,7 @@
 			this.spellIDLabel.Location = new System.Drawing.Point(180, 15);
 			this.spellIDLabel.Name = "spellIDLabel";
 			this.spellIDLabel.Size = new System.Drawing.Size(21, 13);
-			this.spellIDLabel.TabIndex = 1;
+			this.spellIDLabel.TabIndex = 3;
 			this.spellIDLabel.Text = "ID:";
 			// 
 			// spellNameLabel
@@ -118,7 +119,7 @@
 			this.spellNameLabel.Location = new System.Drawing.Point(249, 15);
 			this.spellNameLabel.Name = "spellNameLabel";
 			this.spellNameLabel.Size = new System.Drawing.Size(38, 13);
-			this.spellNameLabel.TabIndex = 3;
+			this.spellNameLabel.TabIndex = 5;
 			this.spellNameLabel.Text = "Name:";
 			// 
 			// spellNameTBxF
@@ -126,7 +127,7 @@
 			this.spellNameTBxF.Location = new System.Drawing.Point(292, 12);
 			this.spellNameTBxF.Name = "spellNameTBxF";
 			this.spellNameTBxF.Size = new System.Drawing.Size(180, 20);
-			this.spellNameTBxF.TabIndex = 4;
+			this.spellNameTBxF.TabIndex = 6;
 			this.spellNameTBxF.Leave += new System.EventHandler(this.spellNameTBxF_Leave);
 			// 
 			// spellLevelsLabel
@@ -135,7 +136,7 @@
 			this.spellLevelsLabel.Location = new System.Drawing.Point(478, 16);
 			this.spellLevelsLabel.Name = "spellLevelsLabel";
 			this.spellLevelsLabel.Size = new System.Drawing.Size(36, 13);
-			this.spellLevelsLabel.TabIndex = 5;
+			this.spellLevelsLabel.TabIndex = 7;
 			this.spellLevelsLabel.Text = "Level:";
 			// 
 			// spellLevelsCoBx
@@ -156,7 +157,7 @@
 			this.spellLevelsCoBx.Location = new System.Drawing.Point(520, 13);
 			this.spellLevelsCoBx.Name = "spellLevelsCoBx";
 			this.spellLevelsCoBx.Size = new System.Drawing.Size(36, 21);
-			this.spellLevelsCoBx.TabIndex = 6;
+			this.spellLevelsCoBx.TabIndex = 8;
 			// 
 			// spellSchoolsCoBx
 			// 
@@ -174,7 +175,7 @@
 			this.spellSchoolsCoBx.Location = new System.Drawing.Point(613, 12);
 			this.spellSchoolsCoBx.Name = "spellSchoolsCoBx";
 			this.spellSchoolsCoBx.Size = new System.Drawing.Size(152, 21);
-			this.spellSchoolsCoBx.TabIndex = 8;
+			this.spellSchoolsCoBx.TabIndex = 10;
 			// 
 			// spellSchoolsLabel
 			// 
@@ -182,7 +183,7 @@
 			this.spellSchoolsLabel.Location = new System.Drawing.Point(571, 16);
 			this.spellSchoolsLabel.Name = "spellSchoolsLabel";
 			this.spellSchoolsLabel.Size = new System.Drawing.Size(43, 13);
-			this.spellSchoolsLabel.TabIndex = 7;
+			this.spellSchoolsLabel.TabIndex = 9;
 			this.spellSchoolsLabel.Text = "School:";
 			// 
 			// rangeLabel
@@ -191,7 +192,7 @@
 			this.rangeLabel.Location = new System.Drawing.Point(517, 49);
 			this.rangeLabel.Name = "rangeLabel";
 			this.rangeLabel.Size = new System.Drawing.Size(42, 13);
-			this.rangeLabel.TabIndex = 12;
+			this.rangeLabel.TabIndex = 14;
 			this.rangeLabel.Text = "Range:";
 			// 
 			// rangeTBxF
@@ -199,7 +200,7 @@
 			this.rangeTBxF.Location = new System.Drawing.Point(560, 46);
 			this.rangeTBxF.Name = "rangeTBxF";
 			this.rangeTBxF.Size = new System.Drawing.Size(54, 20);
-			this.rangeTBxF.TabIndex = 13;
+			this.rangeTBxF.TabIndex = 15;
 			this.rangeTBxF.Leave += new System.EventHandler(this.rangeTBxF_Leave);
 			// 
 			// durationLabel
@@ -208,7 +209,7 @@
 			this.durationLabel.Location = new System.Drawing.Point(622, 50);
 			this.durationLabel.Name = "durationLabel";
 			this.durationLabel.Size = new System.Drawing.Size(50, 13);
-			this.durationLabel.TabIndex = 14;
+			this.durationLabel.TabIndex = 16;
 			this.durationLabel.Text = "Duration:";
 			// 
 			// durationTBxF
@@ -216,7 +217,7 @@
 			this.durationTBxF.Location = new System.Drawing.Point(678, 46);
 			this.durationTBxF.Name = "durationTBxF";
 			this.durationTBxF.Size = new System.Drawing.Size(87, 20);
-			this.durationTBxF.TabIndex = 15;
+			this.durationTBxF.TabIndex = 17;
 			this.durationTBxF.Leave += new System.EventHandler(this.durationTBxF_Leave);
 			// 
 			// castingTimeLabel
@@ -225,7 +226,7 @@
 			this.castingTimeLabel.Location = new System.Drawing.Point(180, 81);
 			this.castingTimeLabel.Name = "castingTimeLabel";
 			this.castingTimeLabel.Size = new System.Drawing.Size(71, 13);
-			this.castingTimeLabel.TabIndex = 16;
+			this.castingTimeLabel.TabIndex = 18;
 			this.castingTimeLabel.Text = "Casting Time:";
 			// 
 			// castingTimeTBxF
@@ -233,7 +234,7 @@
 			this.castingTimeTBxF.Location = new System.Drawing.Point(257, 78);
 			this.castingTimeTBxF.Name = "castingTimeTBxF";
 			this.castingTimeTBxF.Size = new System.Drawing.Size(120, 20);
-			this.castingTimeTBxF.TabIndex = 17;
+			this.castingTimeTBxF.TabIndex = 19;
 			this.castingTimeTBxF.Leave += new System.EventHandler(this.castingTimeTBxF_Leave);
 			// 
 			// castingConditionLabel
@@ -242,7 +243,7 @@
 			this.castingConditionLabel.Location = new System.Drawing.Point(401, 81);
 			this.castingConditionLabel.Name = "castingConditionLabel";
 			this.castingConditionLabel.Size = new System.Drawing.Size(92, 13);
-			this.castingConditionLabel.TabIndex = 18;
+			this.castingConditionLabel.TabIndex = 20;
 			this.castingConditionLabel.Text = "Casting Condition:";
 			// 
 			// castingConditionTBxF
@@ -252,7 +253,7 @@
 			this.castingConditionTBxF.Name = "castingConditionTBxF";
 			this.castingConditionTBxF.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
 			this.castingConditionTBxF.Size = new System.Drawing.Size(266, 40);
-			this.castingConditionTBxF.TabIndex = 19;
+			this.castingConditionTBxF.TabIndex = 21;
 			this.castingConditionTBxF.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBxF_KeyDown);
 			// 
 			// reactionChBx
@@ -261,7 +262,7 @@
 			this.reactionChBx.Location = new System.Drawing.Point(238, 121);
 			this.reactionChBx.Name = "reactionChBx";
 			this.reactionChBx.Size = new System.Drawing.Size(69, 17);
-			this.reactionChBx.TabIndex = 21;
+			this.reactionChBx.TabIndex = 23;
 			this.reactionChBx.Text = "Reaction";
 			this.reactionChBx.UseVisualStyleBackColor = true;
 			// 
@@ -271,7 +272,7 @@
 			this.swiftChBx.Location = new System.Drawing.Point(183, 121);
 			this.swiftChBx.Name = "swiftChBx";
 			this.swiftChBx.Size = new System.Drawing.Size(49, 17);
-			this.swiftChBx.TabIndex = 20;
+			this.swiftChBx.TabIndex = 22;
 			this.swiftChBx.Text = "Swift";
 			this.swiftChBx.UseVisualStyleBackColor = true;
 			// 
@@ -281,7 +282,7 @@
 			this.spellDescriptionLabel.Location = new System.Drawing.Point(180, 141);
 			this.spellDescriptionLabel.Name = "spellDescriptionLabel";
 			this.spellDescriptionLabel.Size = new System.Drawing.Size(89, 13);
-			this.spellDescriptionLabel.TabIndex = 26;
+			this.spellDescriptionLabel.TabIndex = 28;
 			this.spellDescriptionLabel.Text = "Spell Description:";
 			// 
 			// spellDescriptionTBxF
@@ -292,7 +293,7 @@
 			this.spellDescriptionTBxF.Name = "spellDescriptionTBxF";
 			this.spellDescriptionTBxF.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
 			this.spellDescriptionTBxF.Size = new System.Drawing.Size(579, 140);
-			this.spellDescriptionTBxF.TabIndex = 27;
+			this.spellDescriptionTBxF.TabIndex = 29;
 			this.spellDescriptionTBxF.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBxF_KeyDown);
 			// 
 			// higherLevelsLabel
@@ -302,7 +303,7 @@
 			this.higherLevelsLabel.Location = new System.Drawing.Point(180, 311);
 			this.higherLevelsLabel.Name = "higherLevelsLabel";
 			this.higherLevelsLabel.Size = new System.Drawing.Size(88, 13);
-			this.higherLevelsLabel.TabIndex = 29;
+			this.higherLevelsLabel.TabIndex = 31;
 			this.higherLevelsLabel.Text = "At Higher Levels:";
 			// 
 			// higherLevelsTBxF
@@ -314,7 +315,7 @@
 			this.higherLevelsTBxF.Name = "higherLevelsTBxF";
 			this.higherLevelsTBxF.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
 			this.higherLevelsTBxF.Size = new System.Drawing.Size(582, 60);
-			this.higherLevelsTBxF.TabIndex = 30;
+			this.higherLevelsTBxF.TabIndex = 32;
 			this.higherLevelsTBxF.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBxF_KeyDown);
 			// 
 			// scaleableChBx
@@ -323,7 +324,7 @@
 			this.scaleableChBx.Location = new System.Drawing.Point(289, 310);
 			this.scaleableChBx.Name = "scaleableChBx";
 			this.scaleableChBx.Size = new System.Drawing.Size(73, 17);
-			this.scaleableChBx.TabIndex = 28;
+			this.scaleableChBx.TabIndex = 30;
 			this.scaleableChBx.Text = "Scaleable";
 			this.scaleableChBx.UseVisualStyleBackColor = true;
 			this.scaleableChBx.CheckedChanged += new System.EventHandler(this.scaleableChBx_CheckedChanged);
@@ -355,7 +356,7 @@
 			this.damageTypesChLBx.Name = "damageTypesChLBx";
 			this.damageTypesChLBx.RightToLeft = System.Windows.Forms.RightToLeft.No;
 			this.damageTypesChLBx.Size = new System.Drawing.Size(255, 75);
-			this.damageTypesChLBx.TabIndex = 32;
+			this.damageTypesChLBx.TabIndex = 34;
 			this.damageTypesChLBx.ThreeDCheckBoxes = true;
 			this.damageTypesChLBx.Enter += new System.EventHandler(this.chLBx_Enter);
 			this.damageTypesChLBx.KeyDown += new System.Windows.Forms.KeyEventHandler(this.chLBxTabOverride_KeyDown);
@@ -377,7 +378,7 @@
 			this.targetabilityChLBx.Name = "targetabilityChLBx";
 			this.targetabilityChLBx.RightToLeft = System.Windows.Forms.RightToLeft.No;
 			this.targetabilityChLBx.Size = new System.Drawing.Size(89, 60);
-			this.targetabilityChLBx.TabIndex = 34;
+			this.targetabilityChLBx.TabIndex = 36;
 			this.targetabilityChLBx.ThreeDCheckBoxes = true;
 			this.targetabilityChLBx.Enter += new System.EventHandler(this.chLBx_Enter);
 			this.targetabilityChLBx.KeyDown += new System.Windows.Forms.KeyEventHandler(this.chLBxTabOverride_KeyDown);
@@ -390,7 +391,7 @@
 			this.damageTypesLabel.Location = new System.Drawing.Point(180, 400);
 			this.damageTypesLabel.Name = "damageTypesLabel";
 			this.damageTypesLabel.Size = new System.Drawing.Size(82, 13);
-			this.damageTypesLabel.TabIndex = 31;
+			this.damageTypesLabel.TabIndex = 33;
 			this.damageTypesLabel.Text = "Damage Types:";
 			// 
 			// targetabilityLabel
@@ -399,7 +400,7 @@
 			this.targetabilityLabel.Location = new System.Drawing.Point(411, 400);
 			this.targetabilityLabel.Name = "targetabilityLabel";
 			this.targetabilityLabel.Size = new System.Drawing.Size(67, 13);
-			this.targetabilityLabel.TabIndex = 33;
+			this.targetabilityLabel.TabIndex = 35;
 			this.targetabilityLabel.Text = "Targetability:";
 			// 
 			// addTagsLabel
@@ -408,7 +409,7 @@
 			this.addTagsLabel.Location = new System.Drawing.Point(507, 400);
 			this.addTagsLabel.Name = "addTagsLabel";
 			this.addTagsLabel.Size = new System.Drawing.Size(83, 13);
-			this.addTagsLabel.TabIndex = 35;
+			this.addTagsLabel.TabIndex = 37;
 			this.addTagsLabel.Text = "Additional Tags:";
 			// 
 			// addTagsChLBx
@@ -428,7 +429,7 @@
 			this.addTagsChLBx.Name = "addTagsChLBx";
 			this.addTagsChLBx.RightToLeft = System.Windows.Forms.RightToLeft.No;
 			this.addTagsChLBx.Size = new System.Drawing.Size(89, 75);
-			this.addTagsChLBx.TabIndex = 36;
+			this.addTagsChLBx.TabIndex = 38;
 			this.addTagsChLBx.ThreeDCheckBoxes = true;
 			this.addTagsChLBx.Enter += new System.EventHandler(this.chLBx_Enter);
 			this.addTagsChLBx.KeyDown += new System.Windows.Forms.KeyEventHandler(this.chLBxTabOverride_KeyDown);
@@ -451,7 +452,7 @@
 			this.componentChLBx.Name = "componentChLBx";
 			this.componentChLBx.RightToLeft = System.Windows.Forms.RightToLeft.No;
 			this.componentChLBx.Size = new System.Drawing.Size(100, 15);
-			this.componentChLBx.TabIndex = 9;
+			this.componentChLBx.TabIndex = 11;
 			this.componentChLBx.ThreeDCheckBoxes = true;
 			this.componentChLBx.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.componentChLBx_ItemCheck);
 			this.componentChLBx.Enter += new System.EventHandler(this.chLBx_Enter);
@@ -465,7 +466,7 @@
 			this.materialCostTBxF.Location = new System.Drawing.Point(359, 47);
 			this.materialCostTBxF.Name = "materialCostTBxF";
 			this.materialCostTBxF.Size = new System.Drawing.Size(152, 20);
-			this.materialCostTBxF.TabIndex = 11;
+			this.materialCostTBxF.TabIndex = 13;
 			// 
 			// materialCostLabel
 			// 
@@ -474,7 +475,7 @@
 			this.materialCostLabel.Location = new System.Drawing.Point(289, 50);
 			this.materialCostLabel.Name = "materialCostLabel";
 			this.materialCostLabel.Size = new System.Drawing.Size(71, 13);
-			this.materialCostLabel.TabIndex = 10;
+			this.materialCostLabel.TabIndex = 12;
 			this.materialCostLabel.Text = "Material Cost:";
 			// 
 			// saveSpellBtn
@@ -482,7 +483,7 @@
 			this.saveSpellBtn.Location = new System.Drawing.Point(686, 400);
 			this.saveSpellBtn.Name = "saveSpellBtn";
 			this.saveSpellBtn.Size = new System.Drawing.Size(75, 23);
-			this.saveSpellBtn.TabIndex = 38;
+			this.saveSpellBtn.TabIndex = 39;
 			this.saveSpellBtn.Text = "Save Spell";
 			this.saveSpellBtn.UseVisualStyleBackColor = true;
 			this.saveSpellBtn.Click += new System.EventHandler(this.saveSpellBtn_Click);
@@ -493,7 +494,7 @@
 			this.attackRollChBx.Location = new System.Drawing.Point(414, 121);
 			this.attackRollChBx.Name = "attackRollChBx";
 			this.attackRollChBx.Size = new System.Drawing.Size(78, 17);
-			this.attackRollChBx.TabIndex = 23;
+			this.attackRollChBx.TabIndex = 25;
 			this.attackRollChBx.Text = "Attack Roll";
 			this.attackRollChBx.UseVisualStyleBackColor = true;
 			// 
@@ -503,7 +504,7 @@
 			this.savingThrowChBx.Location = new System.Drawing.Point(316, 121);
 			this.savingThrowChBx.Name = "savingThrowChBx";
 			this.savingThrowChBx.Size = new System.Drawing.Size(92, 17);
-			this.savingThrowChBx.TabIndex = 22;
+			this.savingThrowChBx.TabIndex = 24;
 			this.savingThrowChBx.Text = "Saving Throw";
 			this.savingThrowChBx.UseVisualStyleBackColor = true;
 			// 
@@ -513,7 +514,7 @@
 			this.concentrationChBx.Location = new System.Drawing.Point(557, 121);
 			this.concentrationChBx.Name = "concentrationChBx";
 			this.concentrationChBx.Size = new System.Drawing.Size(92, 17);
-			this.concentrationChBx.TabIndex = 25;
+			this.concentrationChBx.TabIndex = 27;
 			this.concentrationChBx.Text = "Concentration";
 			this.concentrationChBx.UseVisualStyleBackColor = true;
 			// 
@@ -523,7 +524,7 @@
 			this.ritualChBx.Location = new System.Drawing.Point(499, 121);
 			this.ritualChBx.Name = "ritualChBx";
 			this.ritualChBx.Size = new System.Drawing.Size(53, 17);
-			this.ritualChBx.TabIndex = 24;
+			this.ritualChBx.TabIndex = 26;
 			this.ritualChBx.Text = "Ritual";
 			this.ritualChBx.UseVisualStyleBackColor = true;
 			// 
@@ -533,7 +534,7 @@
 			this.loadSpellBtn.Location = new System.Drawing.Point(11, 484);
 			this.loadSpellBtn.Name = "loadSpellBtn";
 			this.loadSpellBtn.Size = new System.Drawing.Size(75, 23);
-			this.loadSpellBtn.TabIndex = 39;
+			this.loadSpellBtn.TabIndex = 1;
 			this.loadSpellBtn.Text = "Load Spell";
 			this.loadSpellBtn.UseVisualStyleBackColor = true;
 			this.loadSpellBtn.Click += new System.EventHandler(this.loadSpellBtn_Click);
@@ -544,7 +545,7 @@
 			this.deleteSpellBtn.Location = new System.Drawing.Point(92, 484);
 			this.deleteSpellBtn.Name = "deleteSpellBtn";
 			this.deleteSpellBtn.Size = new System.Drawing.Size(75, 23);
-			this.deleteSpellBtn.TabIndex = 40;
+			this.deleteSpellBtn.TabIndex = 2;
 			this.deleteSpellBtn.Text = "Delete Spell";
 			this.deleteSpellBtn.UseVisualStyleBackColor = true;
 			this.deleteSpellBtn.Click += new System.EventHandler(this.deleteSpellBtn_Click);
