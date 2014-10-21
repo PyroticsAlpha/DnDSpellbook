@@ -8,11 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Spells
+namespace SpellEntry
 {
 	public partial class SpellEntryForm : Form
 	{
 		private DataTable spellsAdded;
+		private Color defaultColor = SystemColors.ControlText;
+		private Color errorColor = Color.Red;
 
 		// colInfo is the list of all of the columns for the dataTable/tags for the XML EXCEPT for ID. Which is assumed as a given.
 		private readonly object[,] colInfo = new object[,]{
@@ -45,9 +47,8 @@ namespace Spells
 		{
 			InitializeComponent();
 			// Sets default values for the ComboBoxes
-			spellLevelsCoBx.SelectedIndex = 0;
-			spellSchoolsCoBx.SelectedIndex = 0;
 			initializeSpellDatatable();
+			resetFields();
 		}
 
 		// A method that initializes the spellsAdded DataTable (properties & columns specifically)
@@ -67,15 +68,15 @@ namespace Spells
 			//tempColumn.Unique = true;
 			//tempColumn.AllowDBNull = false;
 
-			for (int i = 0; i < colInfo.GetLength(0); i++)
+			for(int i = 0; i < colInfo.GetLength(0); i++)
 			{
 				spellsAdded.Columns.Add((string)colInfo[i, 0], (Type)colInfo[i, 1]);
 			}
 
 			// Applies the data to the DGV
 			spellsAddedDGV.DataSource = spellsAdded.DefaultView;
-			foreach (DataGridViewColumn col in spellsAddedDGV.Columns)
-				if (col.Name != "id" && col.Name != "name")
+			foreach(DataGridViewColumn col in spellsAddedDGV.Columns)
+				if(col.Name != "id" && col.Name != "name")
 					col.Visible = false;
 
 			int idColWidth = 30;
@@ -86,19 +87,36 @@ namespace Spells
 		private void saveSpellBtn_Click(object sender, EventArgs e)
 		{
 			DataRow addedSpell = spellsAdded.NewRow();
+			Boolean errorFlag = false; // errorFlag determines if an error prevents the spell from being saved.
 
-			// Set the id value
-			try 
-			{ 
-				addedSpell["id"] = Convert.ToInt32(spellIDTBxF.Text); 
-			}
-			catch(FormatException)
+			// Ensure that spellID has a value
+			if(spellIDTBxF.Text == "")
 			{
-				Console.WriteLine("ID needs to be a number");
+				string error = "Spell ID needs to have a value.";
+				MessageBox.Show(error, "ID Missing!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				errorFlag = true;
 			}
-			catch(OverflowException)
+			else
 			{
-				Console.WriteLine("ID entered is out of bounds");
+				// Set the id value and throw error messages if something is amiss
+				try
+				{
+					addedSpell["id"] = Convert.ToInt32(spellIDTBxF.Text);
+				}
+				catch (FormatException)
+				{
+					//Console.WriteLine("ID needs to be a number");
+					string error = "Spell ID needs to exist and be a number.";
+					MessageBox.Show(error, "ID Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					errorFlag = true;
+				}
+				catch (OverflowException)
+				{
+					//Console.WriteLine("ID entered is out of bounds");
+					string error = "The spell ID is too large a value.";
+					MessageBox.Show(error, "ID Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					errorFlag = true;
+				}
 			}
 
 			// Set the name of the row
@@ -116,11 +134,11 @@ namespace Spells
 			{
 				vsmValue += 1;
 			}
-			if (componentChLBx.GetItemChecked(1)) // S
+			if(componentChLBx.GetItemChecked(1)) // S
 			{
 				vsmValue += 2;
 			}
-			if (componentChLBx.GetItemChecked(2)) // M
+			if(componentChLBx.GetItemChecked(2)) // M
 			{
 				vsmValue += 4;
 			}
@@ -132,47 +150,86 @@ namespace Spells
 			{
 				addedSpell[(string)colInfo[4, 0]] = materialCostTBxF.Text;
 			}
-
-			// Sets the range of the spell
-			try
+			else if(materialCostTBxF.Text != "") // if the materialCostTBxF is disabled but has text; throw a message to the user
 			{
-				addedSpell[(string)colInfo[5, 0]] = Convert.ToInt32(rangeTBxF.Text);
-			}
-			catch (FormatException)
-			{
-				Console.WriteLine("Range needs to be a number");
-			}
-			catch (OverflowException)
-			{
-				Console.WriteLine("Range entered is out of bounds");
+				string message = "Material Cost is entered but spell has no materials. \nPress 'OK' if you want ignore the Material Cost field (the data will be lost).";
+				var result = MessageBox.Show(message , "Are you sure?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+				if(result == DialogResult.Cancel)
+				{
+					errorFlag = true; // Not technically an error but serves the same purpose of not saving the spell.
+				}
 			}
 
-			// Sets the duration of the spell
-			try
+			// If the range has a value, ensure that it's valid
+			if(rangeTBxF.Text != "")
 			{
-				addedSpell[(string)colInfo[6, 0]] = Convert.ToInt32(durationTBxF.Text);
-			}
-			catch (FormatException)
-			{
-				Console.WriteLine("Duration needs to be a number");
-			}
-			catch (OverflowException)
-			{
-				Console.WriteLine("Duration entered is out of bounds");
+				// Sets the range of the spell
+				try
+				{
+					addedSpell[(string)colInfo[5, 0]] = Convert.ToInt32(rangeTBxF.Text);
+				}
+				catch (FormatException)
+				{
+					string error = "Spell Range needs to be a number or blank.";
+					MessageBox.Show(error, "Range Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					errorFlag = true;
+					//Console.WriteLine("Range needs to be a number");
+				}
+				catch (OverflowException)
+				{
+					string error = "Spell Range is too large a value.";
+					MessageBox.Show(error, "Range Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					errorFlag = true;
+					//Console.WriteLine("Range entered is out of bounds");
+				}
 			}
 
-			// Sets the castTimeValue of the spell
-			try
+			// If the range has a value, ensure that it's valid
+			if(durationTBxF.Text != "")
 			{
-				addedSpell[(string)colInfo[7, 0]] = Convert.ToInt32(castingTimeTBxF.Text);
+				// Sets the duration of the spell
+				try
+				{
+					addedSpell[(string)colInfo[6, 0]] = Convert.ToInt32(durationTBxF.Text);
+				}
+				catch (FormatException)
+				{
+					string error = "Spell Duration needs to be a number or blank.";
+					MessageBox.Show(error, "Duration Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					errorFlag = true;
+					//Console.WriteLine("Duration needs to be a number");
+				}
+				catch (OverflowException)
+				{
+					string error = "Spell Duration is too larrge a value.";
+					MessageBox.Show(error, "Duration Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					errorFlag = true;
+					//Console.WriteLine("Duration entered is out of bounds");
+				}
 			}
-			catch (FormatException)
+
+			// If the casting time yhas a value, ensure that it's valid
+			if(castingTimeTBxF.Text != "")
 			{
-				Console.WriteLine("Casting Time needs to be a number");
-			}
-			catch (OverflowException)
-			{
-				Console.WriteLine("Casting Time entered is out of bounds");
+				// Sets the castTimeValue of the spell
+				try
+				{
+					addedSpell[(string)colInfo[7, 0]] = Convert.ToInt32(castingTimeTBxF.Text);
+				}
+				catch (FormatException)
+				{
+					string error = "Casting Time needs to be a number or blank.";
+					MessageBox.Show(error, "Casting Time Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					errorFlag = true;
+					//Console.WriteLine("Casting Time needs to be a number");
+				}
+				catch (OverflowException)
+				{
+					string error = "Casting Time is too large a value.";
+					MessageBox.Show(error, "Casting Time Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					errorFlag = true;
+					//Console.WriteLine("Casting Time entered is out of bounds");
+				}
 			}
 
 			// Sets the castCondition of the spell
@@ -203,7 +260,19 @@ namespace Spells
 			addedSpell[(string)colInfo[16, 0]] = scaleableChBx.Checked;
 
 			// Sets the atHigherLevels string of the spell
-			addedSpell[(string)colInfo[17, 0]] = higherLevelsTBxF.Text;
+			if (higherLevelsTBxF.Enabled)
+			{
+				addedSpell[(string)colInfo[17, 0]] = higherLevelsTBxF.Text;
+			}
+			else if(higherLevelsTBxF.Text != "") // if the higherlevelsTBxF has text in it but is disabled
+			{
+				string message = "At Higher Levels has text entered but the spell is not scaleable. \nPress 'OK' if you want ignore the At Higher Levels field (the data will be lost).";
+				var result = MessageBox.Show(message, "Are you sure?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+				if (result == DialogResult.Cancel)
+				{
+					errorFlag = true; // Not technically an error but serves the same purpose of not saving the spell.
+				}
+			}
 
 			// Sets the damtypes of the spell (if any)
 			if (damageTypesChLBx.CheckedItems.Count > 0)
@@ -240,38 +309,42 @@ namespace Spells
 				addedSpell[(string)colInfo[22, 0]] = tags;
 			}
 
-			// Add the spell to the datatable
-			try
+			if(!errorFlag)
 			{
-				spellsAdded.Rows.Add(addedSpell);
-			}
-			catch (ConstraintException)
-			{
-				Console.WriteLine("Spell not added to datatable, some constraint (likely ID) is wrong.");
-			}
-			catch (NoNullAllowedException)
-			{
-				Console.WriteLine("Spell needs to have an ID");
-			}
+				// Add the spell to the datatable
+				try
+				{
+					spellsAdded.Rows.Add(addedSpell);
+				}
+				catch (ConstraintException)
+				{
+					Console.WriteLine("Spell not added to datatable, some constraint (likely ID) is wrong.");
+				}
+				catch (NoNullAllowedException)
+				{
+					Console.WriteLine("Spell needs to have an ID");
+				}
 
-			//DataSet tempDataSet = new DataSet();
-			//tempDataSet.DataSetName = "root";
-			//tempDataSet.Tables.Add(spellsAdded);
+				//DataSet tempDataSet = new DataSet();
+				//tempDataSet.DataSetName = "root";
+				//tempDataSet.Tables.Add(spellsAdded);
 
-			//tempDataSet.WriteXml("test.xml");
+				//tempDataSet.WriteXml("test.xml");
 
-			spellsAdded.WriteXml("test.xml");
-			resetFields();
+				spellsAdded.WriteXml("test.xml");
+				resetFields();
+			}
 		}
 
 		// resets the fields to their defaults
 		private void resetFields()
 		{
+			spellIDLabel.ForeColor = errorColor;
 			spellIDTBxF.Clear();
 			spellNameTBxF.Clear();
 			spellLevelsCoBx.SelectedIndex = 0;
 			spellSchoolsCoBx.SelectedIndex = 0;
-			foreach(int i in componentChLBx.CheckedIndices)
+			foreach (int i in componentChLBx.CheckedIndices)
 			{
 				componentChLBx.SetItemChecked(i, false); ;
 			}
@@ -397,6 +470,7 @@ namespace Spells
 		{
 			// Clears the fields to start again.
 			resetFields();
+			spellIDLabel.ForeColor = defaultColor;
 
 			// Gets the spell data from the spellsAdded DataTable by way of the spellsAddedDGV DGV
 			DataRow spellToLoad = spellsAdded.Rows.Find(spellsAddedDGV.SelectedRows[0].Cells["id"].Value);
@@ -432,7 +506,7 @@ namespace Spells
 			higherLevelsTBxF.Text = spellToLoad[(string)colInfo[17, 0]].ToString();
 
 			String damTypeList = spellToLoad[(string)colInfo[18, 0]].ToString();
-			for(int i = 0; i < damageTypesChLBx.Items.Count; i++)
+			for (int i = 0; i < damageTypesChLBx.Items.Count; i++)
 			{
 				damageTypesChLBx.SetItemChecked(i, damTypeList.Contains(damageTypesChLBx.Items[i].ToString()));
 			}
@@ -442,9 +516,79 @@ namespace Spells
 			targetabilityChLBx.SetItemChecked(2, (bool)spellToLoad[(string)colInfo[21, 0]]);
 
 			String addTagsList = spellToLoad[(string)colInfo[22, 0]].ToString();
-			for(int i = 0; i < addTagsChLBx.Items.Count; i++)
+			for (int i = 0; i < addTagsChLBx.Items.Count; i++)
 			{
 				addTagsChLBx.SetItemChecked(i, addTagsList.Contains(addTagsChLBx.Items[i].ToString()));
+			}
+		}
+
+		// Validates that spellID took an integer value
+		private void spellIDTBxF_Leave(object sender, EventArgs e)
+		{
+			int toss = 0; // Honestly useless integer, but TryParse has no override that doesn't require it.
+			if(int.TryParse(spellIDTBxF.Text, out toss))
+			{
+				spellIDLabel.ForeColor = defaultColor;
+			}
+			else
+			{
+				spellIDLabel.ForeColor = errorColor;
+			}
+		}
+
+		// Validates that he spellID did NOT take an integer value
+		private void spellNameTBxF_Leave(object sender, EventArgs e)
+		{
+			int toss = 0; // Honestly useless integer, but TryParse has no override that doesn't require it.
+			if(int.TryParse(spellNameLabel.Text, out toss))
+			{
+				spellNameLabel.ForeColor = errorColor;
+			}
+			else
+			{
+				spellNameLabel.ForeColor = defaultColor;
+			}
+		}
+
+		// Validates that the range is either an integer or blank
+		private void rangeTBxF_Leave(object sender, EventArgs e)
+		{
+			int toss = 0; // Honestly useless integer, but TryParse has no override that doesn't require it.
+			if(rangeTBxF.Text == "" | int.TryParse(rangeTBxF.Text, out toss))
+			{
+				rangeLabel.ForeColor = defaultColor;
+			}
+			else
+			{
+				rangeLabel.ForeColor = errorColor;
+			}
+		}
+
+		// Validates that the duration is either an integer or blank
+		private void durationTBxF_Leave(object sender, EventArgs e)
+		{
+			int toss = 0; // Honestly useless integer, but TryParse has no override that doesn't require it.
+			if (durationTBxF.Text == "" | int.TryParse(durationTBxF.Text, out toss))
+			{
+				durationLabel.ForeColor = defaultColor;
+			}
+			else
+			{
+				durationLabel.ForeColor = errorColor;
+			}
+		}
+
+		// Validates that the casting time is either an integer or blank
+		private void castingTimeTBxF_Leave(object sender, EventArgs e)
+		{
+			int toss = 0; // Honestly useless integer, but TryParse has no override that doesn't require it.
+			if (castingTimeTBxF.Text == "" | int.TryParse(castingTimeTBxF.Text, out toss))
+			{
+				castingTimeLabel.ForeColor = defaultColor;
+			}
+			else
+			{
+				castingTimeLabel.ForeColor = errorColor;
 			}
 		}
 	}

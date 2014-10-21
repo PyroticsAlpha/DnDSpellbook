@@ -16,7 +16,7 @@ namespace SpellEntry
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new Spells.SpellEntryForm());
+			Application.Run(new SpellEntry.SpellEntryForm());
 		}
 	}
 }

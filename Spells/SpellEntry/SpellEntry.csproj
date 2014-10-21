@@ -59,20 +59,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Spells\SpellEntryForm.cs">
-      <Link>SpellEntryForm.cs</Link>
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="..\Spells\SpellEntryForm.designer.cs">
-      <Link>SpellEntryForm.designer.cs</Link>
-      <DependentUpon>SpellEntryForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="..\Spells\SpellEntryForm.resx">
-      <Link>SpellEntryForm.resx</Link>
+    <Compile Include="SpellEntryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SpellEntryForm.designer.cs">
       <DependentUpon>SpellEntryForm.cs</DependentUpon>
-    </EmbeddedResource>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -82,6 +76,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="SpellEntryForm.resx">
+      <DependentUpon>SpellEntryForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

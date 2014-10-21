@@ -1,4 +1,4 @@
-﻿namespace Spells
+﻿namespace SpellEntry
 {
 	partial class SpellEntryForm
 	{
@@ -101,6 +101,7 @@
 			this.spellIDTBxF.Name = "spellIDTBxF";
 			this.spellIDTBxF.Size = new System.Drawing.Size(36, 20);
 			this.spellIDTBxF.TabIndex = 2;
+			this.spellIDTBxF.Leave += new System.EventHandler(this.spellIDTBxF_Leave);
 			// 
 			// spellIDLabel
 			// 
@@ -126,6 +127,7 @@
 			this.spellNameTBxF.Name = "spellNameTBxF";
 			this.spellNameTBxF.Size = new System.Drawing.Size(180, 20);
 			this.spellNameTBxF.TabIndex = 4;
+			this.spellNameTBxF.Leave += new System.EventHandler(this.spellNameTBxF_Leave);
 			// 
 			// spellLevelsLabel
 			// 
@@ -198,6 +200,7 @@
 			this.rangeTBxF.Name = "rangeTBxF";
 			this.rangeTBxF.Size = new System.Drawing.Size(54, 20);
 			this.rangeTBxF.TabIndex = 13;
+			this.rangeTBxF.Leave += new System.EventHandler(this.rangeTBxF_Leave);
 			// 
 			// durationLabel
 			// 
@@ -214,6 +217,7 @@
 			this.durationTBxF.Name = "durationTBxF";
 			this.durationTBxF.Size = new System.Drawing.Size(87, 20);
 			this.durationTBxF.TabIndex = 15;
+			this.durationTBxF.Leave += new System.EventHandler(this.durationTBxF_Leave);
 			// 
 			// castingTimeLabel
 			// 
@@ -230,6 +234,7 @@
 			this.castingTimeTBxF.Name = "castingTimeTBxF";
 			this.castingTimeTBxF.Size = new System.Drawing.Size(120, 20);
 			this.castingTimeTBxF.TabIndex = 17;
+			this.castingTimeTBxF.Leave += new System.EventHandler(this.castingTimeTBxF_Leave);
 			// 
 			// castingConditionLabel
 			// 

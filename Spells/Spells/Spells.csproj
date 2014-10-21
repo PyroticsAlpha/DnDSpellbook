@@ -55,6 +55,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>sqlite\System.Data.SQLite.dll</HintPath>
     </Reference>
+    <Reference Include="System.Data.SQLite.EF6">
+      <HintPath>sqlite\System.Data.SQLite.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq">
+      <HintPath>sqlite\System.Data.SQLite.Linq.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -80,12 +86,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="SpellEntryForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SpellEntryForm.Designer.cs">
-      <DependentUpon>SpellEntryForm.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -102,9 +102,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="SpellEntryForm.resx">
-      <DependentUpon>SpellEntryForm.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
