@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			this.spellsAddedDGV = new System.Windows.Forms.DataGridView();
 			this.spellIDTBxF = new System.Windows.Forms.TextBox();
 			this.spellIDLabel = new System.Windows.Forms.Label();
@@ -68,6 +69,8 @@
 			this.ritualChBx = new System.Windows.Forms.CheckBox();
 			this.loadSpellBtn = new System.Windows.Forms.Button();
 			this.deleteSpellBtn = new System.Windows.Forms.Button();
+			this.sefTT = new System.Windows.Forms.ToolTip(this.components);
+			this.exportXMLBtn = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.spellsAddedDGV)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -550,11 +553,22 @@
 			this.deleteSpellBtn.UseVisualStyleBackColor = true;
 			this.deleteSpellBtn.Click += new System.EventHandler(this.deleteSpellBtn_Click);
 			// 
+			// exportXMLBtn
+			// 
+			this.exportXMLBtn.Location = new System.Drawing.Point(686, 484);
+			this.exportXMLBtn.Name = "exportXMLBtn";
+			this.exportXMLBtn.Size = new System.Drawing.Size(75, 23);
+			this.exportXMLBtn.TabIndex = 40;
+			this.exportXMLBtn.Text = "Export XML";
+			this.exportXMLBtn.UseVisualStyleBackColor = true;
+			this.exportXMLBtn.Click += new System.EventHandler(this.exportXMLBtn_Click);
+			// 
 			// SpellEntryForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(779, 519);
+			this.Controls.Add(this.exportXMLBtn);
 			this.Controls.Add(this.deleteSpellBtn);
 			this.Controls.Add(this.loadSpellBtn);
 			this.Controls.Add(this.concentrationChBx);
@@ -647,5 +661,7 @@
 		private System.Windows.Forms.CheckBox ritualChBx;
 		private System.Windows.Forms.Button loadSpellBtn;
 		private System.Windows.Forms.Button deleteSpellBtn;
+		private System.Windows.Forms.ToolTip sefTT;
+		private System.Windows.Forms.Button exportXMLBtn;
 	}
 }

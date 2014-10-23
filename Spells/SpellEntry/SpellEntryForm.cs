@@ -49,7 +49,41 @@ namespace SpellEntry
 			InitializeComponent();
 			// Sets default values for the ComboBoxes
 			initializeSpellDatatable();
+			initializeToolTips();
 			resetFields();
+		}
+
+
+		// A method that initializes the tooltips for the form
+		public void initializeToolTips()
+		{
+			sefTT.SetToolTip(spellsAddedDGV, "Your currently created spells are stored here. Double click or click Load to load a spell.");
+			sefTT.SetToolTip(spellIDTBxF, "A numerical identifier for spells. Must be a number less than 2,147,483,647");
+			sefTT.SetToolTip(spellNameTBxF, "A name for the spell. Must not be a number.");
+			sefTT.SetToolTip(spellLevelsCoBx, "The spell's level; 0 is cantrip.");
+			sefTT.SetToolTip(spellSchoolsCoBx, "The spell's school.");
+			sefTT.SetToolTip(componentChLBx, "Whether the spell has (V)ocal, (S)omatic, and/or (M)aterial components");
+			sefTT.SetToolTip(materialCostTBxF, "The material cost of the spell (if any)");
+			sefTT.SetToolTip(rangeTBxF, "Range of the spell in feet.");
+			sefTT.SetToolTip(durationTBxF, "Duration of spell in ROUNDS. 0 is instantaneous. 6 seconds/round, 10 rounds/minute");
+			sefTT.SetToolTip(castingTimeTBxF, "Time it takes to cast the spell in ROUNDS. 6 Seconds/Round, 10 rounds/minute");
+			sefTT.SetToolTip(castingConditionTBxF, "Conditions for casting the spell. Generally used for Reaction spells.");
+			sefTT.SetToolTip(swiftChBx, "Whether the spell can be cast as a bonus action.");
+			sefTT.SetToolTip(reactionChBx, "Whether the spell can be cast as a reaction.");
+			sefTT.SetToolTip(savingThrowChBx, "Whether the spell requires a saving throw.");
+			sefTT.SetToolTip(attackRollChBx, "Whether the spell requires an attack roll.");
+			sefTT.SetToolTip(ritualChBx, "Whether the spell can be cast as a ritual.");
+			sefTT.SetToolTip(concentrationChBx, "Whether the spell requires the caster to maintain concentration.");
+			sefTT.SetToolTip(spellDescriptionTBxF, "The description of the spell.");
+			sefTT.SetToolTip(scaleableChBx, "Whether the spell can get stronger with levels (player or casted level)");
+			sefTT.SetToolTip(higherLevelsTBxF, "The \"At higher levels\" text of the spell.");
+			sefTT.SetToolTip(damageTypesChLBx, "The damage types the spell inflicts, if any.");
+			sefTT.SetToolTip(targetabilityChLBx, "Whether the spell has an Area of Effect (AoE), can target a single thing, and/or can target multiple things");
+			sefTT.SetToolTip(addTagsChLBx, "Healing = spell restores Heallth.\nDamaging = spell damages Health.\nCrowd Control = spell restricts movement/action of target(s).\nBuffing = spell enhances the target.\nUtility = spell provides out-of-combat utility.");
+			sefTT.SetToolTip(saveSpellBtn, "Saves the entered data as a spell in the table.");
+			sefTT.SetToolTip(deleteSpellBtn, "Deletes the selected spell from the table.");
+			sefTT.SetToolTip(loadSpellBtn, "Loads the selected spell into the editable fields.");
+			sefTT.SetToolTip(exportXMLBtn, "Saves the current spell (if there is one) to the spell table and writes the whole spell table to an XML file.");
 		}
 
 		// A method that initializes the spellsAdded DataTable (properties & columns specifically)
@@ -91,14 +125,22 @@ namespace SpellEntry
 
 		private void saveSpellBtn_Click(object sender, EventArgs e)
 		{
+			saveSpell();
+
+			spellDataSet.WriteXml("backup.xml");
+		}
+
+		// Saves the spell information from the data fields into the spellsAdded datatable (unless errors)
+		private void saveSpell()
+		{
 			DataRow addedSpell = spellsAdded.NewRow();
 			bool errorFlag = false; // errorFlag determines if an error prevents the spell from being saved.
 			bool overwriteFlag = false; // a flag for if the id is the same and an overwrite is requrested. (using a flag instead of doing it when it's encountered allows for other errors to be revealed before 
-										// deleting
+			// deleting
 			int idInt = -0;
 
 			// Ensure that spellID has a value
-			if(spellIDTBxF.Text == "")
+			if (spellIDTBxF.Text == "")
 			{
 				string error = "Spell ID needs to have a value.";
 				MessageBox.Show(error, "ID Missing!", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -107,14 +149,14 @@ namespace SpellEntry
 			else
 			{
 				// Determine if the entered ID Value is an integer 
-				if(int.TryParse(spellIDTBxF.Text, out idInt))
+				if (int.TryParse(spellIDTBxF.Text, out idInt))
 				{
 					// Checks to see that the id doesn't already exist in the data table
-					if(spellsAdded.Rows.Contains(idInt))
+					if (spellsAdded.Rows.Contains(idInt))
 					{
 						string message = "A spell with the same ID is already in the data table. \nPress 'OK' to overwrite the existing spell or 'Cancel' to not.";
 						var result = MessageBox.Show(message, "Overwrite?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-						if(result == DialogResult.Cancel)
+						if (result == DialogResult.Cancel)
 						{
 							errorFlag = true;
 						}
@@ -164,15 +206,15 @@ namespace SpellEntry
 
 			// Set the VSM values of the spell (VSM is stored as a "binary" value (represented in decimal) ex. 111 = 7 = V, S, and M are true)
 			int vsmValue = 0;
-			if(componentChLBx.GetItemChecked(0)) // V
+			if (componentChLBx.GetItemChecked(0)) // V
 			{
 				vsmValue += 1;
 			}
-			if(componentChLBx.GetItemChecked(1)) // S
+			if (componentChLBx.GetItemChecked(1)) // S
 			{
 				vsmValue += 2;
 			}
-			if(componentChLBx.GetItemChecked(2)) // M
+			if (componentChLBx.GetItemChecked(2)) // M
 			{
 				vsmValue += 4;
 			}
@@ -180,25 +222,25 @@ namespace SpellEntry
 			addedSpell[(string)colInfo[3, 0]] = vsmValue;
 
 			// Sets the materials of the spell (if there are any)
-			if(materialCostTBxF.Enabled)
+			if (materialCostTBxF.Enabled)
 			{
 				addedSpell[(string)colInfo[4, 0]] = materialCostTBxF.Text;
 			}
-			else if(materialCostTBxF.Text != "") // if the materialCostTBxF is disabled but has text; throw a message to the user
+			else if (materialCostTBxF.Text != "") // if the materialCostTBxF is disabled but has text; throw a message to the user
 			{
 				string message = "Material Cost is entered but spell has no materials. \nPress 'OK' if you want ignore the Material Cost field (the data will be lost).";
-				var result = MessageBox.Show(message , "Are you sure?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-				if(result == DialogResult.Cancel)
+				var result = MessageBox.Show(message, "Are you sure?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+				if (result == DialogResult.Cancel)
 				{
 					errorFlag = true; // Not technically an error but serves the same purpose of not saving the spell.
 				}
 			}
 
 			// If the range has a value, ensure that it's valid
-			if(rangeTBxF.Text != "")
+			if (rangeTBxF.Text != "")
 			{
 				int rangeInt;
-				if(int.TryParse(rangeTBxF.Text, out rangeInt))
+				if (int.TryParse(rangeTBxF.Text, out rangeInt))
 				{
 					addedSpell[(string)colInfo[5, 0]] = rangeInt;
 				}
@@ -231,7 +273,7 @@ namespace SpellEntry
 			}
 
 			// If the range has a value, ensure that it's valid
-			if(durationTBxF.Text != "")
+			if (durationTBxF.Text != "")
 			{
 				int durInt;
 				if (int.TryParse(durationTBxF.Text, out durInt))
@@ -266,7 +308,7 @@ namespace SpellEntry
 			}
 
 			// If the casting time yhas a value, ensure that it's valid
-			if(castingTimeTBxF.Text != "")
+			if (castingTimeTBxF.Text != "")
 			{
 				int castTimeInt;
 				if (int.TryParse(castingTimeTBxF.Text, out castTimeInt))
@@ -314,7 +356,7 @@ namespace SpellEntry
 
 			// sets if the spell has an ar
 			addedSpell[(string)colInfo[12, 0]] = attackRollChBx.Checked;
-			
+
 			// Sets the if the spell has a ritual
 			addedSpell[(string)colInfo[13, 0]] = ritualChBx.Checked;
 
@@ -332,7 +374,7 @@ namespace SpellEntry
 			{
 				addedSpell[(string)colInfo[17, 0]] = higherLevelsTBxF.Text;
 			}
-			else if(higherLevelsTBxF.Text != "") // if the higherlevelsTBxF has text in it but is disabled
+			else if (higherLevelsTBxF.Text != "") // if the higherlevelsTBxF has text in it but is disabled
 			{
 				string message = "At Higher Levels has text entered but the spell is not scaleable. \nPress 'OK' if you want ignore the At Higher Levels field (the data will be lost).";
 				var result = MessageBox.Show(message, "Are you sure?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
@@ -377,10 +419,10 @@ namespace SpellEntry
 				addedSpell[(string)colInfo[22, 0]] = tags;
 			}
 
-			if(!errorFlag)
+			if (!errorFlag)
 			{
 				// Add the spell to the datatable
-				if(overwriteFlag)
+				if (overwriteFlag)
 				{
 					spellsAdded.Rows.Remove(spellsAdded.Rows.Find(idInt));
 				}
@@ -400,7 +442,7 @@ namespace SpellEntry
 					//Console.WriteLine("Spell needs to have an ID");
 				}
 
-				spellDataSet.WriteXml("test.xml");
+				//spellDataSet.WriteXml("test.xml");
 
 				//spellsAdded.WriteXml("test.xml");
 				resetFields();
@@ -680,6 +722,25 @@ namespace SpellEntry
 			if(result == DialogResult.Yes)
 			{
 				loadSpell();
+			}
+		}
+
+		// Saves the currently entered spell (if there is one)
+		private void exportXMLBtn_Click(object sender, EventArgs e)
+		{
+			// Admittedly not a full check for data entry, but will assume that no spellID means no spell meant to be save.
+			if(spellIDTBxF.Text != "")
+			{
+				saveSpell();
+			}
+
+			// Prompts the user to save an xml file with a SaveFileDialog
+			SaveFileDialog saveXML = new SaveFileDialog();
+			saveXML.Filter = "XML files (*.xml)|*.xml";
+
+			if(saveXML.ShowDialog() == DialogResult.OK)
+			{
+				spellDataSet.WriteXml(saveXML.FileName);
 			}
 		}
 	}
