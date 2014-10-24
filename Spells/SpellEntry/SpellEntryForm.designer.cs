@@ -71,6 +71,7 @@
 			this.deleteSpellBtn = new System.Windows.Forms.Button();
 			this.sefTT = new System.Windows.Forms.ToolTip(this.components);
 			this.exportXMLBtn = new System.Windows.Forms.Button();
+			this.importXMLBtn = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.spellsAddedDGV)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -262,7 +263,7 @@
 			// reactionChBx
 			// 
 			this.reactionChBx.AutoSize = true;
-			this.reactionChBx.Location = new System.Drawing.Point(238, 121);
+			this.reactionChBx.Location = new System.Drawing.Point(293, 121);
 			this.reactionChBx.Name = "reactionChBx";
 			this.reactionChBx.Size = new System.Drawing.Size(69, 17);
 			this.reactionChBx.TabIndex = 23;
@@ -272,7 +273,7 @@
 			// swiftChBx
 			// 
 			this.swiftChBx.AutoSize = true;
-			this.swiftChBx.Location = new System.Drawing.Point(183, 121);
+			this.swiftChBx.Location = new System.Drawing.Point(238, 121);
 			this.swiftChBx.Name = "swiftChBx";
 			this.swiftChBx.Size = new System.Drawing.Size(49, 17);
 			this.swiftChBx.TabIndex = 22;
@@ -295,7 +296,7 @@
 			this.spellDescriptionTBxF.Multiline = true;
 			this.spellDescriptionTBxF.Name = "spellDescriptionTBxF";
 			this.spellDescriptionTBxF.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.spellDescriptionTBxF.Size = new System.Drawing.Size(579, 140);
+			this.spellDescriptionTBxF.Size = new System.Drawing.Size(579, 168);
 			this.spellDescriptionTBxF.TabIndex = 29;
 			this.spellDescriptionTBxF.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBxF_KeyDown);
 			// 
@@ -303,7 +304,7 @@
 			// 
 			this.higherLevelsLabel.AutoSize = true;
 			this.higherLevelsLabel.Enabled = false;
-			this.higherLevelsLabel.Location = new System.Drawing.Point(180, 311);
+			this.higherLevelsLabel.Location = new System.Drawing.Point(180, 334);
 			this.higherLevelsLabel.Name = "higherLevelsLabel";
 			this.higherLevelsLabel.Size = new System.Drawing.Size(88, 13);
 			this.higherLevelsLabel.TabIndex = 31;
@@ -313,18 +314,18 @@
 			// 
 			this.higherLevelsTBxF.AcceptsReturn = true;
 			this.higherLevelsTBxF.Enabled = false;
-			this.higherLevelsTBxF.Location = new System.Drawing.Point(183, 327);
+			this.higherLevelsTBxF.Location = new System.Drawing.Point(183, 350);
 			this.higherLevelsTBxF.Multiline = true;
 			this.higherLevelsTBxF.Name = "higherLevelsTBxF";
 			this.higherLevelsTBxF.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.higherLevelsTBxF.Size = new System.Drawing.Size(582, 60);
+			this.higherLevelsTBxF.Size = new System.Drawing.Size(578, 60);
 			this.higherLevelsTBxF.TabIndex = 32;
 			this.higherLevelsTBxF.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tBxF_KeyDown);
 			// 
 			// scaleableChBx
 			// 
 			this.scaleableChBx.AutoSize = true;
-			this.scaleableChBx.Location = new System.Drawing.Point(289, 310);
+			this.scaleableChBx.Location = new System.Drawing.Point(289, 333);
 			this.scaleableChBx.Name = "scaleableChBx";
 			this.scaleableChBx.Size = new System.Drawing.Size(73, 17);
 			this.scaleableChBx.TabIndex = 30;
@@ -354,7 +355,7 @@
             "Psychic",
             "Poison",
             "Other"});
-			this.damageTypesChLBx.Location = new System.Drawing.Point(183, 416);
+			this.damageTypesChLBx.Location = new System.Drawing.Point(183, 432);
 			this.damageTypesChLBx.MultiColumn = true;
 			this.damageTypesChLBx.Name = "damageTypesChLBx";
 			this.damageTypesChLBx.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -377,7 +378,7 @@
             "AoE",
             "Single Target",
             "Multi Target"});
-			this.targetabilityChLBx.Location = new System.Drawing.Point(414, 416);
+			this.targetabilityChLBx.Location = new System.Drawing.Point(414, 432);
 			this.targetabilityChLBx.Name = "targetabilityChLBx";
 			this.targetabilityChLBx.RightToLeft = System.Windows.Forms.RightToLeft.No;
 			this.targetabilityChLBx.Size = new System.Drawing.Size(89, 60);
@@ -391,7 +392,7 @@
 			// damageTypesLabel
 			// 
 			this.damageTypesLabel.AutoSize = true;
-			this.damageTypesLabel.Location = new System.Drawing.Point(180, 400);
+			this.damageTypesLabel.Location = new System.Drawing.Point(180, 416);
 			this.damageTypesLabel.Name = "damageTypesLabel";
 			this.damageTypesLabel.Size = new System.Drawing.Size(82, 13);
 			this.damageTypesLabel.TabIndex = 33;
@@ -400,7 +401,7 @@
 			// targetabilityLabel
 			// 
 			this.targetabilityLabel.AutoSize = true;
-			this.targetabilityLabel.Location = new System.Drawing.Point(411, 400);
+			this.targetabilityLabel.Location = new System.Drawing.Point(411, 416);
 			this.targetabilityLabel.Name = "targetabilityLabel";
 			this.targetabilityLabel.Size = new System.Drawing.Size(67, 13);
 			this.targetabilityLabel.TabIndex = 35;
@@ -409,7 +410,7 @@
 			// addTagsLabel
 			// 
 			this.addTagsLabel.AutoSize = true;
-			this.addTagsLabel.Location = new System.Drawing.Point(507, 400);
+			this.addTagsLabel.Location = new System.Drawing.Point(507, 416);
 			this.addTagsLabel.Name = "addTagsLabel";
 			this.addTagsLabel.Size = new System.Drawing.Size(83, 13);
 			this.addTagsLabel.TabIndex = 37;
@@ -428,7 +429,7 @@
             "Crowd Control",
             "Buffing",
             "Utility"});
-			this.addTagsChLBx.Location = new System.Drawing.Point(510, 416);
+			this.addTagsChLBx.Location = new System.Drawing.Point(510, 432);
 			this.addTagsChLBx.Name = "addTagsChLBx";
 			this.addTagsChLBx.RightToLeft = System.Windows.Forms.RightToLeft.No;
 			this.addTagsChLBx.Size = new System.Drawing.Size(89, 75);
@@ -483,9 +484,9 @@
 			// 
 			// saveSpellBtn
 			// 
-			this.saveSpellBtn.Location = new System.Drawing.Point(686, 400);
+			this.saveSpellBtn.Location = new System.Drawing.Point(605, 416);
 			this.saveSpellBtn.Name = "saveSpellBtn";
-			this.saveSpellBtn.Size = new System.Drawing.Size(75, 23);
+			this.saveSpellBtn.Size = new System.Drawing.Size(75, 91);
 			this.saveSpellBtn.TabIndex = 39;
 			this.saveSpellBtn.Text = "Save Spell";
 			this.saveSpellBtn.UseVisualStyleBackColor = true;
@@ -494,7 +495,7 @@
 			// attackRollChBx
 			// 
 			this.attackRollChBx.AutoSize = true;
-			this.attackRollChBx.Location = new System.Drawing.Point(414, 121);
+			this.attackRollChBx.Location = new System.Drawing.Point(469, 121);
 			this.attackRollChBx.Name = "attackRollChBx";
 			this.attackRollChBx.Size = new System.Drawing.Size(78, 17);
 			this.attackRollChBx.TabIndex = 25;
@@ -504,7 +505,7 @@
 			// savingThrowChBx
 			// 
 			this.savingThrowChBx.AutoSize = true;
-			this.savingThrowChBx.Location = new System.Drawing.Point(316, 121);
+			this.savingThrowChBx.Location = new System.Drawing.Point(371, 121);
 			this.savingThrowChBx.Name = "savingThrowChBx";
 			this.savingThrowChBx.Size = new System.Drawing.Size(92, 17);
 			this.savingThrowChBx.TabIndex = 24;
@@ -514,7 +515,7 @@
 			// concentrationChBx
 			// 
 			this.concentrationChBx.AutoSize = true;
-			this.concentrationChBx.Location = new System.Drawing.Point(557, 121);
+			this.concentrationChBx.Location = new System.Drawing.Point(612, 121);
 			this.concentrationChBx.Name = "concentrationChBx";
 			this.concentrationChBx.Size = new System.Drawing.Size(92, 17);
 			this.concentrationChBx.TabIndex = 27;
@@ -524,7 +525,7 @@
 			// ritualChBx
 			// 
 			this.ritualChBx.AutoSize = true;
-			this.ritualChBx.Location = new System.Drawing.Point(499, 121);
+			this.ritualChBx.Location = new System.Drawing.Point(554, 121);
 			this.ritualChBx.Name = "ritualChBx";
 			this.ritualChBx.Size = new System.Drawing.Size(53, 17);
 			this.ritualChBx.TabIndex = 26;
@@ -555,19 +556,30 @@
 			// 
 			// exportXMLBtn
 			// 
-			this.exportXMLBtn.Location = new System.Drawing.Point(686, 484);
+			this.exportXMLBtn.Location = new System.Drawing.Point(686, 416);
 			this.exportXMLBtn.Name = "exportXMLBtn";
-			this.exportXMLBtn.Size = new System.Drawing.Size(75, 23);
+			this.exportXMLBtn.Size = new System.Drawing.Size(75, 45);
 			this.exportXMLBtn.TabIndex = 40;
 			this.exportXMLBtn.Text = "Export XML";
 			this.exportXMLBtn.UseVisualStyleBackColor = true;
 			this.exportXMLBtn.Click += new System.EventHandler(this.exportXMLBtn_Click);
+			// 
+			// importXMLBtn
+			// 
+			this.importXMLBtn.Location = new System.Drawing.Point(686, 462);
+			this.importXMLBtn.Name = "importXMLBtn";
+			this.importXMLBtn.Size = new System.Drawing.Size(75, 45);
+			this.importXMLBtn.TabIndex = 41;
+			this.importXMLBtn.Text = "Import XML";
+			this.importXMLBtn.UseVisualStyleBackColor = true;
+			this.importXMLBtn.Click += new System.EventHandler(this.importXMLBtn_Click);
 			// 
 			// SpellEntryForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(779, 519);
+			this.Controls.Add(this.importXMLBtn);
 			this.Controls.Add(this.exportXMLBtn);
 			this.Controls.Add(this.deleteSpellBtn);
 			this.Controls.Add(this.loadSpellBtn);
@@ -663,5 +675,6 @@
 		private System.Windows.Forms.Button deleteSpellBtn;
 		private System.Windows.Forms.ToolTip sefTT;
 		private System.Windows.Forms.Button exportXMLBtn;
+		private System.Windows.Forms.Button importXMLBtn;
 	}
 }

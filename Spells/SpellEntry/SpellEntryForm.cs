@@ -84,6 +84,7 @@ namespace SpellEntry
 			sefTT.SetToolTip(deleteSpellBtn, "Deletes the selected spell from the table.");
 			sefTT.SetToolTip(loadSpellBtn, "Loads the selected spell into the editable fields.");
 			sefTT.SetToolTip(exportXMLBtn, "Saves the current spell (if there is one) to the spell table and writes the whole spell table to an XML file.");
+			sefTT.SetToolTip(importXMLBtn, "Imports spells from an XML File, will allow for overwrites is desired.");
 		}
 
 		// A method that initializes the spellsAdded DataTable (properties & columns specifically)
@@ -114,7 +115,8 @@ namespace SpellEntry
 				if(col.Name != "id" && col.Name != "name")
 					col.Visible = false;
 
-			int idColWidth = 30;
+
+			int idColWidth = 45;
 			spellsAddedDGV.Columns[0].Width = idColWidth;
 			spellsAddedDGV.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
@@ -660,7 +662,7 @@ namespace SpellEntry
 		private void spellNameTBxF_Leave(object sender, EventArgs e)
 		{
 			int toss = 0; // Honestly useless integer, but TryParse has no override that doesn't require it.
-			if(int.TryParse(spellNameLabel.Text, out toss))
+			if(int.TryParse(spellNameTBxF.Text, out toss))
 			{
 				spellNameLabel.ForeColor = errorColor;
 			}
@@ -741,6 +743,105 @@ namespace SpellEntry
 			if(saveXML.ShowDialog() == DialogResult.OK)
 			{
 				spellDataSet.WriteXml(saveXML.FileName);
+			}
+		}
+
+		private void importXMLBtn_Click(object sender, EventArgs e)
+		{
+			OpenFileDialog openXML = new OpenFileDialog();
+			openXML.Filter = "XML files (*.xml)|*.xml";
+
+			if(openXML.ShowDialog() == DialogResult.OK)
+			{
+				if (spellDataSet.Tables[0].Rows.Count > 0)
+				{
+					// Create 2 temps dataSet matching the schema of dataSet
+					DataSet temp = spellDataSet.Clone();
+					DataSet temp2 = spellDataSet.Clone();
+					
+					try
+					{
+						// If anything throws an exception; it's this
+						temp.ReadXml(openXML.FileName, XmlReadMode.ReadSchema);
+
+						// a string of the repeated/ignored spellIDs/names
+						string ignoredSpells = "Ignored Spells with used IDs:\r\n";
+						string ignoredSpellstxt = "";
+						int conflictCounter = 0;
+						const int MAXCON = 6;
+
+						foreach (DataRow toAdd in temp.Tables[0].Rows)
+						{
+							// Find the spellID Conflicts
+							if (spellDataSet.Tables[0].Rows.Contains(toAdd["id"]))
+							{
+								if (conflictCounter < MAXCON)
+								{
+									ignoredSpells += toAdd["id"] + " - " + toAdd[colInfo[0, 0].ToString()] + " \r\n";
+									ignoredSpellstxt = ignoredSpells;
+								}
+								else
+								{
+									ignoredSpellstxt += toAdd["id"] + " - " + toAdd[colInfo[0, 0].ToString()] + "\r\n";
+								}
+								conflictCounter++;
+							}
+							else
+							{
+								temp2.Tables[0].ImportRow(toAdd);
+							}
+						}
+
+						// Displays a MessageBox indicating what spells (if any) were ignored
+						if (conflictCounter > 0)
+						{
+							if (conflictCounter >= MAXCON)
+							{
+								ignoredSpells += "And " + (conflictCounter - MAXCON) + " more.\n";
+							}
+							ignoredSpells += "Conflicts were saved to 'conflicts.txt'.\n\nDo you wish to overwrite the conflicts?\n(press 'Cancel' to import nothing)";
+
+							// Writes the conflicts to a file for later perusal
+							System.IO.File.WriteAllText("conflicts.txt", ignoredSpellstxt);
+
+							// Ask if the user wishes to continue
+							var results = MessageBox.Show(ignoredSpells, "Spell Conflicts Detected.", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Error);
+							if (results == DialogResult.No) // The user wants to continue with the load without overwriting.
+							{
+								foreach (DataRow toAdd in temp2.Tables[0].Rows)
+								{
+									spellDataSet.Tables[0].ImportRow(toAdd);
+								}
+							}
+							else if (results == DialogResult.Yes) // The user wants to override the conflicts
+							{
+								foreach (DataRow toAdd in temp.Tables[0].Rows)
+								{
+									if (spellDataSet.Tables[0].Rows.Contains(toAdd["id"])) // overwrite
+									{
+										spellDataSet.Tables[0].Rows.Remove(spellDataSet.Tables[0].Rows.Find(toAdd["id"]));
+									}
+									spellDataSet.Tables[0].ImportRow(toAdd);
+								}
+							}
+						}
+					}
+					catch (Exception) // This is kind of a lame way of dealing with this issue.
+					{
+						MessageBox.Show("Something is wrong with the .xml file and it wasn't imported.", "Oh No!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					}
+				}
+				else
+				{
+					try
+					{
+						spellDataSet.ReadXml(openXML.FileName, XmlReadMode.ReadSchema);
+					}
+					catch (Exception) // This is kind of a lame way of dealing with this issue.
+					{
+						MessageBox.Show("Something is wrong with the .xml file and it wasn't imported.", "Oh No!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					}
+				}
 			}
 		}
 	}
