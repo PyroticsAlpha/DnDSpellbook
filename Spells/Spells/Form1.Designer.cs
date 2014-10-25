@@ -49,10 +49,10 @@
 			this.srchLevelsAllBox = new System.Windows.Forms.CheckBox();
 			this.cstmGBx = new System.Windows.Forms.GroupBox();
 			this.cstmRestoreDefaultsBtn = new System.Windows.Forms.Button();
-			this.cstmImportBtn = new System.Windows.Forms.Button();
 			this.cstmEditClassesBtn = new System.Windows.Forms.Button();
-			this.cstmAddSpellBtn = new System.Windows.Forms.Button();
 			this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+			this.cstmAddSpellBtn = new System.Windows.Forms.Button();
+			this.cstmImportBtn = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.rsltsSearchResultsDGV)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.rsltsDataSet)).BeginInit();
 			this.sbGB.SuspendLayout();
@@ -178,7 +178,6 @@
 			this.srchGBx.Controls.Add(this.srchSpellNameTBF);
 			this.srchGBx.Controls.Add(this.srchSchoolPanel);
 			this.srchGBx.Controls.Add(this.srchLevelsPanel);
-			this.srchGBx.Enabled = false;
 			this.srchGBx.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.srchGBx.Location = new System.Drawing.Point(12, 116);
 			this.srchGBx.Name = "srchGBx";
@@ -309,7 +308,6 @@
 			this.cstmGBx.Controls.Add(this.cstmImportBtn);
 			this.cstmGBx.Controls.Add(this.cstmEditClassesBtn);
 			this.cstmGBx.Controls.Add(this.cstmAddSpellBtn);
-			this.cstmGBx.Enabled = false;
 			this.cstmGBx.Location = new System.Drawing.Point(12, 64);
 			this.cstmGBx.Name = "cstmGBx";
 			this.cstmGBx.Size = new System.Drawing.Size(760, 46);
@@ -325,16 +323,6 @@
 			this.cstmRestoreDefaultsBtn.TabIndex = 13;
 			this.cstmRestoreDefaultsBtn.Text = "Restore Defaults";
 			this.cstmRestoreDefaultsBtn.UseVisualStyleBackColor = true;
-			// 
-			// cstmImportBtn
-			// 
-			this.cstmImportBtn.Location = new System.Drawing.Point(242, 17);
-			this.cstmImportBtn.Name = "cstmImportBtn";
-			this.cstmImportBtn.Size = new System.Drawing.Size(75, 23);
-			this.cstmImportBtn.TabIndex = 0;
-			this.cstmImportBtn.Text = "Import";
-			this.cstmImportBtn.UseVisualStyleBackColor = true;
-			this.cstmImportBtn.Click += new System.EventHandler(this.cstmImportBtn_Click);
 			// 
 			// cstmEditClassesBtn
 			// 
@@ -354,6 +342,16 @@
 			this.cstmAddSpellBtn.Text = "Add Spell";
 			this.cstmAddSpellBtn.UseVisualStyleBackColor = true;
 			// 
+			// cstmImportBtn
+			// 
+			this.cstmImportBtn.Location = new System.Drawing.Point(242, 17);
+			this.cstmImportBtn.Name = "cstmImportBtn";
+			this.cstmImportBtn.Size = new System.Drawing.Size(75, 23);
+			this.cstmImportBtn.TabIndex = 0;
+			this.cstmImportBtn.Text = "Import";
+			this.cstmImportBtn.UseVisualStyleBackColor = true;
+			this.cstmImportBtn.Click += new System.EventHandler(this.cstmImportBtn_Click);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -368,6 +366,7 @@
 			this.Margin = new System.Windows.Forms.Padding(2);
 			this.MinimumSize = new System.Drawing.Size(800, 500);
 			this.Name = "MainForm";
+			this.Text = "DnD Spell Book Database";
 			this.Load += new System.EventHandler(this.MainForm_Load);
 			((System.ComponentModel.ISupportInitialize)(this.rsltsSearchResultsDGV)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.rsltsDataSet)).EndInit();
@@ -397,10 +396,8 @@
         private System.Windows.Forms.Button sbExportBtn;
         private System.Windows.Forms.GroupBox srchGBx;
         private System.Windows.Forms.GroupBox cstmGBx;
-        private System.Windows.Forms.Button cstmRestoreDefaultsBtn;
-        private System.Windows.Forms.Button cstmImportBtn;
-        private System.Windows.Forms.Button cstmEditClassesBtn;
-        private System.Windows.Forms.Button cstmAddSpellBtn;
+		private System.Windows.Forms.Button cstmRestoreDefaultsBtn;
+		private System.Windows.Forms.Button cstmEditClassesBtn;
         private System.Windows.Forms.CheckedListBox srchLevelsChLBx;
         private System.Windows.Forms.CheckedListBox srchSchoolChLBx;
         private System.Windows.Forms.CheckBox srchLevelsAllBox;
@@ -412,6 +409,8 @@
 		private System.Windows.Forms.TextBox srchSpellNameTBF;
 		private System.Windows.Forms.OpenFileDialog openFileDialog1;
 		private System.Windows.Forms.Button sbDeleteBtn;
+		private System.Windows.Forms.Button cstmImportBtn;
+		private System.Windows.Forms.Button cstmAddSpellBtn;
     }
 }
 

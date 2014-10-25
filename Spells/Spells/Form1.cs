@@ -20,7 +20,8 @@ namespace Spells
 		private const string dbColNamesSQLVerbose = "(id int NOT NULL UNIQUE, name varchar(30) NOT NULL, level int, description text)";
 
 		private SQLiteConnection dbConn;
-		public System.Collections.Generic.List<string> spellbooks;
+		private SQLiteCommand command;
+		private System.Collections.Generic.List<string> spellbooks;
 
 
 
@@ -46,34 +47,28 @@ namespace Spells
 			//establish connection
 			dbConn = new SQLiteConnection("Data Source=" + dbFilename + "; Version=3;");
 			dbConn.Open();
+			command = new SQLiteCommand(dbConn);
 
 			//create spellbooks table if not exists
-			string sql = "CREATE TABLE IF NOT EXISTS 'spellbooks' (name varchar(30) NOT NULL UNIQUE)";
-			SQLiteCommand command = new SQLiteCommand(sql, dbConn);
+			command.CommandText = "CREATE TABLE IF NOT EXISTS 'spellbooks' (name varchar(30) NOT NULL UNIQUE)";
 			command.ExecuteNonQuery();
 
-			sql = "INSERT OR IGNORE INTO spellbooks (name) VALUES ('defaults')";
-			command = new SQLiteCommand(sql, dbConn);
+			command.CommandText = "INSERT OR IGNORE INTO spellbooks (name) VALUES ('defaults')";
 			command.ExecuteNonQuery();
 
 			//create defaults table if not exists
-			sql = "CREATE TABLE IF NOT EXISTS 'defaults' " + dbColNamesSQLVerbose;
-			command = new SQLiteCommand(sql, dbConn);
+			command.CommandText = "CREATE TABLE IF NOT EXISTS 'defaults' " + dbColNamesSQLVerbose;
 			command.ExecuteNonQuery();
 
 			//populate comboBox1 contents
-			this.spellbooks = new List<string>();
-			sql = "SELECT name FROM spellbooks;";
+			spellbooks = new List<string>();
+			command.CommandText = "SELECT name FROM spellbooks;";
 			try
 			{
-				command = new SQLiteCommand(sql, dbConn);
 				SQLiteDataReader rdr = command.ExecuteReader();
-				Console.WriteLine(rdr.ToString());
 				while (rdr.Read())
-				{
-					this.spellbooks.Add(rdr.GetFieldValue<string>(0));
-				}
-				this.sbBookNamesCoBx.DataSource = this.spellbooks;
+					spellbooks.Add(rdr.GetFieldValue<string>(0));
+				sbBookNamesCoBx.DataSource = spellbooks;
 			}
 			catch (SQLiteException ex)
 			{
@@ -91,50 +86,35 @@ namespace Spells
         {
 			DataSet temp = new DataSet();
 			temp.ReadXml(XMLfilename);
-
 			return temp;
         }
 
-        private void fillDatabase(string sbName, DataSet data)
+        private void addRowsToTable(string sbName, DataTable table)
         {
 			//ADD TO DATABASE
 
 			//add new table name to spellbooks
-			SQLiteCommand command = new SQLiteCommand(dbConn);
-			string sql;
-			sql = "INSERT OR IGNORE INTO spellbooks (name) VALUES ('" + sbName + "')";
-			command = new SQLiteCommand(sql, dbConn);
+			command.CommandText = "INSERT OR IGNORE INTO spellbooks (name) VALUES ('" + sbName + "')";
 			command.ExecuteNonQuery();
 
 			//create new table if not exists
-			sql = "CREATE TABLE IF NOT EXISTS '" + sbName + "' " +dbColNamesSQLVerbose;
-			command = new SQLiteCommand(sql, dbConn);
+			command.CommandText = "CREATE TABLE IF NOT EXISTS '" + sbName + "' " + dbColNamesSQLVerbose;
 			command.ExecuteNonQuery();
 
 			//add row to database if it has a unique id
-			DataTable dtable = data.Tables["spell"];
-
-			addRowsToTable(sbName, dtable);	
-        }
-
-        private void addRowsToTable(string dbTableName, DataTable table)
-        {
-            using(SQLiteCommand command = new SQLiteCommand(dbConn))
+            foreach (DataRow row in table.Rows)
             {
-                foreach (DataRow row in table.Rows)
-                {
-					if (row.Field<string>(table.Columns["id"]) != "")
+				if (row.Field<string>(table.Columns["id"]) != "")
+				{
+					command.CommandText = "INSERT OR IGNORE INTO '" + sbName + "' " + dbColNamesSQL + " VALUES (@p1, @p2, @p3, @p4)";
+					int i = 1;
+					foreach (string colName in dbColNames)
 					{
-						command.CommandText = "INSERT OR IGNORE INTO '" + dbTableName + "' " + dbColNamesSQL + " VALUES (@p1, @p2, @p3, @p4)";
-						int i = 1;
-						foreach (string colName in dbColNames)
-						{
-							command.Parameters.AddWithValue("@p" + i, (table.Columns.Contains(colName) ? row[colName].ToString() : ""));
-							i++;
-						}
-						command.ExecuteNonQuery();
+						command.Parameters.AddWithValue("@p" + i, (table.Columns.Contains(colName) ? row[colName].ToString() : ""));
+						i++;
 					}
-                }
+					command.ExecuteNonQuery();
+				}
             }
         }
 
@@ -142,10 +122,8 @@ namespace Spells
 		{
 			if (sbBookNamesCoBx.DataSource != null)
 			{
-				Debug.WriteLine("loading db:" + sbBookNamesCoBx.Text);
+				Debug.WriteLine("-loading db:" + sbBookNamesCoBx.Text);
 
-				srchGBx.Enabled = true;
-				cstmGBx.Enabled = true;
 				rsltsDetailsTB.Text = "";
 				rsltsDataSet = new DataSet();
 
@@ -157,20 +135,10 @@ namespace Spells
 				foreach (DataGridViewColumn col in rsltsSearchResultsDGV.Columns)
 					if (col.Name != "id" && col.Name != "name")
 						col.Visible = false;
-				rsltsSearchResultsDGV.Columns["id"].Width = 25;
+				rsltsSearchResultsDGV.Columns["id"].Width = 40;
 				rsltsSearchResultsDGV.Columns["name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-				this.rsltsSearchResultsDGV.Sort(this.rsltsSearchResultsDGV.Columns["name"], ListSortDirection.Ascending);
-				//TODO - change DGV column fill setup
+				rsltsSearchResultsDGV.Sort(rsltsSearchResultsDGV.Columns["id"], ListSortDirection.Ascending);
 			}
-		}
-
-		private void unloadDatabase()
-		{
-			srchGBx.Enabled = false;
-			cstmGBx.Enabled = false;
-			//this.loadedDatabase = "";
-			rsltsSearchResultsDGV.DataSource = null;
-			rsltsDetailsTB.Text = "";
 		}
 		
 		#endregion
@@ -197,7 +165,7 @@ namespace Spells
 			if (result == DialogResult.OK) // Test result.
 			{
 				file = openFileDialog1.FileName;
-				fillDatabase(sbBookNamesCoBx.Text, importXML(openFileDialog1.FileName));
+				addRowsToTable(sbBookNamesCoBx.Text, importXML(openFileDialog1.FileName).Tables["spell"]);
 			}
 			loadSelectedDatabase();
 		}
@@ -209,42 +177,37 @@ namespace Spells
 			if (result == DialogResult.OK) // Test result.
 			{
 				//add new table name to spellbooks
-				string sql = "INSERT OR IGNORE INTO spellbooks (name) VALUES ('" + createDialog.bookName + "')";
-				SQLiteCommand command = new SQLiteCommand(sql, dbConn);
+				command.CommandText = "INSERT OR IGNORE INTO 'spellbooks' (name) VALUES ('" + createDialog.bookName + "')";
 				command.ExecuteNonQuery();
 				
 				//create new table if not exists
-				sql = "CREATE TABLE IF NOT EXISTS '" + createDialog.bookName + "' " + dbColNamesSQLVerbose;
-				command = new SQLiteCommand(sql, dbConn);
+				command.CommandText = "CREATE TABLE IF NOT EXISTS '" + createDialog.bookName + "' " + dbColNamesSQLVerbose;
 				command.ExecuteNonQuery();
 
 				if (!spellbooks.Contains(createDialog.bookName))
 					spellbooks.Add(createDialog.bookName);
-				this.sbBookNamesCoBx.DataSource = null;
-				this.sbBookNamesCoBx.DataSource = spellbooks;
-				this.sbBookNamesCoBx.Text = createDialog.bookName;
+				sbBookNamesCoBx.DataSource = null;
+				sbBookNamesCoBx.DataSource = spellbooks;
+				sbBookNamesCoBx.Text = createDialog.bookName;
 			}
 		}
 
 		private void sbDeleteBtn_Click(object sender, EventArgs e)
 		{
 
-			var result = MessageBox.Show("are you sure", "wha", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+			var result = MessageBox.Show("This will permanently delete the spell book '"+sbBookNamesCoBx.SelectedItem+ "'. Are you sure you want to continue?", "Delete Spellbook", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
 			if(result == DialogResult.Yes)
 			{
-				string sql = "DELETE FROM 'spellbooks' WHERE name='" + sbBookNamesCoBx.SelectedItem + "';";
-				SQLiteCommand command = new SQLiteCommand(sql, dbConn);
+				command.CommandText = "DELETE FROM 'spellbooks' WHERE name='" + sbBookNamesCoBx.SelectedItem + "';";
 				command.ExecuteNonQuery();
 
-				sql = "DROP TABLE '" + sbBookNamesCoBx.SelectedItem + "';";
-				command = new SQLiteCommand(sql, dbConn);
+				command.CommandText = "DROP TABLE '" + sbBookNamesCoBx.SelectedItem + "';";
 				command.ExecuteNonQuery();
 
 				spellbooks.Remove(sbBookNamesCoBx.SelectedItem + "");
-				this.sbBookNamesCoBx.DataSource = null;
-				this.sbBookNamesCoBx.DataSource = spellbooks;
-				this.sbBookNamesCoBx.Refresh();
-
+				sbBookNamesCoBx.DataSource = null;
+				sbBookNamesCoBx.DataSource = spellbooks;
+				sbBookNamesCoBx.Text = "defaults";
 			}
 		}
 
@@ -260,43 +223,10 @@ namespace Spells
 #region notes
 
 
-//fillDatabase("chlamydia", importXML("C:\\Users\\Lindsay\\Desktop\\test.xml"));
-
 //DataRow row = ((DataRowView)rsltsSearchResultsDGV.SelectedRows[0].DataBoundItem).Row;
-//rsltsDetailsTB.Text = row["description"].ToString();
 
 //resultsSpellDGV.DataSource = resultsDataSet;
 //resultsSpellDGV.DataMember = "spell";
-
-/*string sql = "create table spellbooks (name)";
-            SQLiteCommand command = new SQLiteCommand(sql, dbConn);
-            command.ExecuteNonQuery();
-            sql = "insert into spellbooks (name) values ('defaults')";
-            command = new SQLiteCommand(sql, dbConn);
-            command.ExecuteNonQuery();
-            sql = "insert into spellbooks (name) values ('pikachu')";
-            command = new SQLiteCommand(sql, dbConn);
-            command.ExecuteNonQuery();
-
-            sql = "create table defaults (name varchar(30), id int)";
-            command = new SQLiteCommand(sql, dbConn);
-            command.ExecuteNonQuery();                
-            sql = "insert into defaults (name,id) values ('temp1',1)";
-            command = new SQLiteCommand(sql, dbConn);
-            command.ExecuteNonQuery();
-            sql = "insert into defaults (name,id) values ('temp2',2)";
-            command = new SQLiteCommand(sql, dbConn);
-            command.ExecuteNonQuery();
-
-            sql = "create table pikachu (name varchar(30), id int)";
-            command = new SQLiteCommand(sql, dbConn);
-            command.ExecuteNonQuery();
-            sql = "insert into pikachu (name,id) values ('1temp1',1)";
-            command = new SQLiteCommand(sql, dbConn);
-            command.ExecuteNonQuery();
-            sql = "insert into pikachu (name,id) values ('2temp2',2)";
-            command = new SQLiteCommand(sql, dbConn);
-            command.ExecuteNonQuery();*/
 
 /*fill table
             using (var command = new SQLiteCommand(connection))
@@ -315,30 +245,6 @@ namespace Spells
             }
             connection.Close();
 
-            for (int i = 0; i < dtable.Rows.Count; i++)
-            {
-                DataRow drow = dtable.Rows[i];
-
-                // Only row that have not been deleted
-                if (drow.RowState != DataRowState.Deleted)
-                {
-                    sql = "insert into " + sbName + sqlCols + " values (";
-                    for(int x = 0; x < colNames.Length; x++)
-                    sql += ")";
-                }
-            }
-
             //fill database with resultsDataSet*/
-
-/*command.CommandText = "SELECT count(*) FROM spellbooks WHERE name='"+sbName+"'";
-            int count = Convert.ToInt32(command.ExecuteScalar());
-            if (count == 0)
-            {
-                sql = "INSERT OR IGNORE INTO spellbooks (name) VALUES ('" + sbName + "')";
-                command = new SQLiteCommand(sql, dbConn);
-                command.ExecuteNonQuery();
-            }*/
-//sql = "INSERT INTO " + sbName + sqlCols + " VALUES (@p1, @p2, @p3, @p4)";
-//sql = "IF NOT EXISTS (SELECT id FROM " +sbName+ " WHERE id='" +row["id"].ToString()+ "') BEGIN 
 
 #endregion
