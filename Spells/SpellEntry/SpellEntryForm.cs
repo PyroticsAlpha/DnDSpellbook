@@ -578,7 +578,7 @@ namespace SpellEntry
 		// Deletes the currently selected spell from the spellsAdded datatable
 		private void deleteSpellBtn_Click(object sender, EventArgs e)
 		{
-			string spellName = spellsAddedDGV.SelectedRows[0].Cells["name"].ToString();
+			string spellName = spellsAddedDGV.SelectedRows[0].Cells["name"].Value.ToString();
 			var result = MessageBox.Show("Are you sure you want to delete " + spellName + "?", "Deleting " + spellName, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
 			if(result == DialogResult.Yes)
 			{
