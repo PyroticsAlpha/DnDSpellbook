@@ -13,13 +13,13 @@ namespace Spells
 {
     public partial class MainForm : Form
     {
-		private const string dbFilename = "spells.sqlite";
+		private string dbFilename = "spells.sqlite";
 		private string[] dbColNames = { "id", "name", "level", "description" };
 		private const string dbColNamesSQL = "(id, name, level, description)";
 		private const string dbColNamesSQLVerbose = "(id int NOT NULL UNIQUE, name varchar(30) NOT NULL, level int, description text)";
 
 		private SQLiteConnection dbConn;
-		private System.Collections.Generic.List<string> spellbooks;
+		public System.Collections.Generic.List<string> spellbooks;
 		private string loadedDatabase = "";
 
 
@@ -33,23 +33,52 @@ namespace Spells
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-			//SQLiteConnection.CreateFile(filename);
+			//TODO - If database not found, create new and import defaults from defaults.xml
+			//if defaults.xml is not found create blank defaults table
+
+			//check if sqlite database exists
+			if (!System.IO.File.Exists(dbFilename))
+			{
+				MessageBox.Show("Database not found. A blank database has been created but does not contain the 'defaults' spellbook.");
+				SQLiteConnection.CreateFile(dbFilename);
+			}
+
+			//establish connection
 			dbConn = new SQLiteConnection("Data Source=" + dbFilename + "; Version=3;");
 			dbConn.Open();
 
-			//fillDatabase("chlamydia", importXML("C:\\Users\\Lindsay\\Desktop\\test.xml"));
+			//create spellbooks table if not exists
+			string sql = "CREATE TABLE IF NOT EXISTS 'spellbooks' (name varchar(30) NOT NULL UNIQUE)";
+			SQLiteCommand command = new SQLiteCommand(sql, dbConn);
+			command.ExecuteNonQuery();
+
+			sql = "INSERT OR IGNORE INTO spellbooks (name) VALUES ('defaults')";
+			command = new SQLiteCommand(sql, dbConn);
+			command.ExecuteNonQuery();
+
+			//create defaults table if not exists
+			sql = "CREATE TABLE IF NOT EXISTS 'defaults' " + dbColNamesSQLVerbose;
+			command = new SQLiteCommand(sql, dbConn);
+			command.ExecuteNonQuery();
 
 			//populate comboBox1 contents
 			this.spellbooks = new List<string>();
-			string sql = "SELECT name FROM spellbooks;";
-			SQLiteCommand command = new SQLiteCommand(sql, dbConn);
-			SQLiteDataReader rdr = command.ExecuteReader();
-			while (rdr.Read())
+			sql = "SELECT name FROM spellbooks;";
+			try
 			{
-				this.spellbooks.Add(rdr.GetFieldValue<string>(0));
+				command = new SQLiteCommand(sql, dbConn);
+				SQLiteDataReader rdr = command.ExecuteReader();
+				Console.WriteLine(rdr.ToString());
+				while (rdr.Read())
+				{
+					this.spellbooks.Add(rdr.GetFieldValue<string>(0));
+				}
+				this.sbBookNamesCoBx.DataSource = this.spellbooks;
 			}
-			this.sbBookNamesCoBx.DataSource = this.spellbooks;
-			
+			catch (SQLiteException ex)
+			{
+				MessageBox.Show("Error: The database table \"spellbooks\" could not be accessed.\n\nDetails:\n" +ex.ToString());
+			}
         }
 
 		#endregion
@@ -62,6 +91,7 @@ namespace Spells
         {
 			DataSet temp = new DataSet();
 			temp.ReadXml(XMLfilename);
+
 			return temp;
         }
 
@@ -95,14 +125,17 @@ namespace Spells
                 //{
                     foreach (DataRow row in table.Rows)
                     {
-                        command.CommandText = "INSERT OR IGNORE INTO '" + dbTableName + "' "+ dbColNamesSQL + " VALUES (@p1, @p2, @p3, @p4)";
-                        int i = 1;
-                        foreach (string colName in dbColNames)
-                        {
-                            command.Parameters.AddWithValue("@p" + i, (table.Columns.Contains(colName) ? row[colName].ToString() : ""));
-                            i++;
-                        }
-                        command.ExecuteNonQuery();
+						if (row.Field<string>(table.Columns["id"]) != "")
+						{
+							command.CommandText = "INSERT OR IGNORE INTO '" + dbTableName + "' " + dbColNamesSQL + " VALUES (@p1, @p2, @p3, @p4)";
+							int i = 1;
+							foreach (string colName in dbColNames)
+							{
+								command.Parameters.AddWithValue("@p" + i, (table.Columns.Contains(colName) ? row[colName].ToString() : ""));
+								i++;
+							}
+							command.ExecuteNonQuery();
+						}
                     }
                     //dbTransaction.Commit();
                 //}
@@ -111,24 +144,37 @@ namespace Spells
 
 		private void loadSelectedDatabase()
 		{
+			srchGBx.Enabled = true;
+			cstmGBx.Enabled = true;
+
 			this.loadedDatabase = this.sbBookNamesCoBx.SelectedItem + "";
 			string sql = "SELECT * FROM '" + this.sbBookNamesCoBx.SelectedItem + "';";
-			try
-			{
+			//try
+			//{
 				rsltsDataSet = new DataSet();
 				SQLiteDataAdapter da = new SQLiteDataAdapter(sql, dbConn);
 				da.Fill(rsltsDataSet);
 				rsltsSearchResultsDGV.DataSource = rsltsDataSet.Tables[0].DefaultView;
-			}
-			catch (Exception)
-			{
-				throw;
-			}
+			//}
+			//catch (Exception e)
+			//{
+			//	MessageBox.Show("Error: Could not load database.\n" +e.ToString());
+			//}
 			foreach (DataGridViewColumn col in rsltsSearchResultsDGV.Columns)
 				if (col.Name != "id" && col.Name != "name")
 					col.Visible = false;
 			rsltsSearchResultsDGV.Columns["id"].Width = 20;
 			this.rsltsSearchResultsDGV.Sort(this.rsltsSearchResultsDGV.Columns["name"], ListSortDirection.Ascending);
+			//TODO - change DGV column fill setup
+		}
+
+		private void unloadDatabase()
+		{
+			srchGBx.Enabled = false;
+			cstmGBx.Enabled = false;
+			this.loadedDatabase = "";
+			rsltsSearchResultsDGV.DataSource = null;
+			rsltsDetailsTB.Text = "";
 		}
 		
 		#endregion
@@ -140,7 +186,6 @@ namespace Spells
         private void sbLoadBtn_Click(object sender, EventArgs e)
         {
 			loadSelectedDatabase();
-			//TODO - Make user sorting method persistent
         }
 
         private void sbCloseBtn_Click(object sender, EventArgs e)
@@ -151,17 +196,13 @@ namespace Spells
         private void rsltsSearchResultsDGV_SelectionChanged(object sender, EventArgs e)
         {
             if (rsltsSearchResultsDGV.SelectedRows.Count != 0)
-            {
-                DataRow row = ((DataRowView)rsltsSearchResultsDGV.SelectedRows[0].DataBoundItem).Row;
-                rsltsDetailsTB.Text = row["description"].ToString();
-                rsltsDetailsTB.Refresh();
-            }
+				rsltsDetailsTB.Text = (string)rsltsSearchResultsDGV.SelectedRows[0].Cells["description"].Value;
 		}
 
 		private void cstmImportBtn_Click(object sender, EventArgs e)
 		{
-			if (this.loadedDatabase != "")
-			{
+			//if (this.loadedDatabase != "")
+			//{
 				// Show the dialog and get result.
 				DialogResult result = openFileDialog1.ShowDialog();
 				string file = "";
@@ -179,7 +220,7 @@ namespace Spells
 					fillDatabase(this.loadedDatabase, importXML(openFileDialog1.FileName));
 				}
 				loadSelectedDatabase();
-			}
+			//}
 		}
 
 		private void sbCreateBtn_Click(object sender, EventArgs e)
@@ -189,10 +230,8 @@ namespace Spells
 			if (result == DialogResult.OK) // Test result.
 			{
 				//add new table name to spellbooks
-				SQLiteCommand command = new SQLiteCommand(dbConn);
-				string sql;
-				sql = "INSERT OR IGNORE INTO spellbooks (name) VALUES ('" + form2.bookName + "')";
-				command = new SQLiteCommand(sql, dbConn);
+				string sql = "INSERT OR IGNORE INTO spellbooks (name) VALUES ('" + form2.bookName + "')";
+				SQLiteCommand command = new SQLiteCommand(sql, dbConn);
 				command.ExecuteNonQuery();
 
 				if (!spellbooks.Contains(form2.bookName))
@@ -211,12 +250,44 @@ namespace Spells
 			}
 		}
 
-		#endregion
+		private void sbDeleteBtn_Click(object sender, EventArgs e)
+		{
 
+			var result = MessageBox.Show("are you sure", "wha", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+			if(result == DialogResult.Yes)
+			{
+				string sql = "DELETE FROM 'spellbooks' WHERE name='" + sbBookNamesCoBx.SelectedItem + "';";
+				SQLiteCommand command = new SQLiteCommand(sql, dbConn);
+				command.ExecuteNonQuery();
+
+				sql = "DROP TABLE '" + sbBookNamesCoBx.SelectedItem + "';";
+				command = new SQLiteCommand(sql, dbConn);
+				command.ExecuteNonQuery();
+
+				if(loadedDatabase == sbBookNamesCoBx.Text)
+					unloadDatabase();
+
+				spellbooks.Remove(sbBookNamesCoBx.SelectedItem + "");
+				this.sbBookNamesCoBx.DataSource = null;
+				this.sbBookNamesCoBx.DataSource = spellbooks;
+				this.sbBookNamesCoBx.Text = loadedDatabase;
+				this.sbBookNamesCoBx.Refresh();
+
+			}
+		}
+
+		#endregion
 	}
 }
 
 #region notes
+
+
+//fillDatabase("chlamydia", importXML("C:\\Users\\Lindsay\\Desktop\\test.xml"));
+
+//DataRow row = ((DataRowView)rsltsSearchResultsDGV.SelectedRows[0].DataBoundItem).Row;
+//rsltsDetailsTB.Text = row["description"].ToString();
+
 //resultsSpellDGV.DataSource = resultsDataSet;
 //resultsSpellDGV.DataMember = "spell";
 
