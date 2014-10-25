@@ -33,9 +33,9 @@
 			this.sbCloseBtn = new System.Windows.Forms.Button();
 			this.rsltsDataSet = new System.Data.DataSet();
 			this.sbBookNamesCoBx = new System.Windows.Forms.ComboBox();
-			this.resultsSpellListView = new System.Windows.Forms.ListBox();
 			this.rsltsDetailsTB = new System.Windows.Forms.TextBox();
 			this.sbGB = new System.Windows.Forms.GroupBox();
+			this.sbDeleteBtn = new System.Windows.Forms.Button();
 			this.sbExportBtn = new System.Windows.Forms.Button();
 			this.sbCreateBtn = new System.Windows.Forms.Button();
 			this.srchGBx = new System.Windows.Forms.GroupBox();
@@ -48,7 +48,7 @@
 			this.srchLevelsChLBx = new System.Windows.Forms.CheckedListBox();
 			this.srchLevelsLabel = new System.Windows.Forms.Label();
 			this.srchLevelsAllBox = new System.Windows.Forms.CheckBox();
-			this.cstmGB = new System.Windows.Forms.GroupBox();
+			this.cstmGBx = new System.Windows.Forms.GroupBox();
 			this.cstmRestoreDefaultsBtn = new System.Windows.Forms.Button();
 			this.cstmImportBtn = new System.Windows.Forms.Button();
 			this.cstmEditClassesBtn = new System.Windows.Forms.Button();
@@ -60,7 +60,7 @@
 			this.srchGBx.SuspendLayout();
 			this.srchSchoolPanel.SuspendLayout();
 			this.srchLevelsPanel.SuspendLayout();
-			this.cstmGB.SuspendLayout();
+			this.cstmGBx.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// rsltsSearchResultsDGV
@@ -83,7 +83,7 @@
 			this.rsltsSearchResultsDGV.RowHeadersVisible = false;
 			this.rsltsSearchResultsDGV.RowTemplate.Height = 28;
 			this.rsltsSearchResultsDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.rsltsSearchResultsDGV.Size = new System.Drawing.Size(154, 337);
+			this.rsltsSearchResultsDGV.Size = new System.Drawing.Size(188, 337);
 			this.rsltsSearchResultsDGV.StandardTab = true;
 			this.rsltsSearchResultsDGV.TabIndex = 0;
 			this.rsltsSearchResultsDGV.SelectionChanged += new System.EventHandler(this.rsltsSearchResultsDGV_SelectionChanged);
@@ -127,34 +127,23 @@
 			this.sbBookNamesCoBx.Size = new System.Drawing.Size(133, 21);
 			this.sbBookNamesCoBx.TabIndex = 5;
 			// 
-			// resultsSpellListView
-			// 
-			this.resultsSpellListView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.resultsSpellListView.FormattingEnabled = true;
-			this.resultsSpellListView.IntegralHeight = false;
-			this.resultsSpellListView.Location = new System.Drawing.Point(696, 255);
-			this.resultsSpellListView.Margin = new System.Windows.Forms.Padding(2);
-			this.resultsSpellListView.Name = "resultsSpellListView";
-			this.resultsSpellListView.Size = new System.Drawing.Size(78, 337);
-			this.resultsSpellListView.TabIndex = 6;
-			// 
 			// rsltsDetailsTB
 			// 
 			this.rsltsDetailsTB.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.rsltsDetailsTB.Location = new System.Drawing.Point(169, 255);
+			this.rsltsDetailsTB.Location = new System.Drawing.Point(203, 255);
 			this.rsltsDetailsTB.Margin = new System.Windows.Forms.Padding(2);
 			this.rsltsDetailsTB.Multiline = true;
 			this.rsltsDetailsTB.Name = "rsltsDetailsTB";
 			this.rsltsDetailsTB.ReadOnly = true;
 			this.rsltsDetailsTB.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.rsltsDetailsTB.Size = new System.Drawing.Size(523, 337);
+			this.rsltsDetailsTB.Size = new System.Drawing.Size(569, 337);
 			this.rsltsDetailsTB.TabIndex = 8;
 			// 
 			// sbGB
 			// 
+			this.sbGB.Controls.Add(this.sbDeleteBtn);
 			this.sbGB.Controls.Add(this.sbExportBtn);
 			this.sbGB.Controls.Add(this.sbCreateBtn);
 			this.sbGB.Controls.Add(this.sbCloseBtn);
@@ -166,6 +155,17 @@
 			this.sbGB.TabIndex = 9;
 			this.sbGB.TabStop = false;
 			this.sbGB.Text = "Spell Books";
+			// 
+			// sbDeleteBtn
+			// 
+			this.sbDeleteBtn.AutoSize = true;
+			this.sbDeleteBtn.Location = new System.Drawing.Point(384, 18);
+			this.sbDeleteBtn.Name = "sbDeleteBtn";
+			this.sbDeleteBtn.Size = new System.Drawing.Size(76, 23);
+			this.sbDeleteBtn.TabIndex = 11;
+			this.sbDeleteBtn.Text = "Delete";
+			this.sbDeleteBtn.UseVisualStyleBackColor = true;
+			this.sbDeleteBtn.Click += new System.EventHandler(this.sbDeleteBtn_Click);
 			// 
 			// sbExportBtn
 			// 
@@ -192,6 +192,7 @@
 			this.srchGBx.Controls.Add(this.srchSpellNameTBF);
 			this.srchGBx.Controls.Add(this.srchSchoolPanel);
 			this.srchGBx.Controls.Add(this.srchLevelsPanel);
+			this.srchGBx.Enabled = false;
 			this.srchGBx.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.srchGBx.Location = new System.Drawing.Point(12, 116);
 			this.srchGBx.Name = "srchGBx";
@@ -316,18 +317,19 @@
 			this.srchLevelsAllBox.Text = "All";
 			this.srchLevelsAllBox.UseVisualStyleBackColor = true;
 			// 
-			// cstmGB
+			// cstmGBx
 			// 
-			this.cstmGB.Controls.Add(this.cstmRestoreDefaultsBtn);
-			this.cstmGB.Controls.Add(this.cstmImportBtn);
-			this.cstmGB.Controls.Add(this.cstmEditClassesBtn);
-			this.cstmGB.Controls.Add(this.cstmAddSpellBtn);
-			this.cstmGB.Location = new System.Drawing.Point(12, 64);
-			this.cstmGB.Name = "cstmGB";
-			this.cstmGB.Size = new System.Drawing.Size(760, 46);
-			this.cstmGB.TabIndex = 0;
-			this.cstmGB.TabStop = false;
-			this.cstmGB.Text = "Customize";
+			this.cstmGBx.Controls.Add(this.cstmRestoreDefaultsBtn);
+			this.cstmGBx.Controls.Add(this.cstmImportBtn);
+			this.cstmGBx.Controls.Add(this.cstmEditClassesBtn);
+			this.cstmGBx.Controls.Add(this.cstmAddSpellBtn);
+			this.cstmGBx.Enabled = false;
+			this.cstmGBx.Location = new System.Drawing.Point(12, 64);
+			this.cstmGBx.Name = "cstmGBx";
+			this.cstmGBx.Size = new System.Drawing.Size(760, 46);
+			this.cstmGBx.TabIndex = 0;
+			this.cstmGBx.TabStop = false;
+			this.cstmGBx.Text = "Customize";
 			// 
 			// cstmRestoreDefaultsBtn
 			// 
@@ -372,11 +374,10 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
 			this.AutoScroll = true;
 			this.ClientSize = new System.Drawing.Size(784, 603);
-			this.Controls.Add(this.cstmGB);
+			this.Controls.Add(this.cstmGBx);
 			this.Controls.Add(this.srchGBx);
 			this.Controls.Add(this.sbGB);
 			this.Controls.Add(this.rsltsDetailsTB);
-			this.Controls.Add(this.resultsSpellListView);
 			this.Controls.Add(this.rsltsSearchResultsDGV);
 			this.Margin = new System.Windows.Forms.Padding(2);
 			this.MinimumSize = new System.Drawing.Size(800, 500);
@@ -392,7 +393,7 @@
 			this.srchSchoolPanel.PerformLayout();
 			this.srchLevelsPanel.ResumeLayout(false);
 			this.srchLevelsPanel.PerformLayout();
-			this.cstmGB.ResumeLayout(false);
+			this.cstmGBx.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -404,14 +405,13 @@
         private System.Windows.Forms.Button sbLoadBtn;
         private System.Windows.Forms.Button sbCloseBtn;
         private System.Data.DataSet rsltsDataSet;
-        private System.Windows.Forms.ComboBox sbBookNamesCoBx;
-        private System.Windows.Forms.ListBox resultsSpellListView;
+		private System.Windows.Forms.ComboBox sbBookNamesCoBx;
         private System.Windows.Forms.TextBox rsltsDetailsTB;
         private System.Windows.Forms.GroupBox sbGB;
         private System.Windows.Forms.Button sbCreateBtn;
         private System.Windows.Forms.Button sbExportBtn;
         private System.Windows.Forms.GroupBox srchGBx;
-        private System.Windows.Forms.GroupBox cstmGB;
+        private System.Windows.Forms.GroupBox cstmGBx;
         private System.Windows.Forms.Button cstmRestoreDefaultsBtn;
         private System.Windows.Forms.Button cstmImportBtn;
         private System.Windows.Forms.Button cstmEditClassesBtn;
@@ -426,6 +426,7 @@
         private System.Windows.Forms.Label srchSchoolLabel;
 		private System.Windows.Forms.TextBox srchSpellNameTBF;
 		private System.Windows.Forms.OpenFileDialog openFileDialog1;
+		private System.Windows.Forms.Button sbDeleteBtn;
     }
 }
 
