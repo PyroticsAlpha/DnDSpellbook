@@ -65,12 +65,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DeleteBookDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DeleteBookDialog.Designer.cs">
-      <DependentUpon>DeleteBookDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -91,9 +85,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings1.settings</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="DeleteBookDialog.resx">
-      <DependentUpon>DeleteBookDialog.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
