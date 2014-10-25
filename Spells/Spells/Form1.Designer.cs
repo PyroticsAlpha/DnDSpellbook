@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
 			this.rsltsSearchResultsDGV = new System.Windows.Forms.DataGridView();
-			this.sbLoadBtn = new System.Windows.Forms.Button();
 			this.sbCloseBtn = new System.Windows.Forms.Button();
 			this.rsltsDataSet = new System.Data.DataSet();
 			this.sbBookNamesCoBx = new System.Windows.Forms.ComboBox();
@@ -70,7 +69,6 @@
 			this.rsltsSearchResultsDGV.AllowUserToOrderColumns = true;
 			this.rsltsSearchResultsDGV.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-			this.rsltsSearchResultsDGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
 			this.rsltsSearchResultsDGV.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
 			this.rsltsSearchResultsDGV.BackgroundColor = System.Drawing.SystemColors.Window;
 			this.rsltsSearchResultsDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -87,18 +85,6 @@
 			this.rsltsSearchResultsDGV.StandardTab = true;
 			this.rsltsSearchResultsDGV.TabIndex = 0;
 			this.rsltsSearchResultsDGV.SelectionChanged += new System.EventHandler(this.rsltsSearchResultsDGV_SelectionChanged);
-			// 
-			// sbLoadBtn
-			// 
-			this.sbLoadBtn.AutoSize = true;
-			this.sbLoadBtn.Location = new System.Drawing.Point(142, 18);
-			this.sbLoadBtn.Margin = new System.Windows.Forms.Padding(2);
-			this.sbLoadBtn.Name = "sbLoadBtn";
-			this.sbLoadBtn.Size = new System.Drawing.Size(74, 23);
-			this.sbLoadBtn.TabIndex = 1;
-			this.sbLoadBtn.Text = "Load";
-			this.sbLoadBtn.UseVisualStyleBackColor = true;
-			this.sbLoadBtn.Click += new System.EventHandler(this.sbLoadBtn_Click);
 			// 
 			// sbCloseBtn
 			// 
@@ -126,6 +112,7 @@
 			this.sbBookNamesCoBx.Name = "sbBookNamesCoBx";
 			this.sbBookNamesCoBx.Size = new System.Drawing.Size(133, 21);
 			this.sbBookNamesCoBx.TabIndex = 5;
+			this.sbBookNamesCoBx.SelectedIndexChanged += new System.EventHandler(this.sbBookNamesCoBx_SelectedIndexChanged);
 			// 
 			// rsltsDetailsTB
 			// 
@@ -148,7 +135,6 @@
 			this.sbGB.Controls.Add(this.sbCreateBtn);
 			this.sbGB.Controls.Add(this.sbCloseBtn);
 			this.sbGB.Controls.Add(this.sbBookNamesCoBx);
-			this.sbGB.Controls.Add(this.sbLoadBtn);
 			this.sbGB.Location = new System.Drawing.Point(12, 12);
 			this.sbGB.Name = "sbGB";
 			this.sbGB.Size = new System.Drawing.Size(760, 46);
@@ -159,7 +145,7 @@
 			// sbDeleteBtn
 			// 
 			this.sbDeleteBtn.AutoSize = true;
-			this.sbDeleteBtn.Location = new System.Drawing.Point(384, 18);
+			this.sbDeleteBtn.Location = new System.Drawing.Point(306, 17);
 			this.sbDeleteBtn.Name = "sbDeleteBtn";
 			this.sbDeleteBtn.Size = new System.Drawing.Size(76, 23);
 			this.sbDeleteBtn.TabIndex = 11;
@@ -169,7 +155,7 @@
 			// 
 			// sbExportBtn
 			// 
-			this.sbExportBtn.Location = new System.Drawing.Point(303, 18);
+			this.sbExportBtn.Location = new System.Drawing.Point(225, 17);
 			this.sbExportBtn.Name = "sbExportBtn";
 			this.sbExportBtn.Size = new System.Drawing.Size(75, 23);
 			this.sbExportBtn.TabIndex = 10;
@@ -179,7 +165,7 @@
 			// sbCreateBtn
 			// 
 			this.sbCreateBtn.AutoSize = true;
-			this.sbCreateBtn.Location = new System.Drawing.Point(221, 18);
+			this.sbCreateBtn.Location = new System.Drawing.Point(143, 17);
 			this.sbCreateBtn.Name = "sbCreateBtn";
 			this.sbCreateBtn.Size = new System.Drawing.Size(76, 23);
 			this.sbCreateBtn.TabIndex = 10;
@@ -402,7 +388,6 @@
         #endregion
 
         private System.Windows.Forms.DataGridView rsltsSearchResultsDGV;
-        private System.Windows.Forms.Button sbLoadBtn;
         private System.Windows.Forms.Button sbCloseBtn;
         private System.Data.DataSet rsltsDataSet;
 		private System.Windows.Forms.ComboBox sbBookNamesCoBx;
