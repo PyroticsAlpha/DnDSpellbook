@@ -1,0 +1,360 @@
+0	Acid Splash
+1	Aid
+2	Alarm
+3	Alter Self
+4	Animal Friendship
+5	Animal Messenger
+6	Animal Shapes
+7	Animate Dead
+8	Animate Objects
+9	Antilife Shell
+10	Anitmagic Field
+11	Antipathy/Sympathy
+12	Arcane Eye
+13	Arcane Gate
+14	Arcane Lock
+15	Armor of Agathys
+16	Arms of Hadar
+17	Astral Projection
+18	Augury
+19	Aura of Life
+20	Aura of Purity
+21	Aura of Vitality
+22	Awaken
+23	Bane
+24	Banishing Smite
+25	Banishment
+26	Barkskin
+27	Beacon of Hope
+28	Beast Sense
+29	Bestow Curse
+30	Bigby's Hand
+31	Blade Barrier
+32	Blade Ward
+33	Bless
+34	Blight
+35	Blinding Smite
+36	Blindness/Deafness
+37	Blink
+38	Blur
+39	Branding Smite
+40	Burning Hands
+41	Call Lightning
+42	Calm Emotions
+43	Chain Lightning
+44	Charm Person
+45	Chill Touch
+46	Chromatic Orb
+47	Circle of Death
+48	Circle of Power
+49	Clairvoyance
+50	Clone
+51	Cloud of Daggers
+52	Cloudkill
+53	Color Spray
+54	Command
+55	Commune
+56	Commune with Nature
+57	Compelled Duel
+58	Comprehend Languages
+59	Compulsion
+60	Cone of Cold
+61	Confusion
+62	Conjure Animals
+63	Conjure Barrage
+64	Conjure Celestial
+65	Conjure Elemental
+66	Conjure Fey
+67	Conjure Minor Elementals
+68	Conjure Volley
+69	Conjure Woodland Beings
+70	Contact Other Plane
+71	Contagion
+72	Contingency
+73	Continual Flame
+74	Control Water
+75	Control Weather
+76	Cordon of Arrows
+77	Counterspell
+78	Create Food and Water
+79	Create or Destroy Water
+80	Create Undead
+81	Creation
+82	Crown of Madness
+83	Crusader's Mantle
+84	Cure Wounds
+85	Dancing Lights
+86	Darkness
+87	Darkvision
+88	Daylight
+89	Death Ward
+90	Delayed Blast Fireball
+91	Demiplane
+92	Destructive Wave
+93	Detect Evil and Good
+94	Detect Magic
+95	Detect Poison and Disease
+96	Detect Thoughts
+97	Dimension Door
+98	Disguise Self
+99	Disintegrate
+100	Dispel Evil and Good
+101	Dispel Magic
+102	Dissonant Whispers
+103	Divination
+104	Divine Favor
+105	Divine Word
+106	Dominate Beast
+107	Dominate Monster
+108	Dominate Person
+109	Drawmij's Instant Summons
+110	Dream
+111	Druidcraft
+112	Earthquake
+113	Eldritch Blast
+114	Elemental Weapon
+115	Enhance Ability
+116	Enlarge/Reduce
+117	Ensnaring Strike
+118	Entangle
+119	Enthrall
+120	Etherealness
+121	Evard's Black Tentacles
+122	Expeditious Retreat
+123	Eyebite
+124	Fabricate
+125	Faerie Fire
+126	False Life
+127	Fear
+128	Feather Fall
+129	Feeblemind
+130	Feign Death
+131	Find Familiar
+132	Find Steed
+133	Find the Path
+134	Find Traps
+135	Finger of Death
+136	Fireball
+137	Fire Bolt
+138	Fire Shield
+139	Fire Storm
+140	Flame Blade
+141	Flame Strike
+142	Flaming Sphere
+143	Flesh to Stone
+144	Fly
+145	Fog Cloud
+146	Forbiddance
+147	Forcecage
+148	Foresight
+149	Freedom of Movement
+150	Friends
+151	Gaseous Form
+152	Gate
+153	Geas
+154	Gentle Repose
+155	Giant Insect
+156	Glibness
+157	Globe of Invulnerability
+158	Glyph of Warding
+159	Goodberry
+160	Grasping Vine
+161	Grease
+162	Greater Invisibility
+163	Greater Restoration
+164	Guardian of Faith
+165	Guards and Wards
+166	Guidance
+167	Guiding Bolt
+168	Gust of Wind
+169	Hail of Thorns
+170	Hallow
+171	Hallucinate Terrain
+172	Harm
+173	Haste
+174	Heal
+175	Healing Word
+176	Heat Metal
+177	Hellish Rebuke
+178	Heroes' Feast
+179	Heroism
+180	Hex
+181	Hold Monster
+182	Hold Person
+183	Holy Aura
+184	Hunger of Hadar
+185	Hunter's Mark
+186	Hypnotic Pattern
+187	Ice Storm
+188	Identify
+189	Illusory Script
+190	Imprisonment
+191	Incendiary Cloud
+192	Inflict Wounds
+193	Insect Plague
+194	Invisibility
+195	Jump
+196	Knock
+197	Legend Lore
+198	Leomund's Secret Chest
+199	Leomund's Tiny Hut
+200	Lesser Restoration
+201	Levitate
+202	Light
+203	Lightning Arrow
+204	Lightning Bolt
+205	Locate Animals or Plants
+206	Locate Creature
+207	Locate Object
+208	Longstrider
+209	Mage Armor
+210	Mage Hand
+211	Magic Circle
+212	Magic Jar
+213	Magic Missile
+214	Magic Mouth
+215	Magic Weapon
+216	Major Image
+217	Mass Cure Wounds
+218	Mass Heal
+219	Mass Healing Word
+220	Mass Suggestion
+221	Maze
+222	Meld into Stone
+223	Melf's Acid Arrow
+224	Mending
+225	Message
+226	Meteor Swarm
+227	Mind Blank
+228	Minor Illusion
+229	Mirage Arcane
+230	Mirror Image
+231	Mislead
+232	Misty Step
+233	Modify Memory
+234	Moonbeam
+235	Mordenkainen's Faithful Hound
+236	Mordenkainen's Magnificent Mansion
+237	Mordenkainen's Private Sanctum
+238	Modennkainen's Sword
+239	Move Earth
+240	Nondetection
+241	Nystul's Magic Aura
+242	Otiluke's Freezing Sphere
+243	Otiluke's Resilient Sphere
+244	Otto's Irresistible Dance
+245	Pass Without Trace
+246	Passwall
+247	Phantasmal Force
+248	Phantasmal Killer
+249	Phantom Steed
+250	Planar Ally
+251	Planar Binding
+252	Plane Shift
+253	Plant Growth
+254	Poison Spray
+255	Polymorph
+256	Power Word Heal
+257	Power Word Kill
+258	Power Word Stun
+259	Prayer of Healing
+260	Prestidigitation
+261	Prismatic Spray
+262	Prismatic Wall
+263	Produce Flame
+264	Programmed Illusion
+265	Project Image
+266	Protection from Energy
+267	Protection from Evil and Good
+268	Protection from Poison
+269	Purify Food and Drink
+270	Raise Dead
+271	Rary's Telepathic Bond
+272	Ray of Enfeeblement
+273	Ray of Frost
+274	Ray of Sickness
+275	Regenerate
+276	Reincarnate
+277	Remove Curse
+278	Resistance
+279	Resurrection
+280	Reverse Gravity
+281	Revivify
+282	Rope Trick
+283	Sacred Flame
+284	Sanctuary
+285	Scorching Ray
+286	Scrying
+287	Searing Smite
+288	See Invisibility
+289	Seeming
+290	Sending
+291	Sequester
+292	Shapechange
+293	Shatter
+294	Shield
+295	Shield of Faith
+296	Shillelagh
+297	Shocking Grasp
+298	Silence
+299	Silent Image
+300	Simulacrum
+301	Sleep
+302	Sleet Storm
+303	Slow
+304	Spare the Dying
+305	Speak with Animals
+306	Speak with Dead
+307	Speak with Plants
+308	Spider Climb
+309	Spike Growth
+310	Spirit Guardians
+311	Spiritual Weapon
+312	Staggering Smite
+313	Stinking Cloud
+314	Stone Shape
+315	Stoneskin
+316	Storm of Vengeance
+317	Suggestion
+318	Sunbeam
+319	Sunburst
+320	Swift Quiver
+321	Symbol
+322	Tasha's Hideous Laughter
+323	Telekinesis
+324	Telepathy
+325	Teleport
+326	Teleportation Circle
+327	Tenser's Floating Disk
+328	Thaumaturgy
+329	Thorn Whip
+330	Thunderous Smite
+331	Thunderwave
+332	Time Stop
+333	Tongues
+334	Transport via Plants
+335	Tree Stride
+336	True Polymorph
+337	True Resurrection
+338	True Seeing
+339	True Strike
+340	Tsunami
+341	Unseen Servant
+342	Vampiric Touch
+343	Vicious Mockery
+344	Wall of Fire
+345	Wall of Force
+346	Wall of Ice
+347	Wall of Stone
+348	Wall of Thorns
+349	Warding Bond
+350	Water Breathing
+351	Water Walk
+352	Web
+353	Weird
+354	Wind Wall
+355	Wish
+356	Witch Bolt
+357	Word of Recall
+358	Wrathful Smite
+359	Zone of Truth

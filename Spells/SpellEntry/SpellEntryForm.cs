@@ -746,8 +746,33 @@ namespace SpellEntry
 			}
 		}
 
+		//// I wrote this code purely to process something; never to be used from the project
+		//private void codeMonkey()
+		//{
+		//	OpenFileDialog spellList = new OpenFileDialog();
+		//	spellList.Filter = "Text Files (*.txt)|*.txt";
+			
+		//	string text = "";
+		//	int counter = 0;
+
+		//	System.IO.StreamReader file;
+		//	if (spellList.ShowDialog() == DialogResult.OK)
+		//	{
+		//		string line;
+		//		file = new System.IO.StreamReader(spellList.FileName);
+		//		while((line = file.ReadLine()) != null)
+		//		{
+		//			text += counter + "\t" + line + "\r\n";
+		//			counter++;
+		//		}
+
+		//		System.IO.File.WriteAllText("Spell IDs.txt", text);
+		//	}
+		//}
+
 		private void importXMLBtn_Click(object sender, EventArgs e)
 		{
+			//codeMonkey();
 			OpenFileDialog openXML = new OpenFileDialog();
 			openXML.Filter = "XML files (*.xml)|*.xml";
 
