@@ -178,7 +178,6 @@
 			this.srchGBx.Controls.Add(this.srchSpellNameTBF);
 			this.srchGBx.Controls.Add(this.srchSchoolPanel);
 			this.srchGBx.Controls.Add(this.srchLevelsPanel);
-			this.srchGBx.Enabled = false;
 			this.srchGBx.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.srchGBx.Location = new System.Drawing.Point(12, 116);
 			this.srchGBx.Name = "srchGBx";
@@ -309,7 +308,6 @@
 			this.cstmGBx.Controls.Add(this.cstmImportBtn);
 			this.cstmGBx.Controls.Add(this.cstmEditClassesBtn);
 			this.cstmGBx.Controls.Add(this.cstmAddSpellBtn);
-			this.cstmGBx.Enabled = false;
 			this.cstmGBx.Location = new System.Drawing.Point(12, 64);
 			this.cstmGBx.Name = "cstmGBx";
 			this.cstmGBx.Size = new System.Drawing.Size(760, 46);
@@ -368,6 +366,7 @@
 			this.Margin = new System.Windows.Forms.Padding(2);
 			this.MinimumSize = new System.Drawing.Size(800, 500);
 			this.Name = "MainForm";
+			this.Text = "DnD Spell Book Database";
 			this.Load += new System.EventHandler(this.MainForm_Load);
 			((System.ComponentModel.ISupportInitialize)(this.rsltsSearchResultsDGV)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.rsltsDataSet)).EndInit();
