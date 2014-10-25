@@ -456,7 +456,6 @@ namespace SpellEntry
 		{
 			spellIDLabel.ForeColor = errorColor;
 			spellIDTBxF.Clear();
-			spellIDTBxF.Focus();
 			spellNameTBxF.Clear();
 			spellLevelsCoBx.SelectedIndex = 0;
 			spellSchoolsCoBx.SelectedIndex = 0;
@@ -490,6 +489,7 @@ namespace SpellEntry
 			{
 				addTagsChLBx.SetItemChecked(i, false);
 			}
+			this.ActiveControl = spellIDTBxF;
 		}
 
 		private void higherLevelsTBxF_KeyDown(object sender, KeyEventArgs e)
@@ -578,7 +578,12 @@ namespace SpellEntry
 		// Deletes the currently selected spell from the spellsAdded datatable
 		private void deleteSpellBtn_Click(object sender, EventArgs e)
 		{
-			spellsAdded.Rows.Remove(spellsAdded.Rows.Find(spellsAddedDGV.SelectedRows[0].Cells["id"].Value));
+			string spellName = spellsAddedDGV.SelectedRows[0].Cells["name"].ToString();
+			var result = MessageBox.Show("Are you sure you want to delete " + spellName + "?", "Deleting " + spellName, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+			if(result == DialogResult.Yes)
+			{
+				spellsAdded.Rows.Remove(spellsAdded.Rows.Find(spellsAddedDGV.SelectedRows[0].Cells["id"].Value));
+			}
 		}
 
 		// Loads the currently selected spell into the editable fields
