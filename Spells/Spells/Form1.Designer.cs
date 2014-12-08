@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
 			this.rsltsSearchResultsDGV = new System.Windows.Forms.DataGridView();
-			this.sbCloseBtn = new System.Windows.Forms.Button();
 			this.rsltsDataSet = new System.Data.DataSet();
 			this.sbBookNamesCoBx = new System.Windows.Forms.ComboBox();
 			this.rsltsDetailsTB = new System.Windows.Forms.TextBox();
@@ -51,8 +50,6 @@
 			this.cstmRestoreDefaultsBtn = new System.Windows.Forms.Button();
 			this.cstmEditClassesBtn = new System.Windows.Forms.Button();
 			this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-			this.cstmAddSpellBtn = new System.Windows.Forms.Button();
-			this.cstmImportBtn = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.rsltsSearchResultsDGV)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.rsltsDataSet)).BeginInit();
 			this.sbGB.SuspendLayout();
@@ -85,19 +82,6 @@
 			this.rsltsSearchResultsDGV.StandardTab = true;
 			this.rsltsSearchResultsDGV.TabIndex = 0;
 			this.rsltsSearchResultsDGV.SelectionChanged += new System.EventHandler(this.rsltsSearchResultsDGV_SelectionChanged);
-			// 
-			// sbCloseBtn
-			// 
-			this.sbCloseBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.sbCloseBtn.AutoSize = true;
-			this.sbCloseBtn.Location = new System.Drawing.Point(700, 18);
-			this.sbCloseBtn.Margin = new System.Windows.Forms.Padding(2);
-			this.sbCloseBtn.Name = "sbCloseBtn";
-			this.sbCloseBtn.Size = new System.Drawing.Size(55, 23);
-			this.sbCloseBtn.TabIndex = 2;
-			this.sbCloseBtn.Text = "Close";
-			this.sbCloseBtn.UseVisualStyleBackColor = true;
-			this.sbCloseBtn.Click += new System.EventHandler(this.sbCloseBtn_Click);
 			// 
 			// rsltsDataSet
 			// 
@@ -133,7 +117,6 @@
 			this.sbGB.Controls.Add(this.sbDeleteBtn);
 			this.sbGB.Controls.Add(this.sbExportBtn);
 			this.sbGB.Controls.Add(this.sbCreateBtn);
-			this.sbGB.Controls.Add(this.sbCloseBtn);
 			this.sbGB.Controls.Add(this.sbBookNamesCoBx);
 			this.sbGB.Location = new System.Drawing.Point(12, 12);
 			this.sbGB.Name = "sbGB";
@@ -305,9 +288,7 @@
 			// cstmGBx
 			// 
 			this.cstmGBx.Controls.Add(this.cstmRestoreDefaultsBtn);
-			this.cstmGBx.Controls.Add(this.cstmImportBtn);
 			this.cstmGBx.Controls.Add(this.cstmEditClassesBtn);
-			this.cstmGBx.Controls.Add(this.cstmAddSpellBtn);
 			this.cstmGBx.Location = new System.Drawing.Point(12, 64);
 			this.cstmGBx.Name = "cstmGBx";
 			this.cstmGBx.Size = new System.Drawing.Size(760, 46);
@@ -333,25 +314,6 @@
 			this.cstmEditClassesBtn.Text = "Add/Edit Classes";
 			this.cstmEditClassesBtn.UseVisualStyleBackColor = true;
 			// 
-			// cstmAddSpellBtn
-			// 
-			this.cstmAddSpellBtn.Location = new System.Drawing.Point(5, 17);
-			this.cstmAddSpellBtn.Name = "cstmAddSpellBtn";
-			this.cstmAddSpellBtn.Size = new System.Drawing.Size(95, 23);
-			this.cstmAddSpellBtn.TabIndex = 11;
-			this.cstmAddSpellBtn.Text = "Add Spell";
-			this.cstmAddSpellBtn.UseVisualStyleBackColor = true;
-			// 
-			// cstmImportBtn
-			// 
-			this.cstmImportBtn.Location = new System.Drawing.Point(242, 17);
-			this.cstmImportBtn.Name = "cstmImportBtn";
-			this.cstmImportBtn.Size = new System.Drawing.Size(75, 23);
-			this.cstmImportBtn.TabIndex = 0;
-			this.cstmImportBtn.Text = "Import";
-			this.cstmImportBtn.UseVisualStyleBackColor = true;
-			this.cstmImportBtn.Click += new System.EventHandler(this.cstmImportBtn_Click);
-			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -367,6 +329,7 @@
 			this.MinimumSize = new System.Drawing.Size(800, 500);
 			this.Name = "MainForm";
 			this.Text = "DnD Spell Book Database";
+			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
 			this.Load += new System.EventHandler(this.MainForm_Load);
 			((System.ComponentModel.ISupportInitialize)(this.rsltsSearchResultsDGV)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.rsltsDataSet)).EndInit();
@@ -386,8 +349,7 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView rsltsSearchResultsDGV;
-        private System.Windows.Forms.Button sbCloseBtn;
+		private System.Windows.Forms.DataGridView rsltsSearchResultsDGV;
         private System.Data.DataSet rsltsDataSet;
 		private System.Windows.Forms.ComboBox sbBookNamesCoBx;
         private System.Windows.Forms.TextBox rsltsDetailsTB;
@@ -409,8 +371,6 @@
 		private System.Windows.Forms.TextBox srchSpellNameTBF;
 		private System.Windows.Forms.OpenFileDialog openFileDialog1;
 		private System.Windows.Forms.Button sbDeleteBtn;
-		private System.Windows.Forms.Button cstmImportBtn;
-		private System.Windows.Forms.Button cstmAddSpellBtn;
     }
 }
 

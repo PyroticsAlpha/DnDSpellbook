@@ -82,13 +82,6 @@ namespace Spells
 
 		#region ***UTILITIES***
 
-        private DataSet importXML(string XMLfilename)
-        {
-			DataSet temp = new DataSet();
-			temp.ReadXml(XMLfilename);
-			return temp;
-        }
-
         private void addRowsToTable(string sbName, DataTable table)
         {
 			//ADD TO DATABASE
@@ -117,29 +110,6 @@ namespace Spells
 				}
             }
         }
-
-		private void loadSelectedDatabase()
-		{
-			if (sbBookNamesCoBx.DataSource != null)
-			{
-				Debug.WriteLine("-loading db:" + sbBookNamesCoBx.Text);
-
-				rsltsDetailsTB.Text = "";
-				rsltsDataSet = new DataSet();
-
-				string sql = "SELECT * FROM '" + sbBookNamesCoBx.Text + "';";
-				SQLiteDataAdapter da = new SQLiteDataAdapter(sql, dbConn);
-				da.Fill(rsltsDataSet);
-
-				rsltsSearchResultsDGV.DataSource = rsltsDataSet.Tables[0].DefaultView;
-				foreach (DataGridViewColumn col in rsltsSearchResultsDGV.Columns)
-					if (col.Name != "id" && col.Name != "name")
-						col.Visible = false;
-				rsltsSearchResultsDGV.Columns["id"].Width = 40;
-				rsltsSearchResultsDGV.Columns["name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-				rsltsSearchResultsDGV.Sort(rsltsSearchResultsDGV.Columns["id"], ListSortDirection.Ascending);
-			}
-		}
 		
 		#endregion
 
@@ -147,27 +117,10 @@ namespace Spells
 
 		#region ***EVENT LISTENERS***
 
-        private void sbCloseBtn_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
         private void rsltsSearchResultsDGV_SelectionChanged(object sender, EventArgs e)
         {
             if (rsltsSearchResultsDGV.SelectedRows.Count != 0)
 				rsltsDetailsTB.Text = (string)rsltsSearchResultsDGV.SelectedRows[0].Cells["description"].Value;
-		}
-
-		private void cstmImportBtn_Click(object sender, EventArgs e)
-		{
-			DialogResult result = openFileDialog1.ShowDialog();
-			string file = "";
-			if (result == DialogResult.OK) // Test result.
-			{
-				file = openFileDialog1.FileName;
-				addRowsToTable(sbBookNamesCoBx.Text, importXML(openFileDialog1.FileName).Tables["spell"]);
-			}
-			loadSelectedDatabase();
 		}
 
 		private void sbCreateBtn_Click(object sender, EventArgs e)
@@ -213,11 +166,46 @@ namespace Spells
 
 		private void sbBookNamesCoBx_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			loadSelectedDatabase();
+			//necessary to check for null because this event is triggered during initialization/setup
+			//when the combo box has no contents
+			if (sbBookNamesCoBx.DataSource != null)
+			{
+				Debug.WriteLine("-loading db:" + sbBookNamesCoBx.Text);
+
+				rsltsDetailsTB.Text = "";
+				rsltsDataSet = new DataSet();
+
+				string sql = "SELECT * FROM '" + sbBookNamesCoBx.Text + "';";
+				SQLiteDataAdapter da = new SQLiteDataAdapter(sql, dbConn);
+				da.Fill(rsltsDataSet);
+
+				rsltsSearchResultsDGV.DataSource = rsltsDataSet.Tables[0].DefaultView;
+				foreach (DataGridViewColumn col in rsltsSearchResultsDGV.Columns)
+					if (col.Name != "id" && col.Name != "name")
+						col.Visible = false;
+				rsltsSearchResultsDGV.Columns["id"].Width = 40;
+				rsltsSearchResultsDGV.Columns["name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+				rsltsSearchResultsDGV.Sort(rsltsSearchResultsDGV.Columns["id"], ListSortDirection.Ascending);
+			}
 		}
 
-		#endregion
+		private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			Debug.WriteLine("-closing program");
+			command.Dispose();
+			dbConn.Close();
+			dbConn.Dispose();
+			try
+			{
+				Debug.WriteLine("dbConn:"+dbConn.ToString());
+			} catch(Exception ex)
+			{
+				Debug.WriteLine("Caught Exception");
+			}
+		}
+
 	}
+	#endregion
 }
 
 #region notes
